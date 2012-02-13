@@ -1,4 +1,5 @@
-*The Mapper for DataMapper 2.0 (code spike)*
+The Mapper for DataMapper 2.0 (code spike)
+==========================================
 
 This is a code spike to implement a prototype of a mapper for [Veritas](https://github.com/dkubb/veritas) which can work with PORO or [Virtus](https://github.com/solnic/virtus) objects.
 
