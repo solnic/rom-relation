@@ -1,8 +1,9 @@
 source :rubygems
 
-gem 'veritas'
-gem 'veritas-optimizer'
-gem 'veritas-do-adapter'
+gem 'veritas',               :path => '../veritas'
+gem 'veritas-sql-generator', :path => '../veritas-sql-generator'
+gem 'veritas-optimizer',     :path => '../veritas-optimizer'
+gem 'veritas-do-adapter',    :path => '../veritas-do-adapter'
 gem 'virtus'
 
 group :test do
