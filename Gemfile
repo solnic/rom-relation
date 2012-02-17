@@ -9,6 +9,8 @@ gem 'virtus'
 group :test do
   gem 'backports'
   gem 'do_postgres'
+  gem 'do_mysql'
+  gem 'do_sqlite3'
   gem 'randexp'
   gem 'rspec', '~> 1.3.2'
 end
