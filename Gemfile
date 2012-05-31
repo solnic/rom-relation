@@ -13,4 +13,5 @@ group :test do
   gem 'do_sqlite3'
   gem 'randexp'
   gem 'rspec', '~> 1.3.2'
+  gem 'guard-rspec'
 end
