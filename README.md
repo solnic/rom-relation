@@ -35,8 +35,12 @@ end
 
 # Finalize setup
 DataMapper.finalize
+```
 
 ## Lower-level API using underlying relations
+
+You can interact with the underlying relations if you want. A more "user friendly"
+API will be built on top of that.
 
 ```ruby
 # Grab the user mapper instance and have fun
