@@ -1,36 +1,53 @@
-The Mapper for DataMapper 2.0 (code spike)
-==========================================
+# The Mapper for DataMapper 2.0 (code spike)
 
-This is a code spike to implement a prototype of a mapper for [Veritas](https://github.com/dkubb/veritas) which can work with PORO or [Virtus](https://github.com/solnic/virtus) objects.
+This is a code spike to implement a prototype of a mapper for
+[Veritas](https://github.com/dkubb/veritas) which can work with PORO or
+[Virtus](https://github.com/solnic/virtus) objects.
 
 See spec/integration for examples of what already works.
 
 More information coming soon...
 
-**Sample code**
-
-Here's an idea of how a mapper API could look like:
+## Establishing Connection & Defining PORO with mappers
 
 ``` ruby
-  class User
-    attr_reader :id, :name
+# Setup db connection
+DataMapper.setup(:postgres, "postgres://localhost/test")
 
-    def initialize(attributes)
-      @id, @name = attributes.values_at(:id, :name)
-    end
+# Define a PORO
+class User
+  attr_reader :id, :name
 
-    class Mapper < DataMapper::VeritasMapper
-      map :id, :type => Integer
-      map :name, :to => :username, :type => String
-
-      model User
-      name 'users'
-    end
+  def initialize(attributes)
+    @id, @name = attributes.values_at(:id, :name)
   end
+end
 
-  # find all users
-  User::Mapper.find
+# Define a mapper
+class Mapper < DataMapper::VeritasMapper
+  map :id, :type => Integer
+  map :name, :to => :username, :type => String
 
-  # find users with name 'John'
-  User::Mapper.find(:name => 'John')
+  model         User
+  relation_name :users
+  repository    :postgres
+end
+
+# Finalize setup
+DataMapper.finalize
+
+## Lower-level API using underlying relations
+
+```ruby
+# Grab the user mapper instance and have fun
+user_mapper = DataMapper[User]
+
+# Get them all
+user_mapper.to_a
+
+# Restrict
+user_mapper.restrict { |relation| relation.name.eq('John') }.to_a
+
+# Sort by
+user_mapper.sort_by { |r| [ r.name, r.id ] }.to_a
 ```
