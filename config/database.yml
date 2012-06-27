@@ -1,0 +1,3 @@
+postgres: "postgres://localhost/test"
+mysql:    "mysql://localhost/test"
+sqlite:   "sqlite3://tmp/test.db"
