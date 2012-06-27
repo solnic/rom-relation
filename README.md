@@ -42,12 +42,17 @@ DataMapper.finalize
 You can interact with the underlying relations if you want. A more "user friendly"
 API will be built on top of that.
 
+Mappers are enumerables so it should feel natural when working with them.
+
 ```ruby
 # Grab the user mapper instance and have fun
 user_mapper = DataMapper[User]
 
 # Get them all
 user_mapper.to_a
+
+# Iterate on all users
+user_mapper.each { |user| puts user.name }
 
 # Restrict
 user_mapper.restrict { |relation| relation.name.eq('John') }.to_a
