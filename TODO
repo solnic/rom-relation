@@ -1,8 +1,13 @@
 Higher level functionality described in integration specs:
 
 * Finalization process:
-  - Setting up relation gateways in relation registry
-  - Finalizing defined mappers
+  - add managing dependencies between mappers so finalize is run in correct order
+  + setting up relation gateways in relation registry
+  + finalizing defined mappers
+
+* Mapper API
+  - use model name to automatically set base relation name (ie. "User" => :users)
+  - introduce Query API on mapper class level
 
 * Attribute mapping:
   - PORO:
