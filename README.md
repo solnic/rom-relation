@@ -37,7 +37,22 @@ end
 DataMapper.finalize
 ```
 
-## Lower-level API using underlying relations
+## Finding Objects
+
+Mappers come with a simple high-level query API similar to what you know from other Ruby ORMS:
+
+```ruby
+# Find all users matching criteria
+DataMapper[User].find(:age => 21)
+
+# Find and sort users
+DataMapper[User].find(:age => 21, :order => [ :name, :age, :id ])
+
+# Get one object matching criteria
+DataMapper[User].one(:name => 'Piotr')
+```
+
+## Low-level API using underlying relations
 
 You can interact with the underlying relations if you want. A more "user friendly"
 API will be built on top of that.
