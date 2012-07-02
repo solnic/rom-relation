@@ -46,7 +46,7 @@ Mappers come with a simple high-level query API similar to what you know from ot
 DataMapper[User].find(:age => 21)
 
 # Find and sort users
-DataMapper[User].find(:age => 21, :order => [ :name, :age, :id ])
+DataMapper[User].find(:age => 21).order(:name, :age)
 
 # Get one object matching criteria
 DataMapper[User].one(:name => 'Piotr')
