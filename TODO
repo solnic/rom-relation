@@ -21,15 +21,15 @@ Higher level functionality described in integration specs:
     - mapping of value objects
 
 * Relationship Mapping:
-  - OneToOne
-  - OneToMany
-  - ManyToOne
+  + OneToOne
+  + OneToMany
+  + ManyToOne
   - ManyToMany
 
 * Query API:
   - first
   - last
-  - all
+  - find_all
   - find
   - sort_by
   - limit
