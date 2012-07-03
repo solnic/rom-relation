@@ -1,5 +1,8 @@
 Higher level functionality described in integration specs:
 
+* Global:
+  - Add gateway registry to ease the access to gateway relations
+
 * Finalization process:
   - add managing dependencies between mappers so finalize is run in correct order
   + setting up relation gateways in relation registry
@@ -7,7 +10,6 @@ Higher level functionality described in integration specs:
 
 * Mapper API
   - use model name to automatically set base relation name (ie. "User" => :users)
-  - introduce Query API on mapper class level
 
 * Attribute mapping:
   - PORO:
@@ -29,7 +31,7 @@ Higher level functionality described in integration specs:
 * Query API:
   - first
   - last
-  - find_all
+  - all
   - find
   - sort_by
   - limit
