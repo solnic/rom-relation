@@ -1,8 +1,5 @@
 Higher level functionality described in integration specs:
 
-* Global:
-  - Add gateway registry to ease the access to gateway relations
-
 * Finalization process:
   - add managing dependencies between mappers so finalize is run in correct order
   + setting up relation gateways in relation registry
@@ -13,9 +10,9 @@ Higher level functionality described in integration specs:
 
 * Attribute mapping:
   - PORO:
-    - "direct" 1:1 mapping (when both name and type is the same)
-    - mapping with custom field names
-    - mapping with custom transformations (eg string on the db level but date object in ruby)
+    + "direct" 1:1 mapping (when both name and type is the same)
+    + mapping with custom field names
+
   - Virtus:
     - automatic mapper generation based on declared attributes
     - mapping of embedded values
@@ -26,7 +23,7 @@ Higher level functionality described in integration specs:
   + OneToOne
   + OneToMany
   + ManyToOne
-  - ManyToMany
+  + ManyToMany
 
 * Query API:
   - first
