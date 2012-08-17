@@ -4,7 +4,7 @@ gem 'veritas',               :path => '../veritas'
 gem 'veritas-sql-generator', :path => '../veritas-sql-generator'
 gem 'veritas-optimizer',     :path => '../veritas-optimizer'
 gem 'veritas-do-adapter',    :path => '../veritas-do-adapter'
-gem 'virtus'
+gem 'virtus',                :path => '../virtus'
 
 group :test do
   gem 'backports'
