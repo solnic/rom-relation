@@ -1,5 +1,7 @@
 source :rubygems
 
+gem 'dm-mapper', :path => '.'
+
 gem 'veritas',               :path => '../veritas'
 gem 'veritas-sql-generator', :path => '../veritas-sql-generator'
 gem 'veritas-optimizer',     :path => '../veritas-optimizer'
