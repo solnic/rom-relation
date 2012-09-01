@@ -1,3 +1,4 @@
 log
 Gemfile.lock
 tmp/
+coverage/
