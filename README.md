@@ -1,5 +1,7 @@
 # The Mapper for DataMapper 2.0 (code spike)
 
+[![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png)](http://travis-ci.org/solnic/dm-mapper)
+
 This is a code spike to implement a prototype of a mapper for
 [Veritas](https://github.com/dkubb/veritas) which can work with PORO or
 [Virtus](https://github.com/solnic/virtus) objects.
