@@ -1,6 +1,6 @@
 language: ruby
 bundler_args: --without guard metrics
-script: "bundle exec spec spec/unit"
+script: "bundle exec rake spec:unit"
 rvm:
   - 1.8.7
   - 1.9.2
