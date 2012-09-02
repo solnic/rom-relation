@@ -11,6 +11,7 @@ It currently works with PostgreSQL - more databases will be added soon.
 
  * Mapping relationships (prototype is ready)
  * MongoDB support
+ * Support for Veritas functions
  * Extend existing Query API with more common features
  * Integration with [Virtus](https://github.com/solnic/virtus)
  * Automatic generation of mappers based on model definitions
