@@ -1,14 +1,19 @@
-# The Mapper for DataMapper 2.0 (code spike)
+# The Mapper for DataMapper 2
 
 [![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png)](http://travis-ci.org/solnic/dm-mapper)
 
-This is a code spike to implement a prototype of a mapper for
-[Veritas](https://github.com/dkubb/veritas) which can work with PORO or
-[Virtus](https://github.com/solnic/virtus) objects.
+The mapper for DataMapper 2 is a thin wrapper around [Veritas](https://github.com/dkubb/veritas) 
+relations. It gives you the power of mapping data into PORO.
 
-See spec/integration for examples of what already works.
+It currently works with PostgreSQL - more databases will be added soon.
 
-More information coming soon...
+## Roadmap
+
+ * Mapping relationships (prototype is ready)
+ * MongoDB support
+ * Extend existing Query API with more common features
+ * Integration with [Virtus](https://github.com/solnic/virtus)
+ * Automatic generation of mappers based on model definitions
 
 ## Establishing Connection & Defining PORO with mappers
 
