@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png)](http://travis-ci.org/solnic/dm-mapper)
 
-The mapper for DataMapper 2 is a thin wrapper around [Veritas](https://github.com/dkubb/veritas) 
+The mapper for DataMapper 2 is a thin wrapper around [Veritas](https://github.com/dkubb/veritas)
 relations. It gives you the power of mapping data into PORO.
 
 It currently works with PostgreSQL - more databases will be added soon.
@@ -33,12 +33,13 @@ end
 
 # Define a mapper
 class Mapper < DataMapper::VeritasMapper
-  map :id, :type => Integer
-  map :name, :to => :username, :type => String
 
   model         User
   relation_name :users
   repository    :postgres
+
+  map :id,   Integer, :key => true
+  map :name, String,  :to => :username
 end
 
 # Finalize setup
