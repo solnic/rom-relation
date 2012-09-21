@@ -32,7 +32,7 @@ class User
 end
 
 # Define a mapper
-class Mapper < DataMapper::VeritasMapper
+class Mapper < DataMapper::Mapper::Relation::Base
 
   model         User
   relation_name :users
