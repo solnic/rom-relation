@@ -46,6 +46,13 @@ end
 DataMapper.finalize
 ```
 
+## Defining relationships
+
+The current implementation should be considered a prototype, but is
+actually quite functional already. Have a look at the various
+[integration tests](https://github.com/solnic/dm-mapper/tree/master/spec/integration) for an idea of how to define and work with
+relationships.
+
 ## Finding Objects
 
 Mappers come with a simple high-level query API similar to what you know from other Ruby ORMS:
