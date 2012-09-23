@@ -22,12 +22,26 @@ module DataMapper
 
   # @api public
   def self.setup(name, uri)
-    adapters[name.to_sym] = Veritas::Adapter::DataObjects.new(uri)
+    adapters[name.to_sym] =
+      if uri =~ /mongo/
+        connection = Mongo::Connection.new
+        Veritas::Adapter::Mongo.new(connection.db('test'))
+      else
+        Veritas::Adapter::DataObjects.new(uri)
+      end
   end
 
   # @api public
   def self.setup_gateway(repository, relation)
-    gateway = Veritas::Relation::Gateway.new(adapters[repository], relation)
+    return unless repository
+
+    gateway =
+      if repository == :mongo
+        Veritas::Adapter::Mongo::Gateway.new(adapters[repository], relation)
+      else
+        Veritas::Relation::Gateway.new(adapters[repository], relation)
+      end
+
     Mapper.relation_registry << gateway
   end
 
