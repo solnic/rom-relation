@@ -19,6 +19,15 @@ require 'randexp'
 
 require 'dm-mapper'
 
+module Veritas
+  class Relation
+
+    class Gateway < Relation
+      undef_method :to_set
+    end
+  end
+end
+
 ENV['TZ'] = 'UTC'
 
 ROOT = File.expand_path('../..', __FILE__)
