@@ -17,7 +17,7 @@ matrix:
     - rvm: ruby-head
     - rvm: jruby-head
 before_script:
-  - psql -c 'create database dm-mapper_test;' -U postgres
+  - psql -c 'create database "dm-mapper_test";' -U postgres
 notifications:
   email:
     - piotr.solnica@gmail.com
