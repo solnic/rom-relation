@@ -7,6 +7,7 @@ gem 'veritas',               :github => 'dkubb/veritas'
 gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
 gem 'veritas-optimizer',     :github => 'dkubb/veritas-optimizer'
 gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
+gem 'virtus'
 gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 
 group :test do
