@@ -31,6 +31,11 @@ describe "Reading from MongoDB" do
     DataMapper.finalize
   end
 
+  after do
+    User.send(:remove_const, :Mapper)
+    Object.send(:remove_const, :User)
+  end
+
   it "loads all user objects" do
     users = DataMapper[User].find_all.to_a
 
