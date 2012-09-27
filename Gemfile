@@ -3,12 +3,14 @@ source :rubygems
 gem 'dm-mapper', :path => '.'
 
 gem 'rake'
+gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 gem 'veritas',               :github => 'dkubb/veritas'
 gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
 gem 'veritas-optimizer',     :github => 'dkubb/veritas-optimizer'
 gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
 gem 'virtus'
-gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
+gem 'veritas-mongo-adapter', :github => 'mbj/veritas-mongo-adapter'
+gem 'bson_ext'
 
 group :test do
   gem 'backports'
