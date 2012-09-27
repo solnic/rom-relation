@@ -18,6 +18,7 @@ group :test do
   gem 'randexp'
   gem 'rspec', '~> 1.3.2'
   gem 'guard-rspec'
+  gem 'rb-fsevent'
 end
 
 group :metrics do
