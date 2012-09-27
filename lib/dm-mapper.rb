@@ -33,8 +33,6 @@ module DataMapper
 
   # @api public
   def self.setup_gateway(repository, relation)
-    return unless repository
-
     gateway =
       if repository == :mongo
         Veritas::Adapter::Mongo::Gateway.new(adapters[repository], relation)
