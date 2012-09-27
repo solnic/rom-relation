@@ -5,8 +5,9 @@ module DataMapper
     #
     # @api public
     class Relation < self
+      alias_method :all, :to_a
 
-      def self.from(other)
+      def self.from(other, name = nil)
         klass = super
         klass.repository(other.repository)
         klass

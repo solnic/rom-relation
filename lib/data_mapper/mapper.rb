@@ -7,12 +7,16 @@ module DataMapper
     include Enumerable
     extend DescendantsTracker
 
-    def self.from(other)
-      klass = Class.new(self) {
+    def self.from(other, name)
+      mapper_name = name ? name : "#{other.model}Mapper"
+
+      klass = Class.new(self)
+
+      klass.class_eval <<-RUBY
         def self.name
-          "#{model}Mapper"
+          #{mapper_name.inspect}
         end
-      }
+      RUBY
 
       klass.model(other.model)
 
@@ -44,7 +48,12 @@ module DataMapper
       options = Utils.extract_options(args)
       options = options.merge(:type => type) if type
 
-      attributes.add(name, options)
+      if attributes[name]
+        attributes << attributes[name].clone(options)
+      else
+        attributes.add(name, options)
+      end
+
       self
     end
 

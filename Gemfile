@@ -8,6 +8,7 @@ gem 'veritas',               :github => 'dkubb/veritas'
 gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
 gem 'veritas-optimizer',     :github => 'dkubb/veritas-optimizer'
 gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
+gem 'virtus'
 gem 'veritas-mongo-adapter', :github => 'mbj/veritas-mongo-adapter'
 gem 'bson_ext'
 
@@ -19,6 +20,7 @@ group :test do
   gem 'randexp'
   gem 'rspec', '~> 1.3.2'
   gem 'guard-rspec'
+  gem 'rb-fsevent'
 end
 
 group :metrics do
