@@ -1,6 +1,30 @@
 module DataMapper
   class Mapper
 
+    class LoadStrategy
+      def initialize(mapper)
+        @mapper = mapper
+      end
+
+      class Default < self
+        def call(model, tuple)
+          model.new(@mapper.attributes.load(tuple))
+        end
+      end
+
+      class WithProc < Default
+        def initialize(mapper, &block)
+          super(mapper)
+          @block = block
+        end
+
+        def call(model, tuple)
+          super
+          @block.call(tuple)
+        end
+      end
+    end
+
     # Relation
     #
     # @api public
@@ -38,11 +62,12 @@ module DataMapper
       # @return [undefined]
       #
       # @api public
-      def initialize(relation = self.class.relation)
+      def initialize(relation = self.class.relation, load_strategy = nil)
         @relation      = relation
         @attributes    = self.class.attributes
         @relationships = self.class.relationships
         @model         = self.class.model
+        @load_strategy = load_strategy || LoadStrategy::Default.new(self)
       end
 
       # @api public
@@ -60,7 +85,7 @@ module DataMapper
       # @api public
       def find(options)
         restriction = @relation.restrict(Query.new(options, @attributes))
-        self.class.new(restriction.optimize)
+        self.class.new(restriction.optimize, @load_strategy)
       end
 
       # @api public
@@ -119,7 +144,7 @@ module DataMapper
 
       # @api private
       def load(tuple)
-        @model.new(@attributes.load(tuple))
+        @load_strategy.call(@model, tuple)
       end
 
       # @api public

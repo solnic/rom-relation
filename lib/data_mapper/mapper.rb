@@ -134,6 +134,12 @@ module DataMapper
       self.class.unique_alias(name, scope)
     end
 
+    # @api private
+    def key(tuple)
+      @attributes.key.map { |key| tuple[key.field] }
+    end
+    alias_method :load_key, :key
+
     # Load a domain object
     #
     # @api private
