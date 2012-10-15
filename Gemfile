@@ -6,10 +6,10 @@ gem 'rake'
 gem 'veritas',               :github => 'dkubb/veritas'
 gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
 gem 'veritas-optimizer',     :github => 'dkubb/veritas-optimizer'
-gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
+gem 'veritas-do-adapter',    :path => '../veritas-do-adapter'
 gem 'virtus'
 gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
-gem 'equalizer',             :github => 'solnic/equalizer'
+gem 'equalizer',             :github => 'dkubb/equalizer'
 
 group :test do
   gem 'backports'
@@ -17,7 +17,7 @@ group :test do
   gem 'do_mysql'
   gem 'do_sqlite3'
   gem 'randexp'
-  gem 'rspec', '~> 1.3.2'
+  gem 'rspec'
   gem 'guard-rspec'
   gem 'rb-fsevent'
 end
