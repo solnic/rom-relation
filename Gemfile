@@ -17,7 +17,7 @@ group :test do
   gem 'do_mysql'
   gem 'do_sqlite3'
   gem 'randexp'
-  gem 'rspec'
+  gem 'rspec', '1.3.1'
   gem 'guard-rspec'
   gem 'rb-fsevent'
 end
