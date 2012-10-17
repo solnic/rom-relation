@@ -10,6 +10,7 @@ gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
 gem 'virtus'
 gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 gem 'equalizer',             :github => 'dkubb/equalizer'
+gem 'inflector',             :github => 'mbj/inflector'
 
 group :test do
   gem 'backports'
