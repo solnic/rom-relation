@@ -21,6 +21,7 @@ group :test do
   gem 'rspec', '1.3.2'
   gem 'guard-rspec'
   gem 'rb-fsevent'
+  gem 'ruby-graphviz'
 end
 
 group :metrics do
