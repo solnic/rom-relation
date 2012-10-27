@@ -3,14 +3,14 @@ source :rubygems
 gem 'dm-mapper', :path => '.'
 
 gem 'rake'
-gem 'veritas',               :github => 'dkubb/veritas'
-gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
-gem 'veritas-optimizer',     :github => 'dkubb/veritas-optimizer'
-gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
-gem 'virtus'
 gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 gem 'equalizer',             :github => 'dkubb/equalizer'
 gem 'inflector',             :github => 'mbj/inflector'
+
+gem 'veritas',               :github => 'dkubb/veritas', :ref => '484abe89e9fb627a102852b6700c49fda3ac2786'
+gem 'veritas-sql-generator'
+gem 'veritas-do-adapter'
+gem 'virtus'
 
 group :test do
   gem 'backports'
