@@ -42,8 +42,8 @@ class UserMapper < DataMapper::Mapper::Relation::Base
   relation_name :users
   model         User
 
-  map :name, String, :to => :UserName
-  map :age,  String, :to => :UserAge
+  map :name, String,  :to => :UserName
+  map :age,  Integer, :to => :UserAge
 end
 
 DataMapper.finalize
@@ -95,7 +95,6 @@ DataMapper.finalize
 
 ## Defining relationships
 
-
 ``` ruby
 class Order
   attr_reader :id, :product
@@ -146,6 +145,47 @@ DataMapper[User].include(:orders).to_a
 
 # Find all users and eager-load restricted apple_orders
 DataMapper[User].include(:apple_orders).to_a
+```
+
+## Model Extension and Generating Mappers
+
+To simplify the process of defining mappers you can extend your PORO with a small
+extension (which uses `Virtus` under the hood) and specify only special mapping
+cases:
+
+``` ruby
+class Order
+  include DataMapper::Model
+
+  attribute :id,      Integer
+  attribute :product, String
+end
+
+class User
+  include DataMapper::Model
+
+  attribute :id,     Integer
+  attribute :name,   String
+  attribute :age,    Integer
+  attribute :orders, Array[Order]
+end
+
+DataMapper.generate_mapper_for(Order, :postgres) do
+  key :id
+end
+
+DataMapper.generate_mapper_for(User, :postgres) do
+  key :id
+
+  map :name, :to => :username
+
+  has 0..n, :orders, Order
+end
+
+DataMapper.finalize
+
+# ...and you're ready to go :)
+DataMapper[User].include(:orders).to_a
 ```
 
 ## Finding Objects
