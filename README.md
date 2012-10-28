@@ -2,19 +2,66 @@
 
 [![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png)](http://travis-ci.org/solnic/dm-mapper)
 
-The mapper for DataMapper 2 is a thin wrapper around [Veritas](https://github.com/dkubb/veritas)
-relations. It gives you the power of mapping data into PORO.
+The mapper supports mapping data from any data source into Ruby objects based on
+mapper definitions. It uses engines that implement common interface for CRUD
+operations.
 
-It currently works with PostgreSQL - more databases will be added soon.
+## Mapper Engines
 
-## Roadmap
+In the most simple case a bare-bone mapper engine needs to provide a relation
+object that has a name and implements `#each` which yields objects that respond
+to `#[]`. That's the minimum contract.
 
- * Mapping relationships (prototype is ready)
- * MongoDB support
- * Support for Veritas functions
- * Extend existing Query API with more common features
- * Integration with [Virtus](https://github.com/solnic/virtus)
- * Automatic generation of mappers based on model definitions
+Here's an example of an in-memory engine which uses an `Array` subclass for the
+relation object and `Hash` as the class for the yielded objects.
+
+Since `Array` implements `#each` and `Hash` implements `#[]` we've got all we need:
+
+``` ruby
+class MemoryEngine < DataMapper::Engine
+
+  class Relation < Array
+    attr_reader :name
+
+    def initialize(name)
+      @name = name
+    end
+  end
+
+  def base_relation(name, header = nil)
+    Relation.new(name)
+  end
+end
+
+DataMapper.engines[:memory] = MemoryEngine.new
+
+User = Class.new(OpenStruct)
+
+class UserMapper < DataMapper::Mapper::Relation::Base
+  repository    :memory
+  relation_name :users
+  model         User
+
+  map :name, String, :to => :UserName
+  map :age,  String, :to => :UserAge
+end
+
+DataMapper.finalize
+
+mapper = DataMapper[User]
+
+mapper.relations[:users] << { :UserName => 'Piotr', :UserAge => 29 }
+
+mapper.to_a
+# [#<User name="Piotr", age=29>]
+```
+
+DataMapper 2 will come with support for [Veritas](https://github.com/dkubb/veritas)
+and [ARel](https://github.com/rails/arel) engines.
+
+Veritas is a polyglot relational algebra library which will give us ability to
+talk to different data sources and even performing cross-database joins whereas
+ARel will only give you support for RDBMS.
 
 ## Establishing Connection & Defining PORO with mappers
 
@@ -139,3 +186,11 @@ user_mapper.restrict { |relation| relation.name.eq('John') }.to_a
 # Sort by
 user_mapper.sort_by { |r| [ r.name, r.id ] }.to_a
 ```
+
+## 2.0.0.alpha Roadmap
+
+ * Refactor relation registry using metrics (improve test coverage too)
+ * Add interface for insert/update/delete to relation graph
+ * Implement ARel engine (this will support full CRUD)
+ * Finish Veritas engine
+ * Push a release? :)
