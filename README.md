@@ -48,10 +48,58 @@ DataMapper.finalize
 
 ## Defining relationships
 
-The current implementation should be considered a prototype, but is
-actually quite functional already. Have a look at the various
-[integration tests](https://github.com/solnic/dm-mapper/tree/master/spec/integration) for an idea of how to define and work with
-relationships.
+
+``` ruby
+class Order
+  attr_reader :id, :product
+
+  def initialize(attributes)
+    @id, @product = attributes.values_at(:id, :product)
+  end
+end
+
+class User
+  attr_reader :id, :name, :age, :orders, :apple_orders
+
+  def initialize(attributes)
+    @id, @name, @age, @orders, @apple_orders = attributes.values_at(
+      :id, :name, :age, :orders, :apple_orders
+    )
+  end
+end
+
+class OrderMapper < DataMapper::Mapper::Relation::Base
+  model         Order
+  relation_name :orders
+  repository    :postgres
+
+  map :id,      Integer, :key => true
+  map :user_id, Integer
+  map :product, String
+end
+
+class UserMapper < DataMapper::Mapper::Relation::Base
+  model         User
+  relation_name :users
+  repository    :postgres
+
+  map :id,     Integer, :key => true
+  map :name,   String,  :to => :username
+  map :age,    Integer
+
+  has 0..n, :orders, Order
+
+  has 0..n, :apple_orders, Order do
+    restrict { |r| r.order_product.eq('Apple') }
+  end
+end
+
+# Find all users and eager-load their orders
+DataMapper[User].include(:orders).to_a
+
+# Find all users and eager-load restricted apple_orders
+DataMapper[User].include(:apple_orders).to_a
+```
 
 ## Finding Objects
 
