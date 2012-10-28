@@ -14,7 +14,6 @@ rvm:
   - jruby-head
 matrix:
   allow_failures:
-    - rvm: ree
     - rvm: ruby-head
     - rvm: jruby-head
     - rvm: jruby-19mode
