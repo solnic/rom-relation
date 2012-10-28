@@ -23,6 +23,15 @@ begin
     RSpec::Core::RakeTask.new(:unit) do |t|
       t.pattern = 'spec/unit/**/*_spec.rb'
     end
+
+    RSpec::Core::RakeTask.new(:isolation) do |t|
+      t.pattern = 'spec/isolation/**/*_spec.rb'
+    end
+  end
+
+  namespace :ci do
+    desc "Run all CI tasks"
+    task :travis => %w(spec:unit spec:integration spec:isolation)
   end
 rescue LoadError
   task :spec do
