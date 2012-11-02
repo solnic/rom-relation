@@ -37,7 +37,7 @@ DataMapper.engines[:memory] = MemoryEngine.new
 
 User = Class.new(OpenStruct)
 
-class UserMapper < DataMapper::Mapper::Relation::Base
+class UserMapper < DataMapper::Mapper::Relation
   repository    :memory
   relation_name :users
   model         User
@@ -79,7 +79,7 @@ class User
 end
 
 # Define a mapper
-class Mapper < DataMapper::Mapper::Relation::Base
+class Mapper < DataMapper::Mapper::Relation
 
   model         User
   relation_name :users
@@ -114,7 +114,7 @@ class User
   end
 end
 
-class OrderMapper < DataMapper::Mapper::Relation::Base
+class OrderMapper < DataMapper::Mapper::Relation
   model         Order
   relation_name :orders
   repository    :postgres
@@ -124,7 +124,7 @@ class OrderMapper < DataMapper::Mapper::Relation::Base
   map :product, String
 end
 
-class UserMapper < DataMapper::Mapper::Relation::Base
+class UserMapper < DataMapper::Mapper::Relation
   model         User
   relation_name :users
   repository    :postgres
