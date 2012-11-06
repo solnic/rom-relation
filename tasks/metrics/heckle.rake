@@ -34,7 +34,7 @@ begin
     require 'dm-mapper'
 
     root_module_regexp = Regexp.union(
-      'dm-mapper'
+      'DataMapper'
     )
 
     spec_dir = Pathname('spec/unit')
