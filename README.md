@@ -170,11 +170,11 @@ class User
   attribute :orders, Array[Order]
 end
 
-DataMapper.generate_mapper_for(Order, :postgres) do
+DataMapper.build(Order, :postgres) do
   key :id
 end
 
-DataMapper.generate_mapper_for(User, :postgres) do
+DataMapper.build(User, :postgres) do
   key :id
 
   map :name, :to => :username
