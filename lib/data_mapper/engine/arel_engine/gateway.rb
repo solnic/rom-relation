@@ -13,7 +13,11 @@ module DataMapper
         def initialize(adapter, relation, name = nil, header = nil)
           @adapter  = adapter
           @relation = relation
-          @header   = header
+          @header   = if relation.respond_to?(:columns)
+                        relation.columns.map(&:name)
+                      else
+                        header
+                      end
 
           @name = if relation.respond_to?(:name)
                     relation.name

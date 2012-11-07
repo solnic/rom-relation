@@ -1,10 +1,12 @@
 require 'spec_helper_integration'
 
-DataMapper.setup(
-  :postgres,
-  'postgres://postgres@localhost/dm-mapper_test',
-  DataMapper::Engine::ArelEngine
-)
+unless DataMapper.engines[:postgres_arel]
+  DataMapper.setup(
+    :postgres_arel,
+    'postgres://postgres@localhost/dm-mapper_test',
+    DataMapper::Engine::ArelEngine
+  )
+end
 
 describe "Using Arel engine" do
   before(:all) do
@@ -30,7 +32,7 @@ describe "Using Arel engine" do
 
         model         Address
         relation_name :addresses
-        repository    :postgres
+        repository    :postgres_arel
 
         map :id,      Integer, :key => true
         map :user_id, Integer
@@ -52,7 +54,7 @@ describe "Using Arel engine" do
 
         model         User
         relation_name :users
-        repository    :postgres
+        repository    :postgres_arel
 
         map :id,   Integer, :key => true
         map :name, String,  :to  => :username
@@ -61,6 +63,11 @@ describe "Using Arel engine" do
         has 1, :address, Address
       end
     end
+  end
+
+  after(:all) do
+    Object.send(:remove_const, :User)
+    Object.send(:remove_const, :Address)
   end
 
   it "actually works ZOMG" do
