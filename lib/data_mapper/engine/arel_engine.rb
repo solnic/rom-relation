@@ -66,11 +66,6 @@ module DataMapper
       end
 
       # @api private
-      def relation_edge_class
-        RelationRegistry::RelationEdge
-      end
-
-      # @api private
       def base_relation(name, header)
         Arel::Table.new(name, arel_engine_for(name, header))
       end
