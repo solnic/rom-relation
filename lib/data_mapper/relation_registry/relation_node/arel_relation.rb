@@ -16,16 +16,27 @@ module DataMapper
         end
 
         def join(other)
-          raise NotImplementedError
+          left  = relation.source
+          right = other.relation.source
 
-          left  = relation
-          right = other.relation
+          # TODO: make the method accept a relationship and get the join keys from it
+          join = left.join(right).on(left[:id].eq(right[:user_id])).order(left[:id])
 
-          left.join(right).on(left[:id].eq(right[:user_id]))
+          # TODO: come up with a more abstract way of representing joined header (in AliasSet or AttributeSet?)
+          left_header = aliases.attributes.map { |attribute|
+            "#{name}.#{attribute.field} AS #{aliases[attribute.name]}"
+          }
+
+          right_header = other.aliases.attributes.map { |attribute|
+            "#{other.name}.#{attribute.field} AS #{other.aliases[attribute.name]}"
+          }
+
+          self.class.new(name, relation.new(join, left_header.concat(right_header)))
         end
 
         def base?
-          relation.kind_of?(Arel::Table)
+          # TODO: push it down to ArelEngine::Gateway
+          relation.relation.kind_of?(Arel::Table)
         end
 
         def rename(new_aliases)

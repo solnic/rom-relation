@@ -8,8 +8,6 @@ DataMapper.setup(
 
 describe "Using Arel engine" do
   before(:all) do
-    pending
-
     setup_db
 
     insert_user 1, 'John',  18
@@ -45,9 +43,10 @@ describe "Using Arel engine" do
     class User
       include DataMapper::Model
 
-      attribute :id,   Integer, :key => true
-      attribute :name, String
-      attribute :age,  Integer
+      attribute :id,      Integer, :key => true
+      attribute :name,    String
+      attribute :age,     Integer
+      attribute :address, Address
 
       class Mapper < DataMapper::Mapper::Relation
 

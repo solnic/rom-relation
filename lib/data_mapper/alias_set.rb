@@ -72,6 +72,11 @@ module DataMapper
       self.class.new(prefix, attributes, excluded)
     end
 
+    # @api private
+    def [](name)
+      attributes[name].aliased_field(prefix)
+    end
+
     # Returns hash representation of the alias set
     #
     # @return [Hash]
