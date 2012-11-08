@@ -30,8 +30,8 @@ module DataMapper
       # @api private
       def initialize(name, left, right)
         super
-        @source_node  = left
-        @target_node  = right
+        @source_node = left
+        @target_node = right
       end
 
       # Builds a joined relation from source and target nodes
