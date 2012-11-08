@@ -41,7 +41,7 @@ module DataMapper
           end
         end
 
-        def new(relation, header)
+        def new(relation, header = @header)
           self.class.new(adapter, relation, name, header)
         end
 

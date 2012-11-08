@@ -33,6 +33,11 @@ module DataMapper
           relation.relation.kind_of?(Arel::Table)
         end
 
+        # @api public
+        def [](name)
+          relation.relation[name]
+        end
+
         # @api private
         def rename(new_aliases)
           raise NotImplementedError
