@@ -31,7 +31,7 @@ group :metrics do
   gem 'flay',        '~> 1.4.2'
   gem 'flog',        '~> 2.5.1'
   gem 'map',         '~> 5.2.0'
-  gem 'reek',        '~> 1.2.8', :git => 'git://github.com/dkubb/reek.git'
+  gem 'reek',        '~> 1.2.8', :github => 'dkubb/reek'
   gem 'roodi',       '~> 2.1.0'
   gem 'yardstick',   '~> 0.7.0'
 
@@ -48,6 +48,6 @@ group :metrics do
   end
 
   platforms :rbx do
-    gem 'pelusa', :git => 'https://github.com/codegram/pelusa.git'
+    gem 'pelusa', :github => 'codegram/pelusa'
   end
 end
