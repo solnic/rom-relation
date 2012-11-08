@@ -39,7 +39,7 @@ module DataMapper
       # @return [Object] instance of the engine's relation class
       #
       # @api private
-      def relation
+      def relation(*args)
         left, right =
           if source_node.base?
             [ source_node, target_node ]
@@ -47,7 +47,7 @@ module DataMapper
             [ target_node, source_node ]
           end
 
-        left.join(right).relation
+        left.join(right, *args).relation
       end
 
       # Returns source aliases

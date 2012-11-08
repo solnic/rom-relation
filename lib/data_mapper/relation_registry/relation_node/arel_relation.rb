@@ -15,12 +15,14 @@ module DataMapper
           self
         end
 
-        def join(other)
+        def join(other, relationship)
           left  = relation.source
           right = other.relation.source
 
-          # TODO: make the method accept a relationship and get the join keys from it
-          join = left.join(right).on(left[:id].eq(right[:user_id])).order(left[:id])
+          source_key = relationship.source_key
+          target_key = relationship.target_key
+
+          join = left.join(right).on(left[source_key].eq(right[target_key])).order(left[:id])
 
           # TODO: come up with a more abstract way of representing joined header (in AliasSet or AttributeSet?)
           left_header = aliases.attributes.map { |attribute|
