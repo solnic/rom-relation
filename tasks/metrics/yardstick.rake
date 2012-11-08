@@ -29,8 +29,19 @@ begin
         # Not adding this workaround makes our yardstick
         # tasks unusable, leaving us with no way to track
         # doc coverage.
+        #
+        # When parsing the source, yard does not attach
+        # a {Yard::CodeObject} to the {Yard::Docstring}
+        # in case of a "method definition" like
+        #
+        #   abstract_method :foo
+        #
+        # Since this method operates in {Yard::Docstring}
+        # context, there's no easy way for us to get at
+        # the code object, or even at the raw "source" of
+        # the method (abstract_method(:foo) in our case).
 
-        object.visibility rescue :public
+        object ? object.visibility : :public
       end
     end
   end
