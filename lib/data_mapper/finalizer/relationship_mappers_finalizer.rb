@@ -14,14 +14,16 @@ module DataMapper
 
       # @api private
       def finalize_relationship_mappers
-        mapper_relations.each do |relations|
-          relations.connectors.each_value do |connector|
-            relationship = connector.relationship
-            mapper_class = connector.source_mapper.class
-            mapper       = mapper_builder.call(connector, mapper_class)
+        relation_registries.each do |relation_registry|
+          register_relationship_mappers(relation_registry)
+        end
+      end
 
-            mapper_registry.register(mapper, relationship)
-          end
+      # @api private
+      def register_relationship_mappers(relation_registry)
+        relation_registry.connectors.each_value do |connector|
+          mapper = mapper_builder.call(connector)
+          mapper_registry.register(mapper, connector.relationship)
         end
       end
 
@@ -31,11 +33,9 @@ module DataMapper
       end
 
       # @api private
-      def mapper_relations
+      def relation_registries
         mappers.map(&:relations).uniq
       end
-
     end # class RelationshipMapperFinalizer
-
   end # class Finalizer
 end # module DataMapper

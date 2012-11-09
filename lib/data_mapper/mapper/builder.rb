@@ -1,37 +1,52 @@
 module DataMapper
   class Mapper
 
-    # Builds relationship mappers
+    # Builds a {Mapper::Relation} from a {RelationRegistry::Connector}
     #
+    # @api private
     class Builder
 
       # Builds a mapper based on a connector and source mapper class
       #
       # @param [RelationRegistry::Connector] connector
-      # @param [Class] source mapper
+      #   the connector used to build the mapper
       #
-      # @return [Class]
+      # @return [Mapper::Relation]
       #
       # @api private
-      def self.call(connector, source_mapper_class)
-        new(connector, source_mapper_class).mapper
+      def self.call(connector)
+        new(connector).mapper
       end
 
-      def initialize(connector, source_mapper_class)
+      # The mapper built from the instance's {RelationRegistry::Connector}
+      #
+      # @return [Mapper::Relation]
+      #
+      # @api private
+      attr_reader :mapper
+
+      # Initialize a new instance
+      #
+      # @param [RelationRegistry::Connector] connector
+      #   the connector used to build the mapper
+      #
+      # @return [undefined]
+      #
+      # @api private
+      def initialize(connector)
         @connector     = connector
         @source_model  = connector.source_model
         @target_model  = connector.target_model
-        @source_mapper = source_mapper_class
+        @source_mapper = connector.source_mapper.class
         @name          = connector.relationship.name
-      end
 
-      def mapper
-        mapper_class.new(@connector.node)
+        initialize_mapper
       end
 
       private
 
-      def mapper_class
+      # @api private
+      def initialize_mapper
         klass = Mapper::Relation.from(@source_mapper, mapper_name)
 
         remap_fields(klass)
@@ -44,32 +59,33 @@ module DataMapper
 
         klass.finalize_attributes
 
-        klass
+        @mapper = klass.new(@connector.node)
       end
 
+      # @api private
       def remap_fields(mapper)
         source_aliases.each do |field, alias_name|
           attribute = mapper.attributes.for_field(field)
-          if attribute
-            mapper.map(attribute.name, attribute.type, :key => attribute.key?, :to => alias_name)
-          end
+          mapper.attributes << attribute.clone(:to => alias_name)
         end
-
-        mapper
       end
 
+      # @api private
       def source_aliases
         @connector.source_aliases
       end
 
+      # @api private
       def target_aliases
         @connector.target_aliases
       end
 
+      # @api private
       def mapper_name
         "#{@source_mapper.name}_X_#{Inflector.camelize(@connector.name)}_Mapper"
       end
 
+      # @api private
       def target_model_attribute_options
         {
           :collection => @connector.collection_target?,

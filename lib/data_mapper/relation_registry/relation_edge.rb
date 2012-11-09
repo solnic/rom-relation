@@ -1,7 +1,7 @@
 module DataMapper
   class RelationRegistry
 
-    # Represents relation edge joining 2 relation nodes
+    # Represents a directed relation edge joining 2 relation nodes
     #
     class RelationEdge < Graph::Edge
 
@@ -21,17 +21,22 @@ module DataMapper
 
       # Initializes a relation edge instance
       #
-      # @param [Symbol, #to_sym]
-      # @param [RelationNode]
-      # @param [RelationNode]
+      # @param [Symbol, #to_sym] name
+      #   the edge's {#name}
+      #
+      # @param [RelationNode] source_node
+      #   the {#left} side representing the {#source_node}
+      #
+      # @param [RelationNode] target_node
+      #   the {#right} side representing the {#target_node}
       #
       # @return [undefined]
       #
       # @api private
-      def initialize(name, left, right)
+      def initialize(name, source_node, target_node)
         super
-        @source_node = left
-        @target_node = right
+        @source_node  = left
+        @target_node  = right
       end
 
       # Builds a joined relation from source and target nodes
@@ -40,14 +45,7 @@ module DataMapper
       #
       # @api private
       def relation(*args)
-        left, right =
-          if source_node.base?
-            [ source_node, target_node ]
-          else
-            [ target_node, source_node ]
-          end
-
-        left.join(right, *args).relation
+        source_node.join(target_node, *args).relation
       end
 
       # Returns source aliases

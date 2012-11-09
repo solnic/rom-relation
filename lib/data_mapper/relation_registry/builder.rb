@@ -82,7 +82,7 @@ module DataMapper
         relation = build_relation(edge)
         node     = build_node(name, relation)
 
-        @connector = RelationRegistry::Connector.new(name, node, relationship, relations)
+        @connector = RelationRegistry::Connector.new(node, relationship, relations)
         relations.add_connector(@connector)
       end
 
@@ -130,7 +130,7 @@ module DataMapper
       end
 
       # @api private
-      def build_relation(edge, relationship = relationship)
+      def build_relation(edge, relationship = self.relationship)
         relation = edge.relation(relationship)
         relation = relation.instance_eval(&relationship.operation) if relationship.operation
         relation
@@ -138,11 +138,7 @@ module DataMapper
 
       # @api private
       def build_node(name, relation)
-        unless relations[name]
-          node = relations.build_node(name, relation)
-          relations.add_node(node)
-        end
-
+        relations.new_node(name, relation) unless relations[name]
         relations[name]
       end
 
