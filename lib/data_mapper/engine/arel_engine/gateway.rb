@@ -7,23 +7,14 @@ module DataMapper
 
         attr_reader :name
         attr_reader :header
-        attr_reader :adapter
+        attr_reader :engine
         attr_reader :relation
 
-        def initialize(adapter, relation, name = nil, header = nil)
-          @adapter  = adapter
+        def initialize(engine, relation, name = nil, header = nil)
+          @engine   = engine
           @relation = relation
-          @header   = if relation.respond_to?(:columns)
-                        relation.columns.map(&:name)
-                      else
-                        header
-                      end
-
-          @name = if relation.respond_to?(:name)
-                    relation.name
-                  else
-                    name
-                  end
+          @header   = relation.respond_to?(:columns) ? relation.columns : header
+          @name     = relation.respond_to?(:name) ? relation.name : name
         end
 
         def each(&block)
@@ -32,27 +23,22 @@ module DataMapper
           self
         end
 
-        # FIXME: break down gateway into 2 subclasses to handle this better
-        def source
-          if relation.kind_of?(Arel::Table)
-            relation
-          else
-            relation.source.left
-          end
+        def arel_table
+          engine.relations[name].relation.relation
         end
 
         def new(relation, header = @header)
-          self.class.new(adapter, relation, name, header)
+          self.class.new(engine, relation, name, header)
         end
 
         private
 
         def read
-          adapter.execute(to_sql)
+          engine.adapter.execute(to_sql)
         end
 
         def to_sql
-          relation.project(header.join(', ')).to_sql
+          relation.project(header.map(&:name).join(', ')).to_sql
         end
 
       end # class Gateway

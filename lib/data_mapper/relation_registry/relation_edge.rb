@@ -35,8 +35,8 @@ module DataMapper
       # @api private
       def initialize(name, source_node, target_node)
         super
-        @source_node  = left
-        @target_node  = right
+        @source_node = source_node
+        @target_node = target_node
       end
 
       # Builds a joined relation from source and target nodes
@@ -45,7 +45,7 @@ module DataMapper
       #
       # @api private
       def relation(*args)
-        source_node.join(target_node, *args).relation
+        source_node.join(target_node, *args)
       end
 
       # Returns source aliases
