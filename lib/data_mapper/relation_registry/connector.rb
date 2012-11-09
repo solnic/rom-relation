@@ -78,7 +78,7 @@ module DataMapper
       #
       # @api private
       def source_aliases
-        relations[source_mapper.relation_name].aliases
+        source_node.aliases
       end
 
       # Returns aliases for the target model
@@ -87,7 +87,7 @@ module DataMapper
       #
       # @api private
       def target_aliases
-        relations[target_mapper.relation_name].aliases
+        target_node.aliases
       end
 
       # Returns if the relationship has collection target
@@ -117,7 +117,51 @@ module DataMapper
         DataMapper[target_model]
       end
 
-    end # class Connector
+      # The node's join target node
+      #
+      # Used in {Mapper#include} and {ConnectorSet} when mapping
+      # multiple relationships within a single mapper instance.
+      #
+      # @see Mapper#include
+      # @see ConnectorSet#node
+      #
+      # @return [Symbol]
+      #
+      # @api private
+      def join_target_node
+        node_name =
+          if relationship.via
+            args = [ relationship, relationship_set, mapper_relations ]
+            names = Builder::NodeNameSet.new(*args)
+            names.connector_names.last
+          else
+            target_node.name
+          end
 
+        relations[node_name]
+      end
+
+      private
+
+      # @api private
+      def source_node
+        relations[source_mapper.relation_name]
+      end
+
+      # @api private
+      def target_node
+        relations[target_mapper.relation_name]
+      end
+
+      # @api private
+      def relationship_set
+        source_mapper.relationships
+      end
+
+      # @api private
+      def mapper_relations
+        Mapper.mapper_registry.relation_map
+      end
+    end # class Connector
   end # class RelationRegistry
 end # module DataMapper
