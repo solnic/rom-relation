@@ -1,47 +1,16 @@
 module DataMapper
   class RelationRegistry
 
-    # Builds relation nodes for relationships
-    #
-    # @abstract
+    # Builds relation nodes + edges and a connector for a relationship
     #
     # @api private
     class Builder
 
-      include AbstractClass
-
-      # The {RelationRegistry} used by this builder
-      #
-      # @return [RelationRegistry]
-      #
-      # @api private
-      attr_reader :relations
-
-      # The {MapperRegistry} used by this builder
-      #
-      # @return [MapperRegistry]
-      #
-      # @api private
-      attr_reader :mappers
-
-      # The relationship to build the {RelationNode} and {Connector} for
+      # Build new nodes, edges and a connector for +relationship+
       #
       # @see RelationNode
+      # @see RelationEdge
       # @see Connector
-      #
-      # @return [Relationship]
-      #
-      # @api private
-      attr_reader :relationship
-
-      # The {Connector} built for {#relationship}
-      #
-      # @return [Connector]
-      #
-      # @api private
-      attr_reader :connector
-
-      # Build a new {RelationNode} and {Connector} for +relationship+
       #
       # @param [RelationRegistry] relations
       #   a registry of relations
@@ -52,110 +21,117 @@ module DataMapper
       # @param [Relationship] relationship
       #   the relationship the connector is built for
       #
-      # @return [BaseBuilder, ViaBuilder]
+      # @return [Builder]
       #
       # @api private
       def self.call(relations, mappers, relationship)
-        klass = relationship.via ? ViaBuilder : BaseBuilder
-        klass.new(relations, mappers, relationship)
-      end
-
-      # Initialize a new {Builder} instance
-      #
-      # @param [RelationRegistry] relations
-      #   the registry of relations
-      #
-      # @param [MapperRegistry] mappers
-      #   the registry of mappers
-      #
-      # @param [Relationship] relationship
-      #   the relationship the connector is built for
-      #
-      # @return [undefined]
-      #
-      # @api private
-      def initialize(relations, mappers, relationship)
-        @relations, @mappers, @relationship = relations, mappers, relationship
-        initialize_nodes
-
-        edge              = build_edge
-        relation, aliases = build_relation(edge)
-        node              = build_node(name, relation, aliases)
-
-        @connector = RelationRegistry::Connector.new(node, relationship, relations)
-        relations.add_connector(@connector)
-      end
-
-      # The relationship's source model relation name
-      #
-      # @return [Symbol]
-      #
-      # @api private
-      def left_name
-        mappers[relationship.source_model].class.relation_name
-      end
-
-      # The relationship's target model relation name
-      #
-      # @return [Symbol]
-      #
-      # @api private
-      def right_name
-        mappers[relationship.target_model].class.relation_name
-      end
-
-      # The relationship's source relation node
-      #
-      # @return [RelationNode]
-      #
-      # @api private
-      def left_node
-        relations[left_name]
-      end
-
-      # The relationship's target relation node
-      #
-      # @return [RelationNode]
-      #
-      # @api private
-      def right_node
-        relations[right_name]
+        new(relations, mappers, relationship)
       end
 
       private
 
-      # @api private
-      def initialize_nodes
-        # no-op
+      def initialize(relations, mappers, relationship)
+        @relations    = relations
+        @mappers      = mappers
+        @relationship = relationship
+        @node_names   = node_name_set
+
+        build
       end
 
-      # @api private
-      def build_relation(edge, relationship = @relationship)
-        node     = edge.relation(relationship)
-        relation = node.relation
-        relation = node.relation.instance_eval(&relationship.operation) if relationship.operation
-        [ relation, node.aliases ]
+      def build
+        build_connector(*build_relation_nodes)
       end
 
-      # @api private
-      def build_node(name, relation, aliases)
-        relations.new_node(name, relation, aliases) unless relations[name]
-        relations[name]
+      def build_relation_nodes
+        nodes = @node_names.map do |node_name|
+          edge = build_edge(@relationship.name, *nodes(node_name))
+          build_node(node_name, *build_relation(edge, relationship(node_name)))
+        end
+
+        [ @node_names.last, nodes.last ]
       end
 
-      # @api private
-      def build_edge(name = relationship.name, left = left_node, right = right_node)
-        edge = relations.edge_for(left, right)
+      def build_edge(name, left, right)
+        edge = @relations.edge_for(left, right)
 
         unless edge
-          edge = relations.build_edge(name, left, right)
-          relations.add_edge(edge)
+          edge = @relations.build_edge(name, left, right, key_map(left, right))
+          @relations.add_edge(edge)
         end
 
         edge
       end
 
-    end # class Builder
+      def build_relation(edge, relationship)
+        node = edge.relation(relationship)
 
+        [ relation(node, relationship), node.aliases ]
+      end
+
+      def build_node(name, relation, aliases)
+        @relations.new_node(name, relation, aliases) unless @relations[name]
+        @relations[name]
+      end
+
+      def build_connector(name, node)
+        @relations.add_connector(connector(name, node))
+      end
+
+      def relation(node, relationship)
+        operation = relationship.operation
+        relation  = node.relation
+        relation  = relation.instance_eval(&operation) if operation
+        relation
+      end
+
+      def connector(name, node)
+        Connector.new(name, node, @relationship, @relations)
+      end
+
+      def node_name_set
+        NodeNameSet.new(@relationship, source_relationships, relation_map)
+      end
+
+      def key_map(left, right)
+        JoinKeyMap.new(left, right, left_key, right_key)
+      end
+
+      def nodes(node_name)
+        [ left_node(node_name), right_node(node_name) ]
+      end
+
+      def left_node(node_name)
+        @relations[node_name.left]
+      end
+
+      def right_node(node_name)
+        @relations[node_name.to_a.last] || @relations[node_name.right]
+      end
+
+      def left_key
+        Array(@relationship.source_key)
+      end
+
+      def right_key
+        Array(@relationship.target_key)
+      end
+
+      def source_mapper
+        @mappers[@relationship.source_model]
+      end
+
+      def source_relationships
+        source_mapper.relationships
+      end
+
+      def relationship(node_name)
+        source_relationships[node_name.relationship.name]
+      end
+
+      def relation_map
+        @mappers.relation_map
+      end
+    end # class Builder
   end # class RelationRegistry
 end # module DataMapper

@@ -56,9 +56,16 @@ module DataMapper
     # @api private
     attr_reader :target_key
 
-    # Name of the via relationship
+    # Name of the relationship pointing from source to intermediary
     #
-    # @return [Symbol]
+    # @return [Symbol, nil]
+    #
+    # @api private
+    attr_reader :through
+
+    # Name of the relationship pointing from intermediary to target
+    #
+    # @return [Symbol, nil]
     #
     # @api private
     attr_reader :via
@@ -110,7 +117,8 @@ module DataMapper
       @source_key   = options[:source_key] || default_source_key
       @target_key   = options[:target_key] || default_target_key
 
-      @via          = options[:through]
+      @through      = options[:through]
+      @via          = options[:via]
       @operation    = options[:operation]
 
       @min = options.fetch(:min, 1)

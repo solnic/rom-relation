@@ -1,22 +1,22 @@
 require 'spec_helper'
 
-describe Relationship, '#via' do
+describe Relationship::ManyToMany, '#via' do
   subject { object.via }
 
   let(:object)       { subclass.new(name, source_model, target_model, options) }
-  let(:name)         { :songs }
-  let(:source_model) { mock('source_model') }
-  let(:target_model) { mock('target_model') }
+  let(:name)         { :tags }
+  let(:source_model) { mock_model(:Song) }
+  let(:target_model) { mock_model(:Tag) }
 
   context 'when :via is not present in options' do
     let(:options) { {} }
 
-    it { should be(nil) }
+    it { should be(:tag) }
   end
 
   context 'when :via is present in options' do
     let(:options) { { :via => via } }
-    let(:via)     { :song_tags }
+    let(:via)     { :special_tag }
 
     it { should be(via) }
   end
