@@ -23,10 +23,6 @@ module DataMapper
           self
         end
 
-        def arel_table
-          engine.relations[name].relation.relation
-        end
-
         def new(relation, header = @header)
           self.class.new(engine, relation, name, header)
         end

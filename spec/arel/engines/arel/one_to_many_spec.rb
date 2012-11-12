@@ -60,16 +60,16 @@ describe '[Arel] One To Many with generated mapper' do
 
       has 0..n, :orders, Order
 
-      has 0..n, :apple_orders, Order do
-        relation.where(DataMapper[Order].relation[:product].eq('Apple'))
-      end
+      #has 0..n, :apple_orders, Order do
+        #relation.where(DataMapper[Order].relation[:product].eq('Apple'))
+      #end
     end
 
   end
 
   it 'loads associated orders' do
     user_order_mapper = DataMapper[User].include(:orders)
-    users_with_orders = user_order_mapper.to_a.reverse
+    users_with_orders = user_order_mapper.to_a
 
     users_with_orders.should have(2).items
 
@@ -87,7 +87,7 @@ describe '[Arel] One To Many with generated mapper' do
     orders2[0].product.should eql('Peach')
   end
 
-  it 'loads associated restricted apple orders' do
+  it 'loads associated orders where product = apple' do
     pending
 
     user_order_mapper = DataMapper[User].include(:apple_orders)

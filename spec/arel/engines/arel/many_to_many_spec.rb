@@ -57,7 +57,7 @@ describe 'Relationship - Many To Many with generated mappers' do
       map :name, String
 
       has 0..n, :song_tags, SongTag
-      has 0..n, :songs, Song, :through => :song_tags
+      has 0..n, :songs, Song, :through => :song_tags, :via => [ :tag, :song_id, :id ]
     end
 
     class SongTagMapper < DataMapper::Mapper::Relation
@@ -80,7 +80,7 @@ describe 'Relationship - Many To Many with generated mappers' do
 
       has 0..n, :song_tags, SongTag
 
-      has 0..n, :tags, Tag, :through => :song_tags
+      has 0..n, :tags, Tag, :through => :song_tags, :via => [ :tag, :tag_id, :id ]
 
       #has 0..n, :good_tags, Tag, :through => :song_tags do
         #restrict { |r| r.tag_name.eq('good') }
@@ -90,7 +90,7 @@ describe 'Relationship - Many To Many with generated mappers' do
 
   it 'loads associated song_tags for songs' do
     mapper = DataMapper[Song].include(:song_tags)
-    songs  = mapper.to_a.reverse
+    songs  = mapper.to_a
 
     songs.should have(2).items
 
@@ -108,10 +108,8 @@ describe 'Relationship - Many To Many with generated mappers' do
   end
 
   it 'loads associated tags for songs' do
-    pending
-
     mapper = DataMapper[Song].include(:tags)
-    songs  = mapper.to_a.reverse
+    songs  = mapper.to_a
 
     songs.should have(2).items
 
@@ -143,7 +141,7 @@ describe 'Relationship - Many To Many with generated mappers' do
 
   it 'loads associated song_tags for tags' do
     mapper = DataMapper[Tag].include(:song_tags)
-    tags   = mapper.to_a.reverse
+    tags   = mapper.to_a
 
     tags.should have(2).item
 
@@ -158,11 +156,9 @@ describe 'Relationship - Many To Many with generated mappers' do
     tag2.song_tags.first.tag_id.should eql(tag2.id)
   end
 
-  it 'loads associated songs' do
-    pending
-
+  it 'loads associated songs for tags' do
     mapper = DataMapper[Tag].include(:songs)
-    tags   = mapper.to_a.reverse
+    tags   = mapper.to_a
 
     tags.should have(2).item
 

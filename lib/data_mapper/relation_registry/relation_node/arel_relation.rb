@@ -7,15 +7,20 @@ module DataMapper
       class ArelRelation < self
         include Enumerable
 
+        attr_reader :relations
+        attr_reader :gateway
+
         # @see {RelationNode#initialize}
         def initialize(name, relation, aliases)
           super
+          @relations = relation.engine.relations
+          @gateway   = relation
         end
 
         # @api public
         def each(&block)
           return to_enum unless block_given?
-          relation.each do |row|
+          gateway.each do |row|
             yield(row.symbolize_keys!)
           end
           self
@@ -23,20 +28,20 @@ module DataMapper
 
         # @api private
         def join(other, relationship)
-          source     = relation.arel_table
-          source_key = source[relationship.source_key]
+          left  = (relationship.through ? relations[relationship.through].gateway : gateway).relation
+          right = other.gateway.relation
 
-          target = if relationship.via
-            via = DataMapper[relationship.source_model].relationships[relationship.via]
-            relation.engine.relations[via.name].relation
-          else
-            other.relation
-          end.arel_table
+          left_key, right_key =
+            if relationship.through
+              [ left[relationship.via_source_key], right[relationship.via_target_key] ]
+            else
+              [ left[relationship.source_key], right[relationship.target_key] ]
+            end
 
-          target_key   = target[via ? via.target_key : relationship.target_key]
-          left, right  = other.base? ? [ source, other.relation.relation ] : [ other.relation.relation, source ]
+          source = gateway.relation
+          target = other.gateway.relation
 
-          join         = left.join(right).on(source_key.eq(target_key)).order(source_key)
+          join         = source.join(target).on(left_key.eq(right_key)).order(left_key)
           join_aliases = aliases.join(other.aliases)
 
           self.class.new(name, relation.new(join, join_aliases), join_aliases)
@@ -45,12 +50,12 @@ module DataMapper
         # @api private
         def base?
           # TODO: push it down to ArelEngine::Gateway
-          relation.relation.kind_of?(Arel::Table)
+          gateway.relation.kind_of?(Arel::Table)
         end
 
         # @api public
         def [](name)
-          relation.relation[name]
+          gateway.relation[name]
         end
 
         # @api private
