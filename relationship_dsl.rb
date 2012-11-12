@@ -197,11 +197,6 @@ class SongMapper < DataMapper::Mapper::Relation
   #   than the version above. Also, Mapper#joins would probably
   #   only be used in case of complex composite key definitions
   #
-  # * might read worse than the version above in case
-  #   the join must be performed using composite keys
-  #   (in that case, the hash passed to #via might lead
-  #   to weird formatting)
-  #
   # * makes "disambiguating" join key relations very intuitive
   #
   # * requires only Mapper#via and no specific yield context object
