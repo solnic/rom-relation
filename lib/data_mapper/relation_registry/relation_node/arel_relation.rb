@@ -28,6 +28,10 @@ module DataMapper
 
         # @api private
         def join(other, relationship)
+          # FIXME: getting left side for "through" can't rely on relationship.through
+          #        as relation can have a different name - we could consider passing edge
+          #        to relations so that it's trivial to find left/right side that was
+          #        used to build a joined relation
           left  = (relationship.through ? relations[relationship.through].gateway : gateway).relation
           right = other.gateway.relation
 
