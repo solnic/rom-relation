@@ -79,6 +79,10 @@ class SongMapper < DataMapper::Mapper::Relation
   #
   # ----------------------------------------------------------------
 
+  # --------
+  # OPTION 1
+  # --------
+  #
   # PROS
   #
   # * ???
@@ -108,6 +112,10 @@ class SongMapper < DataMapper::Mapper::Relation
     # code here
   end
 
+  # --------
+  # OPTION 2
+  # --------
+  #
   # PROS
   #
   # * reads kinda nice
@@ -145,6 +153,10 @@ class SongMapper < DataMapper::Mapper::Relation
     end
   end
 
+  # --------
+  # OPTION 3
+  # --------
+  #
   # PROS
   #
   # * seems to be rather intuitive and slightly less verbose
@@ -175,6 +187,10 @@ class SongMapper < DataMapper::Mapper::Relation
     end
   end
 
+  # --------
+  # OPTION 4
+  # --------
+  #
   # PROS
   #
   # * seems to be rather intuitive but slightly more verbose
@@ -195,7 +211,7 @@ class SongMapper < DataMapper::Mapper::Relation
   #
   # CONTRAS
   #
-  # *
+  # * ???
   #
   has 0..n, :recent_good_tags, Tag do
     joins :song_tags, :on => {
@@ -212,6 +228,10 @@ class SongMapper < DataMapper::Mapper::Relation
     end
   end
 
+  # --------
+  # OPTION 5
+  # --------
+  #
   # CONTRAS
   #
   # * requires a new Context object yielded by Mapper#via
