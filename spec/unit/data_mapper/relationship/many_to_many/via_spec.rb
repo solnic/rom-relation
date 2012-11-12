@@ -11,7 +11,7 @@ describe Relationship::ManyToMany, '#via' do
   context 'when :via is not present in options' do
     let(:options) { {} }
 
-    it { should be(:tag) }
+    it { should be_empty }
   end
 
   context 'when :via is present in options' do
