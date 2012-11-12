@@ -82,9 +82,9 @@ describe 'Relationship - Many To Many with generated mappers' do
 
       has 0..n, :tags, Tag, :through => :song_tags, :via => [ :tag, :tag_id, :id ]
 
-      #has 0..n, :good_tags, Tag, :through => :song_tags do
-        #restrict { |r| r.tag_name.eq('good') }
-      #end
+      has 0..n, :good_tags, Tag, :through => :song_tags, :via => [ :tag, :tag_id, :id ] do
+        restrict(engine.relations[:tags][:name].eq('good'))
+      end
     end
   end
 
@@ -125,8 +125,6 @@ describe 'Relationship - Many To Many with generated mappers' do
   end
 
   it 'loads associated tags with name = good' do
-    pending
-
     mapper = DataMapper[Song].include(:good_tags)
     songs  = mapper.include(:good_tags).to_a
 

@@ -27,6 +27,10 @@ module DataMapper
           self.class.new(engine, relation, name, header)
         end
 
+        def restrict(*args)
+          new(relation.where(*args))
+        end
+
         private
 
         def read

@@ -38,7 +38,7 @@ module DataMapper
               [ left[relationship.source_key], right[relationship.target_key] ]
             end
 
-          source = gateway.relation
+          source = gateway.relation.clone
           target = other.gateway.relation
 
           join         = source.join(target).on(left_key.eq(right_key)).order(left_key)

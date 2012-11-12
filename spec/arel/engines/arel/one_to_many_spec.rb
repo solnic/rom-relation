@@ -60,9 +60,9 @@ describe '[Arel] One To Many with generated mapper' do
 
       has 0..n, :orders, Order
 
-      #has 0..n, :apple_orders, Order do
-        #relation.where(DataMapper[Order].relation[:product].eq('Apple'))
-      #end
+      has 0..n, :apple_orders, Order do
+        restrict(engine.relations[:orders][:product].eq('Apple'))
+      end
     end
 
   end
@@ -88,8 +88,6 @@ describe '[Arel] One To Many with generated mapper' do
   end
 
   it 'loads associated orders where product = apple' do
-    pending
-
     user_order_mapper = DataMapper[User].include(:apple_orders)
     users_with_orders = user_order_mapper.to_a
 
