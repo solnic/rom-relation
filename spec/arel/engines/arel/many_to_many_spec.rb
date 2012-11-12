@@ -1,13 +1,5 @@
 require 'spec_helper_integration'
 
-unless DataMapper.engines[:postgres_arel]
-  DataMapper.setup(
-    :postgres_arel,
-    'postgres://postgres@localhost/dm-mapper_test',
-    DataMapper::Engine::ArelEngine
-  )
-end
-
 describe 'Relationship - Many To Many with generated mappers' do
   before(:all) do
     setup_db
@@ -86,6 +78,16 @@ describe 'Relationship - Many To Many with generated mappers' do
         restrict(engine.relations[:tags][:name].eq('good'))
       end
     end
+  end
+
+  after(:all) do
+    Object.send(:remove_const, :Tag)
+    Object.send(:remove_const, :Song)
+    Object.send(:remove_const, :SongTag)
+
+    Object.send(:remove_const, :TagMapper)
+    Object.send(:remove_const, :SongMapper)
+    Object.send(:remove_const, :SongTagMapper)
   end
 
   it 'loads associated song_tags for songs' do
