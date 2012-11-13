@@ -1,30 +1,6 @@
 module DataMapper
   class Mapper
 
-    class LoadStrategy
-      def initialize(mapper)
-        @mapper = mapper
-      end
-
-      class Default < self
-        def call(model, tuple)
-          model.new(@mapper.attributes.load(tuple))
-        end
-      end
-
-      class WithProc < Default
-        def initialize(mapper, &block)
-          super(mapper)
-          @block = block
-        end
-
-        def call(model, tuple)
-          super
-          @block.call(tuple)
-        end
-      end
-    end
-
     # Relation
     #
     # @api public
@@ -42,6 +18,9 @@ module DataMapper
       #
       # @api public
       attr_reader :relation
+
+      # @api private
+      attr_reader :load_strategy
 
       # Return a new mapper class derived from the given one
       #
@@ -233,9 +212,9 @@ module DataMapper
       # @api public
       def initialize(relation = self.class.relation, attributes = self.class.attributes, load_strategy = nil)
         super()
-        @relation   = relation
-        @attributes = attributes
-        @load_strategy = load_strategy || LoadStrategy::Default.new(self)
+        @relation      = relation
+        @attributes    = attributes
+        @load_strategy = load_strategy || LoadStrategy::Default.new(attributes)
       end
 
       # Return a new instance with mapping that corresponds to aliases
@@ -320,8 +299,7 @@ module DataMapper
       #
       # @api public
       def find(options)
-        restriction = @relation.restrict(Query.new(options, @attributes))
-        self.class.new(restriction.optimize)
+        self.class.new(relation.restrict(Query.new(options, attributes)), attributes)
       end
 
       # Return a mapper for iterating over the relation ordered by *order
@@ -476,6 +454,12 @@ module DataMapper
       # @api public
       def join(other)
         self.class.new(relation.join(other.relation), attributes)
+      end
+
+      # @see {Mapper#load}
+      # @api public
+      def load(tuple)
+        load_strategy.call(model, tuple)
       end
 
     end # class Relation
