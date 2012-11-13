@@ -274,7 +274,7 @@ module DataMapper
     end
 
     # @api private
-    def initialize(load_strategy = nil)
+    def initialize
       @model         = self.class.model
       @attributes    = self.class.attributes
       @relationships = self.class.relationships

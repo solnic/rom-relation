@@ -2,13 +2,13 @@ module DataMapper
   class Mapper
 
     class LoadStrategy
-      def initialize(attributes)
-        @attributes = attributes
+      def initialize(mapper)
+        @mapper = mapper
       end
 
       class Default < self
         def call(model, tuple)
-          model.new(@attributes.load(tuple))
+          model.new(@mapper.attributes.load(tuple))
         end
       end
 

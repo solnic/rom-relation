@@ -256,6 +256,7 @@ module DataMapper
       def key
         select(&:key?)
       end
+
     end # class AttributeSet
   end # class Mapper
 end # module DataMapper

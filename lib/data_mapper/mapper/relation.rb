@@ -214,7 +214,7 @@ module DataMapper
         super()
         @relation      = relation
         @attributes    = attributes
-        @load_strategy = load_strategy || LoadStrategy::Default.new(attributes)
+        @load_strategy = load_strategy || LoadStrategy::Default.new(self)
       end
 
       # Return a new instance with mapping that corresponds to aliases
@@ -299,7 +299,7 @@ module DataMapper
       #
       # @api public
       def find(options)
-        self.class.new(relation.restrict(Query.new(options, attributes)), attributes)
+        self.class.new(relation.restrict(Query.new(options, attributes)), attributes, load_strategy)
       end
 
       # Return a mapper for iterating over the relation ordered by *order
@@ -320,7 +320,7 @@ module DataMapper
       def order(*names)
         order_attributes = names.map { |attribute| attributes.field_name(attribute) }
         order_attributes.concat(attributes.fields).uniq!
-        self.class.new(relation.order(*order_attributes), attributes)
+        self.class.new(relation.order(*order_attributes), attributes, load_strategy)
       end
 
       # Return a mapper for iterating over the relation ordered by *order
@@ -386,7 +386,7 @@ module DataMapper
       #
       # @api public
       def restrict(&block)
-        self.class.new(relation.restrict(&block), attributes)
+        self.class.new(relation.restrict(&block), attributes, load_strategy)
       end
 
       # Return a mapper for iterating over a sorted set of domain objects
@@ -415,7 +415,7 @@ module DataMapper
       #
       # @api public
       def sort_by(*args, &block)
-        self.class.new(relation.sort_by(*args, &block), attributes)
+        self.class.new(relation.sort_by(*args, &block), attributes, load_strategy)
       end
 
       # Return a mapper for iterating over domain objects with renamed attributes
@@ -433,7 +433,7 @@ module DataMapper
       #
       # @api public
       def rename(aliases)
-        self.class.new(relation.rename(aliases), attributes)
+        self.class.new(relation.rename(aliases), attributes, load_strategy)
       end
 
       # Return a mapper for iterating over the result of joining other with self
@@ -453,7 +453,7 @@ module DataMapper
       #
       # @api public
       def join(other)
-        self.class.new(relation.join(other.relation), attributes)
+        self.class.new(relation.join(other.relation), attributes, load_strategy)
       end
 
       # @see {Mapper#load}
@@ -461,6 +461,12 @@ module DataMapper
       def load(tuple)
         load_strategy.call(model, tuple)
       end
+
+      # @api private
+      def key(tuple)
+        @attributes.key.map { |key| tuple[key.field] }
+      end
+      alias_method :load_key, :key
 
     end # class Relation
   end # class Mapper
