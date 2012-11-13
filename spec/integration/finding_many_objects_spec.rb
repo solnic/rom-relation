@@ -1,6 +1,6 @@
 require 'spec_helper_integration'
 
-describe 'Finding Many Objects' do
+describe 'Finding Many Objects', :type => :integration do
   before(:all) do
     setup_db
 
@@ -21,7 +21,7 @@ describe 'Finding Many Objects' do
           :id, :street, :city, :zipcode)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         Address
         relation_name :addresses
@@ -42,7 +42,7 @@ describe 'Finding Many Objects' do
         @id, @name, @age = attributes.values_at(:id, :name, :age)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         User
         relation_name :users
@@ -85,7 +85,7 @@ describe 'Finding Many Objects' do
   end
 
   it 'finds objects matching criteria from joined relation' do
-    pending
+    pending "Nested query conditions is not yet implemented"
 
     users = DataMapper[User].find(:age => 20, :address => { :city => 'Boston' }).to_a
 

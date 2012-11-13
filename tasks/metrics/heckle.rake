@@ -5,6 +5,7 @@ $LOAD_PATH.unshift(File.expand_path('../../../lib', __FILE__))
 
 begin
   require 'pathname'
+  require 'fileutils'
   require 'backports'
   require 'active_support/inflector'
   require 'heckle'
@@ -25,6 +26,44 @@ begin
     end
   end
 
+  def map_methods_to_spec_files(methods, class_level, map, specs, spec_prefix, aliases, mod)
+    methods.each do |method|
+      method = aliases[mod.name][method]
+
+      next if SKIP_METHODS.include?(method.to_s)
+
+      spec_file_dir  = class_level ? spec_prefix.join('class_methods') : spec_prefix
+      spec_file_name = map.file_name(method, mod.name)
+
+      spec_file     = spec_file_dir.join(spec_file_name)
+
+      method_separator = class_level ? '.' : '#'
+
+      unless spec_file.file?
+
+        puts '-'*80
+        puts "Creating missing spec file #{spec_file} for #{mod}#{method_separator}#{method}"
+        puts '-'*80
+
+        FileUtils.mkdir_p(spec_file_dir.to_s)
+
+        pending_spec = <<-RUBY
+require 'spec_helper'
+
+describe #{mod.to_s.sub('DataMapper::', '')}, '#{method_separator}#{method}' do
+  it 'needs unit specs' do
+    pending('#{mod}#{method_separator}#{method} unit specs are not implemented yet')
+  end
+end
+        RUBY
+
+        File.open(spec_file, 'w') { |file| file.write(pending_spec) }
+      end
+
+      specs << [ "#{method_separator}#{method}", [ spec_file ] ]
+    end
+  end
+
   desc 'Heckle each module and class'
   task :heckle => :rcov do
     unless Ruby2Ruby::VERSION == '1.2.2'
@@ -34,7 +73,7 @@ begin
     require 'dm-mapper'
 
     root_module_regexp = Regexp.union(
-      'dm-mapper'
+      'DataMapper'
     )
 
     spec_dir = Pathname('spec/unit')
@@ -103,33 +142,8 @@ begin
         spec_methods << method
       end
 
-      # map the class methods to spec files
-      spec_class_methods.each do |method|
-        method = aliases[mod.name][method]
-        next if SKIP_METHODS.include?(method.to_s)
-
-        spec_file = spec_prefix.join('class_methods').join(map.file_name(method, mod.name))
-
-        unless spec_file.file?
-          raise "No spec file #{spec_file} for #{mod}.#{method}"
-        end
-
-        specs << [ ".#{method}", [ spec_file ] ]
-      end
-
-      # map the instance methods to spec files
-      spec_methods.each do |method|
-        method = aliases[mod.name][method]
-        next if SKIP_METHODS.include?(method.to_s)
-
-        spec_file = spec_prefix.join(map.file_name(method, mod.name))
-
-        unless spec_file.file?
-          raise "No spec file #{spec_file} for #{mod}##{method}"
-        end
-
-        specs << [ "##{method}", [ spec_file ] ]
-      end
+      map_methods_to_spec_files(spec_class_methods, true,  map, specs, spec_prefix, aliases, mod)
+      map_methods_to_spec_files(spec_methods,       false, map, specs, spec_prefix, aliases, mod)
 
       # non-public methods are considered covered if they can be mutated
       # and any spec fails for the current or descendant modules

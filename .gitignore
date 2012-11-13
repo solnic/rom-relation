@@ -2,3 +2,5 @@ log
 Gemfile.lock
 tmp/
 coverage/
+measurements/
+.yardoc/

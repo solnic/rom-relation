@@ -17,7 +17,7 @@ describe 'Two PORO mappers' do
         @id, @street, @zipcode, @city = attributes.values_at(:id, :name, :zipcode, :city)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         Address
         relation_name :addresses
@@ -38,7 +38,7 @@ describe 'Two PORO mappers' do
         @id, @name, @age = attributes.values_at(:id, :name, :age)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         User
         relation_name :users
@@ -52,14 +52,14 @@ describe 'Two PORO mappers' do
   end
 
   let(:operation) do
-    left  = DataMapper.relation_registry[:users]
-    right = DataMapper.relation_registry[:addresses].restrict { |r| r.city.eq('Boston') }
+    left  = User::Mapper.relations[:users].relation
+    right = Address::Mapper.relations[:addresses].relation.restrict { |r| r.city.eq('Boston') }
 
     left.join(right)
   end
 
   it 'finds user with a specific address' do
-    users = User::Mapper.new(operation.restrict { |r| r.city.eq('Boston') }.optimize).to_a
+    users = User::Mapper.new(operation.restrict { |r| r.city.eq('Boston') }).to_a
     user  = users.first
 
     users.should have(1).item

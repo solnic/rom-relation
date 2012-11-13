@@ -4,23 +4,37 @@ module DataMapper
 
       class BelongsTo
 
-        include Builder
+        # Build a {ManyToOne} relationship
+        #
+        # TODO: add specs
+        #
+        # @param [Mapper] source
+        #   the mapper establishing this relationship
+        #
+        # @param [Symbol] name
+        #   the relationship's name
+        #
+        # @param [::Class] target_model
+        #   the class of the object this relationship is pointing to
+        #
+        # @param [Hash] options
+        #   the relationship's options
+        #
+        # @option options [Symbol, Array<Symbol>] :source_key
+        #   the source_model's attributes to join on
+        #
+        # @option options [Symbol, Array<Symbol>] :target_key
+        #   the target_model's attributes to join on
+        #
+        # @return [ManyToOne]
+        #
+        # @api private
+        def self.build(source, name, target_model, options = {}, &op)
+          options = options.merge(:operation => op)
 
-        def self.build(source, name, *args, &op)
-          new(source, name, *args, &op).relationship
-        end
-
-        def initialize(source, name, *args, &op)
-          target_model = Utils.extract_type(args)
-          raw_options  = Utils.extract_options(args).merge(:operation => op)
-
-          options = Relationship::Options::ManyToOne.new(
-            name, source.model, target_model, raw_options
+          Relationship::ManyToOne.new(
+            name, source.model, target_model, options
           )
-
-          options.validate
-
-          @relationship = Relationship::ManyToOne.new(options)
         end
       end # class BelongsTo
     end # module Builder

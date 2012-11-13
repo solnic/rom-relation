@@ -1,114 +1,155 @@
 module DataMapper
 
-  # Attribute
+  # Relationship
+  #
+  # @abstract
   #
   # @api private
   class Relationship
+
+    include AbstractClass
+
+    # Returns foreign key name for the given class name
+    #
+    # @return [Symbol]
+    #
+    # @api private
+    #
+    def self.foreign_key_name(class_name)
+      Inflector.foreign_key(class_name).to_sym
+    end
+
+    include Equalizer.new(:name, :source_model, :target_model, :source_key, :target_key)
+
+    # Name of the relationship
+    #
+    # @return [Symbol]
+    #
+    # @api private
     attr_reader :name
-    attr_reader :relation
-    attr_reader :child_mapper
+
+    # Source model for the relationship
+    #
+    # @return [Class]
+    #
+    # @api private
+    attr_reader :source_model
+
+    # Target model for the relationship
+    #
+    # @return [Class]
+    #
+    # @api private
+    attr_reader :target_model
+
+    # Source key
+    #
+    # @return [Symbol,nil]
+    #
+    # @api private
     attr_reader :source_key
+
+    # Target key
+    #
+    # @return [Symbol,nil]
+    #
+    # @api private
     attr_reader :target_key
+
+    # Name of the relationship pointing from source to intermediary
+    #
+    # @return [Symbol, nil]
+    #
+    # @api private
+    attr_reader :through
+
+    # Name of the relationship pointing from intermediary to target
+    #
+    # @return [Symbol, nil]
+    #
+    # @api private
+    attr_reader :via
+
+    # Min size of the relationship children
+    #
+    # @return [Fixnum]
+    #
+    # @api private
+    attr_reader :min
+
+    # Max size of the relationship children
+    #
+    # @return [Fixnum]
+    #
+    # @api private
+    attr_reader :max
+
+    # Additional operation that must be evaluated on the relation
+    #
+    # @return [Proc,nil]
+    #
+    # @api private
+    attr_reader :operation
+
+    # Raw hash with options
+    #
+    # @return [Hash]
+    #
+    # @api private
     attr_reader :options
 
-    attr_reader :source_aliases
-
-    def initialize(options)
+    # Initializes relationship options instance
+    #
+    # @param [String,Symbol,#to_sym] name
+    # @param [Class] source model
+    # @param [Class] target model
+    # @param [Hash] options
+    #
+    # @return [undefined]
+    #
+    # @api private
+    def initialize(name, source_model, target_model, options = {})
+      @name         = name.to_sym
       @options      = options
-      @name         = @options.name
-      @source       = @options.source
-      @mapper_class = @options.mapper_class
-      @operation    = @options.operation
-      @source_key   = @options.source_key
-      @target_key   = @options.target_key
-      @source_model = @options.source_model
-      @target_model = @options.target_model
+
+      @source_model = source_model
+      @target_model = target_model || options.fetch(:model)
+      @source_key   = options[:source_key] || default_source_key
+      @target_key   = options[:target_key] || default_target_key
+
+      @through      = options[:through]
+      @via          = options[:via]
+      @operation    = options[:operation]
+
+      @min = options.fetch(:min, 1)
+      @max = options.fetch(:max, 1)
     end
 
-    # @api public
-    def finalize
-      finalize_parent_mapper
-      finalize_child_mapper
-      finalize_mapper_class
-      finalize_aliases
-      finalize_relation
-      self
-    end
-
-    # @api public
-    def call
-      @mapper_class.new(relation)
-    end
-
-    # @api public
-    def inherit(name, operation)
-      self.class.new(
-        @options.inherit(name, :source => self, :operation => operation))
-    end
-
-  private
-
+    # Returns default name of the source key
+    #
+    # @return [Symbol,nil]
+    #
     # @api private
-    def finalize_mapper_class
-      unless @mapper_class
-        builder       = mapper_builder.new(@parent_mapper, @options)
-        @mapper_class = builder.mapper_class
-        @operation    = builder.operation unless @operation
-      end
+    def default_source_key
+      nil
     end
 
-    def finalize_aliases
-      @source_aliases = options.aliases.merge(source_key => target_key)
-    end
-
+    # Returns default name of the target key
+    #
+    # @return [Symbol,nil]
+    #
     # @api private
-    def finalize_relation
-      @relation = @parent_mapper.instance_exec(
-        *operation_context, &@operation
-      ).relation.optimize
+    def default_target_key
+      nil
     end
 
+    # Returns if the target is a collection or a single object
+    #
+    # @return [Boolean]
+    #
     # @api private
-    def finalize_child_mapper
-      @child_mapper =
-        if @source
-          @source.finalize.child_mapper
-        else
-          DataMapper[@target_model]
-        end
-    end
-
-    # @api private
-    def finalize_parent_mapper
-      @parent_mapper =
-        if @source
-          @source.finalize.call
-        else
-          DataMapper[@source_model]
-        end
-    end
-
-    # @api private
-    def mapper_builder
-      raise NotImplementedError, "#{self.class}##{__method__} must be implemented"
-    end
-
-    def operation_context
-      case @operation.arity
-      when 0
-        []
-      when 1
-        [ @child_mapper ]
-      when -1, 2
-        [ @child_mapper, self ]
-      else
-        # TODO raise a more appropriate/descriptive error?
-        raise ArgumentError, "Wrong number of block parameters"
-      end
-    end
-
-    def unique_alias(name, scope)
-      DataMapper::Mapper.unique_alias(name, scope)
+    def collection_target?
+      false
     end
   end # class Relationship
 end # module DataMapper

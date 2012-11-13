@@ -16,7 +16,7 @@ describe 'Finding One Object' do
         @id, @name, @age = attributes.values_at(:id, :name, :age)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         User
         relation_name :users
@@ -39,7 +39,7 @@ describe 'Finding One Object' do
 
   it 'raises an exception if more than one objects were found' do
     expect { DataMapper[User].one(:name => 'Jane') }.to raise_error(
-      "#{DataMapper[User]}.one returned more than one result")
+      "#{DataMapper[User]}#one returned more than one result")
   end
 
 end

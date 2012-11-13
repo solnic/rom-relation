@@ -20,7 +20,7 @@ describe 'Relationship - One To One - Explicit Loading' do
           :id, :street, :city, :zipcode)
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         Address
         relation_name :addresses
@@ -43,7 +43,7 @@ describe 'Relationship - One To One - Explicit Loading' do
         @address = attributes[:address]
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         User
         relation_name :users
@@ -65,6 +65,8 @@ describe 'Relationship - One To One - Explicit Loading' do
   end
 
   it 'loads parent and then child' do
+    pending "VeritasRelation#rename is not finished yet"
+
     user    = user_mapper.to_a.last
     address = address_mapper.join(user_mapper.rename(:id => :user_id)).first
 

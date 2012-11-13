@@ -3,19 +3,16 @@ module DataMapper
 
     class OneToOne < self
 
-      private
-
+      # @see Options#default_source_key
+      #
       def default_source_key
         :id
       end
 
+      # @see Options#default_target_key
+      #
       def default_target_key
-        foreign_key_name
-      end
-
-      # @api private
-      def mapper_builder
-        Mapper::Builder::Relationship::OneToOne
+        self.class.foreign_key_name(source_model.name)
       end
     end # class OneToOne
   end # class Relationship

@@ -1,7 +1,7 @@
 ROOT = File.expand_path('../..', __FILE__)
 
 require 'backports'
-require 'backports/basic_object'
+require 'backports/basic_object' unless defined?(BasicObject)
 require 'rubygems'
 
 begin
@@ -11,41 +11,80 @@ rescue LoadError
   RSpec = Spec::Runner
 end
 
-require 'veritas'
-require 'veritas/optimizer'
 require 'veritas-do-adapter'
 require 'virtus'
+
 require 'do_postgres'
 require 'do_mysql'
 require 'do_sqlite3'
+
 require 'randexp'
 
 require 'dm-mapper'
 require 'db_setup'
+
+require 'monkey_patches'
 
 ENV['TZ'] = 'UTC'
 
 # require spec support files and shared behavior
 Dir[File.expand_path('../**/shared/**/*.rb', __FILE__)].each { |file| require file }
 
+module SpecHelper
+
+  def self.draw_relation_registry(file_name = 'graph.png')
+
+    require 'graphviz'
+
+    # Create a new graph
+    g = GraphViz.new( :G, :type => :digraph )
+
+    graph = DataMapper.engines[:postgres].relations
+
+    graph.edges.each do |edge|
+      left  = g.add_nodes(edge.left.name.to_s)
+      right = g.add_nodes(edge.right.name.to_s)
+
+      g.add_edges(left, right, :label => edge.name)
+    end
+
+    # Generate output image
+    g.output( :png => file_name )
+  end
+end
+
 RSpec.configure do |config|
-  config.before(:all) do
-    User.send(:remove_const, :Mapper)               if defined?(User::Mapper)
-    User.send(:remove_const, :UserAddressMapper)    if defined?(User::UserAddressMapper)
-    Address.send(:remove_const, :Mapper)            if defined?(Address::Mapper)
-    Address.send(:remove_const, :AddressUserMapper) if defined?(Address::AddressUserMapper)
-    Object.send(:remove_const, :User)               if defined?(User)
-    Object.send(:remove_const, :Address)            if defined?(Address)
-    Object.send(:remove_const, :Song)               if defined?(Song)
-    Object.send(:remove_const, :Tag)                if defined?(Tag)
-    Object.send(:remove_const, :TagMapper)          if defined?(TagMapper)
-    Object.send(:remove_const, :SongTagMapper)      if defined?(SongTagMapper)
-    Object.send(:remove_const, :SongMapper)         if defined?(SongMapper)
-    Object.send(:remove_const, :Order)              if defined?(Order)
-    Object.send(:remove_const, :OrderMapper)        if defined?(OrderMapper)
-    Object.send(:remove_const, :UserMapper)         if defined?(UserMapper)
+  config.after(:all) do
+
+    [ Mapper.descendants + Mapper::Relation.descendants ].flatten.uniq.each do |klass|
+      name = klass.name
+
+      const, parent =
+        if name =~ /::/
+          [ name.split('::').last, klass.model ]
+        else
+          [ name.to_sym, Object ]
+        end
+
+      next unless parent
+
+      if parent.const_defined?(const)
+        parent.send(:remove_const, const)
+      end
+    end
+
     DataMapper::Mapper.instance_variable_set('@descendants', [])
-    DataMapper::Mapper::Relation::Base.instance_variable_set('@descendants', [])
+    DataMapper::Mapper::Relation.instance_variable_set('@descendants', [])
+
+    DataMapper.engines.each do |name, engine|
+      engine.instance_variable_set(:@relations, engine.relations.class.new(engine))
+    end
+
+    DataMapper::Mapper.instance_variable_set(:@relations, nil)
+
+    DataMapper.mapper_registry.instance_variable_set(:@mappers, {})
+
+    DataMapper.instance_variable_set(:@finalized, false)
   end
 
   config.before do

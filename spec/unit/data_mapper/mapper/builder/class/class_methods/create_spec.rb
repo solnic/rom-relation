@@ -15,18 +15,18 @@ describe DataMapper::Mapper::Builder::Class, '.create' do
   context "without a block" do
     let(:block) { nil }
 
-    specify { subject.should < DataMapper::Mapper::Relation::Base }
+    specify { subject.should < DataMapper::Mapper::Relation }
 
     its(:name)          { should eql("TestModelMapper") }
     its(:model)         { should be(model) }
-    its(:relation_name) { should eql("test_models") }
+    its(:relation_name) { should eql(:test_models) }
     its(:repository)    { should be(repository) }
   end
 
   context "with a block" do
     let(:block) { Proc.new { relation_name(:foo) } }
 
-    it "instance eval the block" do
+    it "instance evals the block" do
       subject.relation_name.should be(:foo)
     end
   end

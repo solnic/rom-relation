@@ -4,48 +4,75 @@ module DataMapper
 
       class Has
 
-        include Builder
-
-        def self.build(source, cardinality, name, *args, &op)
-          new(source, cardinality, name, *args, &op).relationship
-        end
-
-        def initialize(source, cardinality, name, *args, &op)
-          options = Utils.extract_options(args)
-          via     = options[:through]
-
+        # Build a {OneToOne}, {OneToMany} or {ManyToMany} relationship
+        #
+        # @see Relationship::OneToMany
+        # @see Relationship::OneToOne
+        # @see Relationship::ManyToMany
+        #
+        # TODO: add specs
+        #
+        # @param [Mapper] source
+        #   the mapper establishing this relationship
+        #
+        # @param [Fixnum, Range] cardinality
+        #   the relationship's cardinality
+        #
+        # @param [Symbol] name
+        #   the relationship's name
+        #
+        # @param [::Class] target_model
+        #   the class of the object this relationship is pointing to
+        #
+        # @param [Hash] options
+        #   the relationship's options
+        #
+        # @option options [Symbol, Array<Symbol>] :source_key
+        #   the source_model's attributes to join on
+        #
+        # @option options [Symbol, Array<Symbol>] :target_key
+        #   the target_model's attributes to join on
+        #
+        # @option options [Symbol] :through
+        #   the name of the relationship to "go through" in case of M:N
+        #
+        # @return [OneToMany, OneToOne, ManyToMany]
+        #
+        # @api private
+        def self.build(source, cardinality, name, target_model, options = {}, &op)
+          via      = options[:through]
           min, max = extract_min_max(cardinality, name)
-          options.update(:min => min, :max => max)
 
-          if max == 1 && via
-            @relationship = source.relationships[via].inherit(name, op)
-            return
-          end
+          options.update(:min => min, :max => max, :operation => op)
 
-          options      = options.merge(:operation => op)
-          target_model = Utils.extract_type(args)
-
-          options_class =
+          klass =
             if max > 1
               if via
-                Relationship::Options::ManyToMany
+                Relationship::ManyToMany
               else
-                Relationship::Options::OneToMany
+                Relationship::OneToMany
               end
             else
-              Relationship::Options::OneToOne
+              Relationship::OneToOne
             end
 
-          options = options_class.new(name, source.model, target_model, options)
-
-          options.validate
-
-          @relationship = options.type.new(options)
+          klass.new(name, source.model, target_model, options)
         end
 
-        private
-
-        def extract_min_max(cardinality, name = nil)
+        # Extract the upper and lower bounds from the given cardinality
+        #
+        # TODO: refactor
+        #
+        # @param [Fixnum, Range] cardinality
+        #   the cardinality to extract min/max from
+        #
+        # @param [Symbol, String] name
+        #   the relationship name used for better error message
+        #
+        # @return [Array(Fixnum, Fixnum)]
+        #
+        # @api private
+        def self.extract_min_max(cardinality, name = nil)
           case cardinality
           when Integer  then [ cardinality,       cardinality      ]
           when Range    then [ cardinality.first, cardinality.last ]
@@ -60,6 +87,9 @@ module DataMapper
             raise ArgumentError, message
           end
         end
+
+        private_class_method :extract_min_max
+
       end # class BelongsTo
     end # module Builder
   end # class Relationship

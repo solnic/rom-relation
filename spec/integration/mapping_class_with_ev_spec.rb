@@ -17,7 +17,7 @@ describe 'PORO with an embedded value' do
         @street, @city, @zipcode = attributes
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         Address
         relation_name :addresses
@@ -39,7 +39,7 @@ describe 'PORO with an embedded value' do
         @address = Address.new(*attributes.values_at(:street, :city, :zipcode))
       end
 
-      class Mapper < DataMapper::Mapper::Relation::Base
+      class Mapper < DataMapper::Mapper::Relation
 
         model         User
         relation_name :users
@@ -58,14 +58,14 @@ describe 'PORO with an embedded value' do
   end
 
   let(:operation) do
-    left  = DataMapper.relation_registry[:users]
-    right = DataMapper.relation_registry[:addresses]
+    left  = User::Mapper.relations[:users].relation
+    right = Address::Mapper.relations[:addresses].relation
 
     left.join(right).restrict { |r| r.id.eq(r.user_id) }
   end
 
   it 'loads a user with an address' do
-    mapper = User::Mapper.new(operation.optimize)
+    mapper = User::Mapper.new(operation)
     users  = mapper.to_a
 
     user1, user2 = users
