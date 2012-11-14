@@ -56,7 +56,7 @@ module DataMapper
         edge = @relations.edge_for(left, right)
 
         unless edge
-          edge = @relations.build_edge(name, left, right, key_map(left, right))
+          edge = @relations.build_edge(name, left, right, join_key_map)
           @relations.add_edge(edge)
         end
 
@@ -90,11 +90,11 @@ module DataMapper
       end
 
       def node_name_set
-        NodeNameSet.new(@relationship, source_relationships, relation_map)
+        NodeNameSet.new(@relationship, @mappers)
       end
 
-      def key_map(left, right)
-        JoinKeyMap.new(left, right, left_key, right_key)
+      def join_key_map
+        JoinKeyMap.new(left_key, right_key)
       end
 
       def nodes(node_name)
@@ -127,10 +127,6 @@ module DataMapper
 
       def relationship(node_name)
         source_relationships[node_name.relationship.name]
-      end
-
-      def relation_map
-        @mappers.relation_map
       end
     end # class Builder
   end # class RelationRegistry

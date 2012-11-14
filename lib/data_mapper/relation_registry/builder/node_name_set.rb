@@ -7,33 +7,21 @@ module DataMapper
       class NodeNameSet
         include Enumerable
 
-        # A hash returned from {MapperRegistry#relation_map}
-        #
-        # @see MapperRegistry#relation_map
-        #
-        # @return [Hash{Class => Symbol}]
-        #
-        # @api private
-        attr_reader :relations
-
         # Initializes a node name set
         #
         # @param [Relationship] relationship
         #   the relationship used to define the set
         #
-        # @param [Mapper::RelationshipSet] relationship_set
-        #   set of source model relationships
-        #
-        # @param [Hash{Class => Symbol}] relations
-        #   a hash returned from {MapperRegistry#relation_map}
+        # @param [MapperRegistry] mapper_registry
+        #   the registry containing all mappers
         #
         # @return [undefined]
         #
         # @api private
-        def initialize(relationship, relationship_set, relations)
+        def initialize(relationship, mapper_registry)
           @relationship     = relationship
-          @relationship_set = relationship_set
-          @relations        = relations
+          @relationship_set = source_relationship_set(mapper_registry)
+          @relations        = mapper_registry.relation_map
           @relation_names   = relation_names
         end
 
@@ -81,19 +69,22 @@ module DataMapper
 
         # @api private
         def source
-          relations[@relationship.source_model]
+          @relations[@relationship.source_model]
         end
 
         # @api private
         def rel_map(relationship = @relationship, relationships = [])
           via = @relationship_set[relationship.through]
           rel_map(via, relationships) if via
-          relationships << [ relations[relationship.target_model], relationship ]
+          relationships << [ @relations[relationship.target_model], relationship ]
           relationships
         end
 
+        # @api private
+        def source_relationship_set(mapper_registry)
+          mapper_registry[@relationship.source_model].relationships
+        end
       end # class NodeNameSet
-
     end # class Builder
   end # class RelationRegistry
 end # module DataMapper
