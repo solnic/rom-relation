@@ -74,10 +74,11 @@ module DataMapper
       # @return [self]
       #
       # @api public
-      def <<(object)
-        @relation << object
+      def insert(tuple)
+        @relation.insert(tuple)
         self
       end
+      alias_method :<<, :insert
 
     end # class RelationNode
 

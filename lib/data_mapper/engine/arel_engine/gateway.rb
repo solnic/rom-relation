@@ -31,6 +31,16 @@ module DataMapper
           new(relation.where(*args))
         end
 
+        def insert(tuple)
+          binds = tuple.to_a.map { |a| [ relation[a.first], a.last ] }
+          im    = relation.create_insert
+
+          im.into(relation)
+          im.insert(binds)
+
+          relation.engine.connection.insert(im, 'SQL')
+        end
+
         private
 
         def read
