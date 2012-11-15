@@ -37,10 +37,16 @@ describe "Inserting new objects with ARel" do
   end
 
   it "actually works ZOMG" do
-    relation = DataMapper[User].relation
+    mapper = DataMapper[User]
 
-    relation.insert(:username => 'Piotr', :age => 29)
+    user = User.new(:name => 'Piotr', :age => 29)
+    mapper.insert(user)
 
-    relation.first.should == { :id => '1', :username => 'Piotr', :age => '29' }
+    user = mapper.first
+
+    user.should be_instance_of(User)
+    user.id.should be(1)
+    user.name.should eql('Piotr')
+    user.age.should be(29)
   end
 end
