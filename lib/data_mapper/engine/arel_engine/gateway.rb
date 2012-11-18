@@ -38,7 +38,15 @@ module DataMapper
           im.into(relation)
           im.insert(binds)
 
-          relation.engine.connection.insert(im, 'SQL')
+          connection.insert(im, 'SQL')
+        end
+
+        def delete(conditions)
+          relation_to_delete = nil
+          conditions.each do |key, value|
+            relation_to_delete = relation.where(relation[key].eq(value))
+          end
+          relation_to_delete.delete
         end
 
         private
@@ -49,6 +57,10 @@ module DataMapper
 
         def to_sql
           relation.project(header.map(&:name).join(', ')).to_sql
+        end
+
+        def connection
+          relation.engine.connection
         end
 
       end # class Gateway

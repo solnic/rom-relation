@@ -80,6 +80,12 @@ module DataMapper
       end
       alias_method :<<, :insert
 
+      # @api public
+      def delete(key)
+        @relation.delete(key)
+        self
+      end
+
     end # class RelationNode
 
   end # class RelationRegistry
