@@ -1,11 +1,12 @@
 source :rubygems
 
+gemspec
+
 gem 'dm-mapper', :path => '.'
 
 gem 'rake'
 gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 gem 'abstract_class',        :github => 'dkubb/abstract_class'
-gem 'equalizer',             :github => 'dkubb/equalizer'
 gem 'inflector',             :github => 'mbj/inflector'
 
 gem 'veritas',               :github => 'dkubb/veritas', :ref => '484abe89e9fb627a102852b6700c49fda3ac2786'
