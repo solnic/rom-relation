@@ -12,4 +12,6 @@ Gem::Specification.new do |gem|
   gem.version       = DataMapper::Mapper::VERSION
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
+
+  gem.add_dependency 'equalizer', '~> 0.0.1'
 end

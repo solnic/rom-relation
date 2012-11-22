@@ -62,14 +62,18 @@ module DataMapper
       # @api private
       def merge(other)
         instance = self.class.new
-        each       { |attribute| instance << attribute.clone }
-        other.each { |attribute| instance << attribute.clone }
+
+        operation = lambda { |attribute| instance << attribute.clone }
+
+        each(&operation)
+        other.each(&operation)
+
         instance
       end
 
       # Return an AttributeSet matching the given aliases
       #
-      # TODO find a better name and implementation
+      # TODO rename to #rename and find a better implementation
       #
       # @param [Hash] aliases
       #
@@ -86,7 +90,9 @@ module DataMapper
           end
         end
 
-        each { |attribute| instance << attribute.clone unless instance[attribute.name] }
+        each do |attribute|
+          instance << attribute.clone unless instance[attribute.name]
+        end
 
         instance
       end

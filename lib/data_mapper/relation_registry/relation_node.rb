@@ -9,9 +9,6 @@ module DataMapper
     # TODO: add #delete
     #
     class RelationNode < Graph::Node
-
-      include AbstractClass
-
       include Enumerable, Equalizer.new(:name, :relation)
 
       # Instance of the engine's relation class
@@ -66,24 +63,28 @@ module DataMapper
       #
       # @example
       #
-      #   tuple = { :id => 1, :name => 'John' }
-      #   DataMapper.engines[:default].relations[:people] << tuple
+      #   tuple = { :name => 'John' }
+      #   DataMapper.engines[:postgres].relations[:people].insert(tuple)
       #
       # @param [Object]
-      #
-      # @return [self]
       #
       # @api public
       def insert(tuple)
         @relation.insert(tuple)
-        self
       end
       alias_method :<<, :insert
 
+      # Deletes an object identified with the given key from the relation
+      #
+      # @example
+      #
+      #   DataMapper.engines[:postgres].relations[:people].delete(1)
+      #
+      # @param [Object] key attribute
+      #
       # @api public
       def delete(key)
         @relation.delete(key)
-        self
       end
 
     end # class RelationNode
