@@ -11,12 +11,12 @@ describe Relationship, '#via' do
   context 'when :via is not present in options' do
     let(:options) { {} }
 
-    it { should be(nil) }
+    it { should be_empty }
   end
 
   context 'when :via is present in options' do
     let(:options) { { :via => via } }
-    let(:via)     { :song_tags }
+    let(:via)     { [ :song_tags ] }
 
     it { should be(via) }
   end

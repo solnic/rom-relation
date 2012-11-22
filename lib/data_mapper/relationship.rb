@@ -118,11 +118,26 @@ module DataMapper
       @target_key   = options[:target_key] || default_target_key
 
       @through      = options[:through]
-      @via          = options[:via]
+      @via          = options.fetch(:via, [])
       @operation    = options[:operation]
 
       @min = options.fetch(:min, 1)
       @max = options.fetch(:max, 1)
+    end
+
+    # @api public
+    def via_name
+      @via
+    end
+
+    # @api public
+    def via_source_key
+      @via[1]
+    end
+
+    # @api public
+    def via_target_key
+      @via[2]
     end
 
     # Returns default name of the source key
