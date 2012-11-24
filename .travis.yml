@@ -11,12 +11,11 @@ rvm:
   - rbx-18mode
   - rbx-19mode
   - ruby-head
-  - jruby-head
 matrix:
   allow_failures:
     - rvm: ruby-head
-    - rvm: jruby-19mode
     - rvm: rbx-18mode
+    - rvm: jruby-head
 before_script:
   - psql -c 'create database "dm-mapper_test";' -U postgres
 notifications:
