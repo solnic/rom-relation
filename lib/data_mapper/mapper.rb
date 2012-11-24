@@ -280,7 +280,12 @@ module DataMapper
       @relationships = self.class.relationships
     end
 
-    # Loads a domain object
+    # @api private
+    def unique_alias(name, scope)
+      self.class.unique_alias(name, scope)
+    end
+
+    # Load a domain object
     #
     # @example
     #   mapper = DataMapper[User]

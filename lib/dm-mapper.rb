@@ -163,6 +163,7 @@ require 'data_mapper/mapper/attribute/embedded_collection'
 require 'data_mapper/mapper/attribute_set'
 
 require 'data_mapper/mapper'
+require 'data_mapper/mapper/load_strategy'
 require 'data_mapper/mapper/relation'
 
 require 'data_mapper/mapper/builder'
