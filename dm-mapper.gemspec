@@ -13,5 +13,7 @@ Gem::Specification.new do |gem|
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
-  gem.add_dependency 'equalizer', '~> 0.0.1'
+  gem.add_dependency 'adamantium',          '~> 0.0.3'
+  gem.add_dependency 'equalizer',           '~> 0.0.1'
+  gem.add_dependency 'descendants_tracker', '~> 0.0.1'
 end

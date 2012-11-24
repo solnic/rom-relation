@@ -5,7 +5,6 @@ gemspec
 gem 'dm-mapper', :path => '.'
 
 gem 'rake'
-gem 'descendants_tracker',   :github => 'dkubb/descendants_tracker'
 gem 'abstract_class',        :github => 'dkubb/abstract_class'
 gem 'inflector',             :github => 'mbj/inflector'
 
