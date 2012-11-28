@@ -3,4 +3,7 @@ Gemfile.lock
 tmp/
 coverage/
 measurements/
+graphviz/
 .yardoc/
+.bundle/
+*.png
