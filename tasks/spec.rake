@@ -1,5 +1,8 @@
 begin
 
+  # Fix some warnings
+  ::Config = RbConfig unless defined?(::Config)
+
   begin
     require 'rspec/core/rake_task'
   rescue LoadError
