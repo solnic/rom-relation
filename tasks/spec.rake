@@ -16,7 +16,7 @@ begin
   end
 
   desc 'run all specs'
-  task :spec => %w[ spec:unit spec:integration ]
+  task :spec => %w[ spec:unit spec:integration spec:isolation ]
 
   namespace :spec do
     RSpec::Core::RakeTask.new(:integration) do |t|
