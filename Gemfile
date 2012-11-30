@@ -12,6 +12,11 @@ gem 'veritas-sql-generator'
 gem 'veritas-do-adapter'
 gem 'virtus'
 
+group :arel_engine do
+  gem 'activerecord'
+  gem 'pg'
+end
+
 group :test do
   gem 'backports'
   gem 'do_postgres'
