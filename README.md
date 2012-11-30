@@ -1,6 +1,6 @@
 # The Mapper for DataMapper 2
 
-[![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png)](http://travis-ci.org/solnic/dm-mapper)
+[![Build Status](https://secure.travis-ci.org/solnic/dm-mapper.png?branch=master)](http://travis-ci.org/solnic/dm-mapper)
 
 The mapper supports mapping data from any data source into Ruby objects based on
 mapper definitions. It uses engines that implement common interface for CRUD
