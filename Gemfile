@@ -7,9 +7,9 @@ gem 'dm-mapper', :path => '.'
 gem 'rake'
 gem 'inflector',             :github => 'mbj/inflector'
 
-gem 'veritas',               :github => 'dkubb/veritas', :ref => '484abe89e9fb627a102852b6700c49fda3ac2786'
-gem 'veritas-sql-generator'
-gem 'veritas-do-adapter'
+gem 'veritas',               :github => 'dkubb/veritas'
+gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
+gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
 gem 'virtus'
 
 group :arel_engine do
