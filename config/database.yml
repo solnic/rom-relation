@@ -1,3 +1,1 @@
 postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
-mysql:    "mysql://localhost/test"
-sqlite:   "sqlite3://tmp/test.db"

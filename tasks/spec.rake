@@ -30,6 +30,10 @@ begin
     RSpec::Core::RakeTask.new(:isolation) do |t|
       t.pattern = 'spec/isolation/**/*_spec.rb'
     end
+
+    RSpec::Core::RakeTask.new(:arel) do |t|
+      t.pattern   = 'spec/arel/**/*_spec.rb'
+    end
   end
 
   namespace :ci do
