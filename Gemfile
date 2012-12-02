@@ -14,7 +14,11 @@ gem 'virtus'
 
 group :arel_engine do
   gem 'activerecord'
-  gem 'pg'
+  gem 'pg', :platforms => :ruby
+
+  platforms :jruby do
+    gem 'activerecord-jdbcpostgresql-adapter', '>= 1.2.0'
+  end
 end
 
 group :test do
