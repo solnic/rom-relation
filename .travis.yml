@@ -1,6 +1,6 @@
 language: ruby
 bundler_args: --without guard metrics
-script: "bundle exec rake ci:travis && bundle exec ENGINE=Arel rake spec:arel"
+script: "bundle exec rake ci:travis && bundle exec rake spec:arel ENGINE=Arel"
 rvm:
   - 1.8.7
   - ree
