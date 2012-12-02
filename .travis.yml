@@ -6,6 +6,7 @@ rvm:
   - ree
   - 1.9.2
   - 1.9.3
+  - 2.0.0
   - jruby-18mode
   - jruby-19mode
   - rbx-18mode
@@ -16,6 +17,7 @@ matrix:
     - rvm: ruby-head
     - rvm: rbx-18mode
     - rvm: jruby-head
+    - rvm: 2.0.0
 before_script:
   - psql -c 'create database "dm-mapper_test";' -U postgres
 notifications:
