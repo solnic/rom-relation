@@ -1,1 +1,4 @@
-postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
+Arel:
+  postgres: "postgresql://postgres@127.0.0.1/dm-mapper_test"
+Veritas:
+  postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
