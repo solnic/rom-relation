@@ -1,4 +1,5 @@
 log
+.rbx
 Gemfile.lock
 tmp/
 coverage/
