@@ -231,8 +231,8 @@ user_mapper.sort_by { |r| [ r.name, r.id ] }.to_a
 
 ## 2.0.0.alpha Roadmap
 
- * Refactor relation registry using metrics (improve test coverage too)
+ * Make rake ci pass
  * Add interface for insert/update/delete to relation graph
- * Implement ARel engine (this will support full CRUD)
- * Finish Veritas engine
+ * Add interface for preparing objects for insert/update/delete (will be used by session)
+ * Extract Veritas and Arel engines into separate gems
  * Push a release? :)
