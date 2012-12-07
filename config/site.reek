@@ -26,7 +26,14 @@ LongParameterList:
   enabled: true
   overrides: {}
 FeatureEnvy:
-  exclude: []
+  exclude: [
+    Virtus::Attribute::Boolean#value_coerced?,
+    Virtus::ClassMethods#build_attribute,
+    Virtus::Coercion::TimeCoercions#to_string,
+    Virtus::Coercion::TimeCoercions#coerce_with_method,
+    Virtus::TypeLookup#determine_type_from_primitive,
+    Virtus::ValueObject::ClassMethods#attribute
+  ]
   enabled: true
 ClassVariable:
   exclude: []
@@ -55,12 +62,17 @@ LongMethod:
   enabled: true
 Duplication:
   allow_calls: []
-  exclude: []
+  exclude: [
+    Virtus::Attribute::DefaultValue#evaluate
+  ]
   enabled: true
   max_calls: 1
 UtilityFunction:
   max_helper_calls: 1
-  exclude: []
+  exclude: [
+    Virtus::Attribute::Boolean#value_coerced?,
+    Virtus::ClassMethods#build_attribute
+  ]
   enabled: true
 Attribute:
   exclude: []
@@ -83,7 +95,9 @@ DataClump:
   max_copies: 2
   min_clump_size: 2
 ControlCouple:
-  exclude: []
+  exclude: [
+    'Virtus::InstanceMethods#initialize'
+  ]
   enabled: true
 LongYieldList:
   max_params: 1
