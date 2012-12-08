@@ -34,22 +34,23 @@ class MemoryEngine < DataMapper::Engine
   end
 end
 
-DataMapper.engines[:memory] = MemoryEngine.new
+# create DM env object
+env = DataMapper::Environment.new
+
+env.engines[:memory] = MemoryEngine.new
 
 User = Class.new(OpenStruct)
 
-class UserMapper < DataMapper::Relation::Mapper
-  repository    :memory
+env.build(User, :memory) do
   relation_name :users
-  model         User
 
   map :name, String,  :to => :UserName
   map :age,  Integer, :to => :UserAge
 end
 
-DataMapper.finalize
+env.finalize
 
-mapper = DataMapper[User]
+mapper = env[User]
 
 mapper.relations[:users] << { :UserName => 'Piotr', :UserAge => 29 }
 
@@ -67,8 +68,11 @@ ARel will only give you support for RDBMS.
 ## Establishing Connection & Defining PORO with mappers
 
 ``` ruby
+# Create DM env
+env = DataMapper::Environment.new
+
 # Setup db connection
-DataMapper.setup(:postgres, "postgres://localhost/test")
+DataMapper.setup(:postgres, "postgres://localhost/test", env)
 
 # Define a PORO
 class User
@@ -80,18 +84,15 @@ class User
 end
 
 # Define a mapper
-class Mapper < DataMapper::Relation::Mapper
-
-  model         User
+env.build(User, :postgres) do
   relation_name :users
-  repository    :postgres
 
   map :id,   Integer, :key => true
   map :name, String,  :to => :username
 end
 
 # Finalize setup
-DataMapper.finalize
+env.finalize
 ```
 
 ## Defining relationships
@@ -115,20 +116,16 @@ class User
   end
 end
 
-class OrderMapper < DataMapper::Relation::Mapper
-  model         Order
+env.build(Order, :postgres) do
   relation_name :orders
-  repository    :postgres
 
   map :id,      Integer, :key => true
   map :user_id, Integer
   map :product, String
 end
 
-class UserMapper < DataMapper::Relation::Mapper
-  model         User
+env.build(User, :postgres) do
   relation_name :users
-  repository    :postgres
 
   map :id,     Integer, :key => true
   map :name,   String,  :to => :username
@@ -142,10 +139,10 @@ class UserMapper < DataMapper::Relation::Mapper
 end
 
 # Find all users and eager-load their orders
-DataMapper[User].include(:orders).to_a
+env[User].include(:orders).to_a
 
 # Find all users and eager-load restricted apple_orders
-DataMapper[User].include(:apple_orders).to_a
+env[User].include(:apple_orders).to_a
 ```
 
 ## Model Extension and Generating Mappers
@@ -171,11 +168,13 @@ class User
   attribute :orders, Array[Order]
 end
 
-DataMapper.build(Order, :postgres) do
+env = DataMapper::Environment.new
+
+env.build(Order, :postgres) do
   key :id
 end
 
-DataMapper.build(User, :postgres) do
+env.build(User, :postgres) do
   key :id
 
   map :name, :to => :username
@@ -183,10 +182,10 @@ DataMapper.build(User, :postgres) do
   has 0..n, :orders, Order
 end
 
-DataMapper.finalize
+env.finalize
 
 # ...and you're ready to go :)
-DataMapper[User].include(:orders).to_a
+env[User].include(:orders).to_a
 ```
 
 ## Finding Objects
@@ -194,14 +193,16 @@ DataMapper[User].include(:orders).to_a
 Mappers come with a simple high-level query API similar to what you know from other Ruby ORMS:
 
 ```ruby
+env = DataMapper::Environment.new
+
 # Find all users matching criteria
-DataMapper[User].find(:age => 21)
+env[User].find(:age => 21)
 
 # Find and sort users
-DataMapper[User].find(:age => 21).order(:name, :age)
+env[User].find(:age => 21).order(:name, :age)
 
 # Get one object matching criteria
-DataMapper[User].one(:name => 'Piotr')
+env[User].one(:name => 'Piotr')
 ```
 
 ## Low-level API using underlying relations
