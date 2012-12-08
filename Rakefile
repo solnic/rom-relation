@@ -15,4 +15,7 @@ namespace :spec do
     ENV['ENGINE'] = 'Arel'
     t.pattern = 'spec/arel/**/*_spec.rb'
   end
+
+  desc "Run specs on travis"
+  task :travis => %w(spec:unit spec:integration spec:isolation spec:arel)
 end
