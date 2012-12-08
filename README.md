@@ -7,7 +7,7 @@ The mapper supports mapping data from any data source into Ruby objects based on
 mapper definitions. It uses engines that implement common interface for CRUD
 operations.
 
-## Mapper Engines
+## Engines
 
 In the most simple case a bare-bone mapper engine needs to provide a relation
 object that has a name and implements `#each` which yields objects that respond
