@@ -1,6 +1,6 @@
 # The Mapper for DataMapper 2
 
-[![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)](http://travis-ci.org/solnic/dm-mapper)
+[![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)](http://travis-ci.org/datamapper/dm-mapper)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/datamapper/dm-mapper)
 
 The mapper supports mapping data from any data source into Ruby objects based on
