@@ -16,10 +16,9 @@ matrix:
   allow_failures:
     - rvm: ruby-head
     - rvm: rbx-18mode
+    - rvm: rbx-19mode
     - rvm: jruby-head
     - rvm: 2.0.0
-    - rvm: 1.8.7
-    - rvm: ree
 before_script:
   - psql -c 'create database "dm-mapper_test";' -U postgres
 notifications:
