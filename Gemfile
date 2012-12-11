@@ -12,6 +12,7 @@ gem 'virtus'
 
 group :arel_engine do
   gem 'activerecord'
+  gem 'arel', :github => 'rails/arel'
   gem 'pg', :platforms => :ruby
 
   platforms :jruby do
