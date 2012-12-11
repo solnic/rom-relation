@@ -8,3 +8,5 @@ graphviz/
 .yardoc/
 .bundle/
 *.png
+Vagrantfile
+.vagrant

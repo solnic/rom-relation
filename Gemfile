@@ -12,6 +12,7 @@ gem 'virtus'
 
 group :arel_engine do
   gem 'activerecord'
+  gem 'arel', :github => 'rails/arel'
   gem 'pg', :platforms => :ruby
 
   platforms :jruby do
@@ -22,14 +23,11 @@ end
 group :test do
   gem 'backports'
   gem 'do_postgres'
-  gem 'do_mysql'
-  gem 'do_sqlite3'
   gem 'randexp'
   gem 'ruby-graphviz'
 end
 
 group :development do
-  gem 'devtools', :github => 'mbj/devtools'
-  gem 'mutant-melbourne'
+  gem 'devtools', :github => 'datamapper/devtools'
   eval File.read('Gemfile.devtools')
 end
