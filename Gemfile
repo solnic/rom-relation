@@ -29,6 +29,5 @@ end
 
 group :development do
   gem 'devtools', :github => 'datamapper/devtools'
-  gem 'mutant-melbourne'
   eval File.read('Gemfile.devtools')
 end
