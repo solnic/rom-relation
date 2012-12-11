@@ -2,3 +2,5 @@ arel:
   postgres: "postgresql://postgres@127.0.0.1/dm-mapper_test"
 veritas:
   postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
+mongo:
+  mongo: "mongodb://localhost/dm-mapper_test"

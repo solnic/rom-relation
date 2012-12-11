@@ -10,6 +10,9 @@ gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
 gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
 gem 'virtus'
 
+gem 'mongo'
+gem 'bson_ext', :platforms => [ :mri ]
+
 group :arel_engine do
   gem 'activerecord'
   gem 'arel', :github => 'rails/arel'
