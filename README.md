@@ -1,6 +1,7 @@
 # Mapper
 
 [![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)](http://travis-ci.org/datamapper/dm-mapper)
+[![Dependency Status](https://gemnasium.com/datamapper/dm-mapper.png)](https://gemnasium.com/datamapper/dm-mapper)
 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/datamapper/dm-mapper)
 
 The mapper supports mapping data from any data source into Ruby objects based on
