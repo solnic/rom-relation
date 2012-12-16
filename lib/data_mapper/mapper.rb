@@ -4,6 +4,7 @@ module DataMapper
   #
   class Mapper
     include Enumerable
+    include SessionInterface
     extend DescendantsTracker, Options
 
     accept_options :model, :environment
@@ -61,6 +62,11 @@ module DataMapper
       end
 
       klass
+    end
+
+    # @api public
+    def self.clone
+      from(self)
     end
 
     # Sets a mapping attribute
@@ -135,7 +141,7 @@ module DataMapper
     #
     # @api public
     def load(tuple)
-      @model.new(@attributes.load(tuple))
+      model.new(attributes.load(tuple))
     end
 
     # Dumps a domain object

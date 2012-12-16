@@ -23,6 +23,7 @@ require 'support/options'
 
 require 'data_mapper/environment'
 
+require 'data_mapper/mapper/session_interface'
 require 'data_mapper/mapper/attribute'
 require 'data_mapper/mapper/attribute/primitive'
 require 'data_mapper/mapper/attribute/embedded_value'

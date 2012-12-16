@@ -55,7 +55,6 @@ module DataMapper
       # @api private
       def finalize_mapper(mapper)
         mapper_registry << mapper.new(mapper.relations.node_for(mapper.gateway_relation))
-        mapper.freeze
       end
     end # class BaseRelationMapperFinalizer
   end # class Finalizer
