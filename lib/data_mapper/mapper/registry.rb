@@ -102,6 +102,7 @@ module DataMapper
       def [](model, relationships = [])
         @mappers[Identifier.new(model, relationships)]
       end
+      alias_method :fetch, :[]
 
       # Registers a new mapper instance
       #
