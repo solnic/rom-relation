@@ -1,5 +1,3 @@
-require 'veritas'
-
 module DataMapper
   class Engine
     module Veritas
@@ -24,7 +22,7 @@ module DataMapper
           renamed_aliases  = aliases.rename(new_aliases)
           renamed_relation = relation.rename(renamed_aliases)
 
-          self.class.new(name, renamed_relation, renamed_aliases)
+          new(name, renamed_relation, renamed_aliases)
         end
 
         # Joins two nodes
@@ -45,7 +43,7 @@ module DataMapper
           joined_aliases  = aliases.join(other.aliases, join_definition)
           joined_relation = join_relation(other, joined_aliases)
 
-          self.class.new(name, joined_relation, joined_aliases)
+          new(name, joined_relation, joined_aliases)
         end
 
         # Returns header for the veritas relation
@@ -73,7 +71,7 @@ module DataMapper
         #
         # @api public
         def restrict(*args, &block)
-          self.class.new(name, relation.restrict(*args, &block), aliases)
+          new(name, relation.restrict(*args, &block), aliases)
         end
 
         # Sorts the relation and returns new node
@@ -89,7 +87,7 @@ module DataMapper
         # @api public
         def order(*attributes)
           sorted = relation.sort_by { |r| attributes.map { |attribute| r.send(attribute) } }
-          self.class.new(name, sorted, aliases)
+          new(name, sorted, aliases)
         end
 
         # Sorts relation and returns new node
@@ -106,7 +104,7 @@ module DataMapper
         #
         # @api public
         def sort_by(&block)
-          self.class.new(name, relation.sort_by(&block), aliases)
+          new(name, relation.sort_by(&block), aliases)
         end
 
         private

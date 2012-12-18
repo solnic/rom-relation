@@ -68,13 +68,6 @@ module DataMapper
           self
         end
 
-        # Returns new gateway instance
-        #
-        # @api private
-        def new(relation, header = @header)
-          self.class.new(name, relation, header)
-        end
-
         # Returns restricted relation
         #
         # @api public
@@ -83,6 +76,11 @@ module DataMapper
             restriction = yield(restriction) if block_given?
             new(restriction)
           }
+        end
+
+        # @api public
+        def order(*fields)
+          new(relation.order(*fields))
         end
 
         # Apply limit to the relation
@@ -110,12 +108,22 @@ module DataMapper
         # @api public
         def insert(tuple)
           binds = tuple.to_a.map { |a| [ relation[a.first], a.last ] }
-          im    = relation.create_insert
+          stmt  = relation.create_insert
 
-          im.into(relation)
-          im.insert(binds)
+          stmt.into(relation)
+          stmt.insert(binds)
 
-          connection.insert(im, 'SQL')
+          connection.insert(stmt, 'SQL')
+        end
+
+        def update(conditions, tuple)
+          binds = tuple.to_a.map { |a| [ relation[a.first], a.last ] }
+
+          stmt = with_restriction(conditions) { |restriction|
+            restriction.compile_update(binds)
+          }
+
+          connection.update(stmt, 'SQL')
         end
 
         # Deletes a row matching given criteria
@@ -123,6 +131,31 @@ module DataMapper
         # @api public
         def delete(conditions)
           with_restriction(conditions) { |restriction| restriction.delete }
+        end
+
+        # @api public
+        def join(other, keys)
+          new(relation.clone.join(other.relation).on(keys))
+        end
+
+        # @api public
+        def on(keys)
+          new(relation.on(keys))
+        end
+
+        # @api public
+        def project(header)
+          new(relation, header)
+        end
+
+        # @api public
+        def [](name)
+          relation[name]
+        end
+
+        # @api public
+        def where(conditions)
+          new(relation.where(conditions))
         end
 
         private
@@ -155,6 +188,13 @@ module DataMapper
             restriction = restriction.where(relation[key].eq(value))
           end
           yield(restriction)
+        end
+
+        # Returns new gateway instance
+        #
+        # @api private
+        def new(relation, header = @header)
+          self.class.new(name, relation, header)
         end
 
       end # class Gateway

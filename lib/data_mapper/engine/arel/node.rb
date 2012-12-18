@@ -8,17 +8,15 @@ module DataMapper
         include Enumerable
 
         def self.aliasing_strategy
-          Relation::Graph::Node::Aliases::Strategy::InnerJoin
+          Relation::Aliases::Strategy::InnerJoin
         end
 
         private_class_method :aliasing_strategy
 
-        alias_method :gateway, :relation
-
         # @api public
         def each(&block)
           return to_enum unless block_given?
-          gateway.each do |row|
+          relation.each do |row|
             yield(Hash[row.map { |key, value| [ key.to_sym, value ] }])
           end
           self
@@ -26,22 +24,27 @@ module DataMapper
 
         # @api public
         def [](name)
-          gateway.relation[name]
+          relation[name]
         end
 
         # @api public
         def restrict(query, &block)
-          self.class.new(name, gateway.restrict(query.to_h, &block), aliases)
+          new(name, relation.restrict(query.to_h, &block), aliases)
+        end
+
+        # @api public
+        def order(*fields)
+          new(name, relation.order(*fields.map { |field| relation[field] }))
         end
 
         # @api public
         def take(amount)
-          self.class.new(name, gateway.take(amount), aliases)
+          new(name, relation.take(amount), aliases)
         end
 
         # @api public
         def skip(offset)
-          self.class.new(name, gateway.skip(offset), aliases)
+          new(name, relation.skip(offset), aliases)
         end
 
         # @api public
