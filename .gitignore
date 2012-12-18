@@ -1,6 +1,6 @@
 log
-.rbx
-.rbc
+*.rbx
+*.rbc
 Gemfile.lock
 tmp/
 coverage/
