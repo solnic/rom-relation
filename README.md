@@ -69,12 +69,6 @@ ARel will only give you support for RDBMS.
 ## Establishing Connection & Defining PORO with mappers
 
 ``` ruby
-# Create DM env
-env = DataMapper::Environment.new
-
-# Setup db connection
-DataMapper.setup(:postgres, "postgres://localhost/test", env)
-
 # Define a PORO
 class User
   attr_reader :id, :name
@@ -84,6 +78,9 @@ class User
   end
 end
 
+# Create DM env
+env = DataMapper::Environment.new
+
 # Define a mapper
 env.build(User, :postgres) do
   relation_name :users
@@ -92,7 +89,10 @@ env.build(User, :postgres) do
   map :name, String,  :to => :username
 end
 
-# Finalize setup
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
+# Finalize the environment
 env.finalize
 ```
 
@@ -117,6 +117,9 @@ class User
   end
 end
 
+# Create DM env
+env = DataMapper::Environment.new
+
 env.build(Order, :postgres) do
   relation_name :orders
 
@@ -138,6 +141,12 @@ env.build(User, :postgres) do
     restrict { |r| r.product.eq('Apple') }
   end
 end
+
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
+# Finalize the environment
+env.finalize
 
 # Find all users and eager-load their orders
 env[User].include(:orders).to_a
@@ -169,6 +178,7 @@ class User
   attribute :orders, Array[Order]
 end
 
+# Create DM env
 env = DataMapper::Environment.new
 
 env.build(Order, :postgres) do
@@ -183,6 +193,10 @@ env.build(User, :postgres) do
   has 0..n, :orders, Order
 end
 
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
+# Finalize the environment
 env.finalize
 
 # ...and you're ready to go :)
@@ -194,8 +208,6 @@ env[User].include(:orders).to_a
 Mappers come with a simple high-level query API similar to what you know from other Ruby ORMS:
 
 ```ruby
-env = DataMapper::Environment.new
-
 # Find all users matching criteria
 env[User].find(:age => 21)
 
