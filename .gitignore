@@ -3,6 +3,7 @@ log
 *.rbc
 Gemfile.lock
 tmp/
+doc/
 coverage/
 measurements/
 graphviz/
