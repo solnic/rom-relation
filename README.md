@@ -226,20 +226,17 @@ API will be built on top of that.
 Mappers are enumerables so it should feel natural when working with them.
 
 ```ruby
-# Grab the user mapper instance and have fun
-user_mapper = env[User]
-
 # Get them all
-user_mapper.to_a
+env[User].to_a
 
 # Iterate on all users
-user_mapper.each { |user| puts user.name }
+env[User].each { |user| puts user.name }
 
 # Restrict
-user_mapper.restrict { |relation| relation.name.eq('John') }.to_a
+env[User].restrict { |relation| relation.name.eq('John') }.to_a
 
 # Sort by
-user_mapper.sort_by { |r| [ r.name, r.id ] }.to_a
+env[User].sort_by { |r| [ r.name, r.id ] }.to_a
 ```
 
 ## 2.0.0.alpha Roadmap
