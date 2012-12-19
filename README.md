@@ -215,7 +215,7 @@ Mappers are enumerables so it should feel natural when working with them.
 
 ```ruby
 # Grab the user mapper instance and have fun
-user_mapper = DataMapper[User]
+user_mapper = env[User]
 
 # Get them all
 user_mapper.to_a
