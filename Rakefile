@@ -10,7 +10,7 @@ namespace :spec do
   %w(in_memory veritas arel mongo).each do |engine|
     RSpec::Core::RakeTask.new(engine) do |t|
       ENV['ENGINE'] = engine
-      t.pattern = "spec/integration/#{engine}/*_spec.rb"
+      t.pattern = "spec/integration/#{engine}/**/*_spec.rb"
     end
   end
 
