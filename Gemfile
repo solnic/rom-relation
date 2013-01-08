@@ -26,7 +26,6 @@ group :arel_engine do
 end
 
 group :test do
-  gem 'backports'
   gem 'do_postgres'
   gem 'randexp'
   gem 'ruby-graphviz'
