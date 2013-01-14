@@ -4,6 +4,8 @@ gemspec
 
 gem 'dm-mapper', :path => '.'
 
+gem 'adamantium', :github => 'dkubb/adamantium'
+
 group :veritas do
   gem 'veritas',               :github => 'dkubb/veritas'
   gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
