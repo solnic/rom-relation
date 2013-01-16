@@ -4,7 +4,7 @@ gemspec
 
 gem 'dm-mapper', :path => '.'
 
-gem 'adamantium', '~> 0.0.4'
+gem 'adamantium', :github => 'dkubb/adamantium'
 
 group :veritas do
   gem 'veritas',               :github => 'dkubb/veritas'
