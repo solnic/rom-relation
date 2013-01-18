@@ -5,6 +5,7 @@ gemspec
 gem 'dm-mapper', :path => '.'
 
 gem 'adamantium', :github => 'dkubb/adamantium'
+gem 'equalizer',  :github => 'dkubb/equalizer'
 
 group :veritas do
   gem 'veritas',               :github => 'dkubb/veritas'
