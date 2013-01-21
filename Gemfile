@@ -29,7 +29,7 @@ group :arel_engine do
 end
 
 group :test do
-  gem 'do_postgres'
+  gem 'do_postgres', '~> 0.10.12'
   gem 'randexp'
   gem 'ruby-graphviz'
   gem 'virtus'
