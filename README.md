@@ -81,6 +81,9 @@ end
 # Create DM env
 env = DataMapper::Environment.new
 
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
 # Define a mapper
 env.build(User, :postgres) do
   relation_name :users
@@ -88,9 +91,6 @@ env.build(User, :postgres) do
   map :id,   Integer, :key => true
   map :name, String,  :to => :username
 end
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
 
 # Finalize the environment
 env.finalize
@@ -120,6 +120,9 @@ end
 # Create DM env
 env = DataMapper::Environment.new
 
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
 env.build(Order, :postgres) do
   relation_name :orders
 
@@ -141,9 +144,6 @@ env.build(User, :postgres) do
     restrict { |r| r.product.eq('Apple') }
   end
 end
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
 
 # Finalize the environment
 env.finalize
@@ -181,6 +181,9 @@ end
 # Create DM env
 env = DataMapper::Environment.new
 
+# Setup db connection
+env.setup(:postgres, :uri => 'postgres://localhost/test')
+
 env.build(Order, :postgres) do
   key :id
 end
@@ -192,9 +195,6 @@ env.build(User, :postgres) do
 
   has 0..n, :orders, Order
 end
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
 
 # Finalize the environment
 env.finalize
