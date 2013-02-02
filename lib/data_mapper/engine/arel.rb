@@ -1,4 +1,4 @@
-require 'active_record'
+require 'data_objects/arel'
 
 require 'data_mapper/engine'
 require 'data_mapper/engine/arel/engine'
