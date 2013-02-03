@@ -14,7 +14,7 @@ describe Engine::Arel::Engine, "#initialize" do
 
   before do
     engine_class.should_receive(:establish_connection).
-      with(:adapter => adapter, :database => db, :username => username, :password => password)
+      with(hash_including(:uri))
   end
 
   its(:arel_engines) { should eql({}) }
