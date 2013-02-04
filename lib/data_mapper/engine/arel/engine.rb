@@ -12,7 +12,7 @@ module DataMapper
         attr_reader :arel_engines
 
         # @api private
-        def initialize(uri, arel_engine_class = ActiveRecord::Base)
+        def initialize(uri, arel_engine_class = ::DataObjects::Arel::Base)
           super(uri)
           @arel_engine_class = arel_engine_class
           establish_connection
@@ -48,12 +48,11 @@ module DataMapper
 
         # @api private
         def establish_connection
-          arel_engine_class.establish_connection(
-            :adapter  => uri.scheme,
-            :database => uri.path.sub(/^\//, ''),
-            :username => uri.user,
-            :password => uri.password
-          )
+          arel_engine_class.establish_connection(:uri => uri)
+          #  :adapter  => uri.scheme,
+          #  :database => uri.path.sub(/^\//, ''),
+          #  :username => uri.user,
+          #  :password => uri.password
         end
 
         # @api private

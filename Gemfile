@@ -19,13 +19,14 @@ group :mongo do
 end
 
 group :arel_engine do
-  gem 'activerecord'
-  gem 'arel', :github => 'rails/arel'
-  gem 'pg', :platforms => :ruby
+  gem 'arel',                   :github => 'rails/arel'
+  gem 'arel_do_engine',         :github => 'myabc/arel_do_engine', :branch => 'master'
+end
 
-  platforms :jruby do
-    gem 'activerecord-jdbcpostgresql-adapter', '>= 1.2.0'
-  end
+group :arel_engine_activerecord do
+  gem 'activerecord'
+  gem 'pg', :platforms => :ruby
+  gem 'activerecord-jdbcpostgresql-adapter', '>= 1.2.0', :platforms => :jruby
 end
 
 group :test do
