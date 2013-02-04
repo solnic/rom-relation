@@ -20,7 +20,7 @@ end
 
 group :arel_engine do
   gem 'arel',                   :github => 'rails/arel'
-  gem 'arel_do_engine',         :github => 'myabc/arel_do_engine'
+  gem 'arel_do_engine',         :github => 'myabc/arel_do_engine', :branch => 'master'
 end
 
 group :arel_engine_activerecord do
