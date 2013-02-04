@@ -31,13 +31,13 @@ describe '[Arel] One To Many with generated mapper' do
 
     user1, user2 = users
 
-    expect(user1.id.to_i).to be(1)
+    expect(user1.id).to be(1)
     expect(user1.name).to eql('John')
-    expect(user1.age.to_i).to be(18)
+    expect(user1.age).to be(18)
 
-    expect(user2.id.to_i).to be(2)
+    expect(user2.id).to be(2)
     expect(user2.name).to eql('Jane')
-    expect(user2.age.to_i).to be(21)
+    expect(user2.age).to be(21)
   end
 
   it 'loads associated orders' do
