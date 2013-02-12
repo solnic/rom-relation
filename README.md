@@ -4,67 +4,10 @@
 [![Dependency Status](https://gemnasium.com/datamapper/dm-mapper.png)](https://gemnasium.com/datamapper/dm-mapper)
 [![Code Climate](https://codeclimate.com/github/datamapper/dm-mapper.png)](https://codeclimate.com/github/datamapper/dm-mapper)
 
-The mapper supports mapping data from any data source into Ruby objects based on
-mapper definitions. It uses engines that implement common interface for CRUD
-operations.
-
-## Engines
-
-In the most simple case a bare-bone mapper engine needs to provide a relation
-object that has a name and implements `#each` which yields objects that respond
-to `#[]`. That's the minimum contract.
-
-Here's an example of an in-memory engine which uses an `Array` subclass for the
-relation object and `Hash` as the class for the yielded objects.
-
-Since `Array` implements `#each` and `Hash` implements `#[]` we've got all we need:
-
-``` ruby
-class MemoryEngine < DataMapper::Engine
-
-  class Relation < Array
-    attr_reader :name
-
-    def initialize(name)
-      @name = name
-    end
-  end
-
-  def base_relation(name, header = nil)
-    Relation.new(name)
-  end
-end
-
-# create DM env object
-env = DataMapper::Environment.new
-
-env.engines[:memory] = MemoryEngine.new
-
-User = Class.new(OpenStruct)
-
-env.build(User, :memory) do
-  relation_name :users
-
-  map :name, String,  :to => :UserName
-  map :age,  Integer, :to => :UserAge
-end
-
-env.finalize
-
-mapper = env[User]
-
-mapper.relations[:users] << { :UserName => 'Piotr', :UserAge => 29 }
-
-mapper.to_a
-# [#<User name="Piotr", age=29>]
-```
-
-DataMapper 2 will come with support for [Veritas](https://github.com/dkubb/veritas)
-and [ARel](https://github.com/rails/arel) engines.
-
-Veritas is a polyglot relational algebra library which will give us ability to
-talk to different data sources and even performing cross-database joins whereas
-ARel will only give you support for RDBMS.
+The mapper supports mapping data from any data source into Ruby objects
+based on mapper definitions. It uses [veritas](https://github.com/dkubb/veritas),
+a relational algebra library which will give us the ability to talk to
+different data sources and even performing cross-database joins.
 
 ## Establishing Connection & Defining PORO with mappers
 
