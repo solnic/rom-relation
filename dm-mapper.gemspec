@@ -16,7 +16,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'addressable',         '~> 2.3.2'
   gem.add_dependency 'equalizer',           '~> 0.0.4'
   gem.add_dependency 'descendants_tracker', '~> 0.0.1'
-  gem.add_dependency 'abstract_type',       '~> 0.0.3'
+  gem.add_dependency 'abstract_type',       '~> 0.0.4'
   gem.add_dependency 'inflecto',            '~> 0.0.2'
   gem.add_dependency 'adamantium',          '~> 0.0.6'
 end
