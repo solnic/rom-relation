@@ -4,29 +4,13 @@ gemspec
 
 gem 'dm-mapper', :path => '.'
 
-gem 'adamantium', :github => 'dkubb/adamantium'
-gem 'equalizer',  :github => 'dkubb/equalizer'
-
-group :veritas do
-  gem 'veritas',               :github => 'dkubb/veritas'
-  gem 'veritas-sql-generator', :github => 'dkubb/veritas-sql-generator'
-  gem 'veritas-do-adapter',    :github => 'dkubb/veritas-do-adapter'
-end
-
-group :mongo do
-  gem 'mongo'
-  gem 'bson_ext', :platforms => [ :mri ]
-end
-
-group :arel_engine do
-  gem 'activerecord'
-  gem 'arel', :github => 'rails/arel'
-  gem 'pg', :platforms => :ruby
-
-  platforms :jruby do
-    gem 'activerecord-jdbcpostgresql-adapter', '>= 1.2.0'
-  end
-end
+gem 'adamantium',            :git => 'https://github.com/dkubb/adamantium'
+gem 'abstract_type',         :git => 'https://github.com/dkubb/abstract_type'
+gem 'descendants_tracker',   :git => 'https://github.com/dkubb/descendants_tracker'
+gem 'equalizer',             :git => 'https://github.com/dkubb/equalizer'
+gem 'veritas',               :git => 'https://github.com/snusnu/veritas'
+gem 'veritas-sql-generator', :git => 'https://github.com/dkubb/veritas-sql-generator'
+gem 'veritas-do-adapter',    :git => 'https://github.com/dkubb/veritas-do-adapter'
 
 group :test do
   gem 'do_postgres', '~> 0.10.12'
@@ -36,6 +20,6 @@ group :test do
 end
 
 group :development do
-  gem 'devtools', :github => 'datamapper/devtools'
+  gem 'devtools', :git => 'https://github.com/datamapper/devtools'
   eval File.read('Gemfile.devtools')
 end
