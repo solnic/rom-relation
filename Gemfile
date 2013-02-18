@@ -8,7 +8,7 @@ gem 'adamantium',            :git => 'https://github.com/dkubb/adamantium.git'
 gem 'abstract_type',         :git => 'https://github.com/dkubb/abstract_type.git'
 gem 'descendants_tracker',   :git => 'https://github.com/dkubb/descendants_tracker.git'
 gem 'equalizer',             :git => 'https://github.com/dkubb/equalizer.git'
-gem 'veritas',               :git => 'https://github.com/snusnu/veritas.git'
+gem 'veritas',               :git => 'https://github.com/dkubb/veritas.git'
 gem 'veritas-sql-generator', :git => 'https://github.com/dkubb/veritas-sql-generator.git'
 gem 'veritas-do-adapter',    :git => 'https://github.com/dkubb/veritas-do-adapter.git'
 
