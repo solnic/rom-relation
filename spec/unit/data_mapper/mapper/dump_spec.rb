@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataMapper::Mapper, '#dump' do
+describe Mapper, '#dump' do
   subject { object.dump(user) }
 
   let(:object) { mapper.new }

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Relation::Mapper::Builder, '#mapper' do
   subject { object.mapper }
 
-  let(:object) { described_class.new(connector) }
+  let(:object) { described_class.new(connector, DM_ENV) }
 
   let(:mapper_registry) do
     mapper_registry = DM_ENV.registry
@@ -15,9 +15,9 @@ describe Relation::Mapper::Builder, '#mapper' do
     mapper_registry
   end
 
-  let(:relations) { song_mapper.relations }
+  let(:relations) { DM_ENV.relations }
 
-  let(:song_mapper)            { mock_mapper(song_model, song_attributes, song_relationships).new(songs_relation) }
+  let(:song_mapper)            { mock_mapper(song_model, song_attributes, song_relationships).new(DM_ENV, songs_relation) }
   let(:song_model)             { mock_model('Song') }
   let(:songs_relation)         { mock_relation(:songs) }
   let(:song_attributes)        { [ songs_id, songs_title ] }
@@ -25,7 +25,7 @@ describe Relation::Mapper::Builder, '#mapper' do
   let(:songs_title)            { mock_attribute(:title, String) }
   let(:song_relationships)     { [ songs_song_tags_relationship, songs_tags_relationship ] }
 
-  let(:song_tag_mapper)        { mock_mapper(song_tag_model, song_tag_attributes, song_tag_relationships).new(song_tags_relation) }
+  let(:song_tag_mapper)        { mock_mapper(song_tag_model, song_tag_attributes, song_tag_relationships).new(DM_ENV, song_tags_relation) }
   let(:song_tag_model)         { mock_model('SongTag') }
   let(:song_tags_relation)     { mock_relation(:song_tags) }
   let(:song_tag_attributes)    { [ song_tags_song_id, song_tags_tag_id ] }
@@ -33,7 +33,7 @@ describe Relation::Mapper::Builder, '#mapper' do
   let(:song_tags_tag_id)       { mock_attribute(:tag_id,  Integer, :key => true) }
   let(:song_tag_relationships) { [ song_tags_song_relationship, song_tags_tag_relationship ] }
 
-  let(:tag_mapper)             { mock_mapper(tag_model, tag_attributes, []).new(tags_relation) }
+  let(:tag_mapper)             { mock_mapper(tag_model, tag_attributes, []).new(DM_ENV, tags_relation) }
   let(:tag_model)              { mock_model('Tag') }
   let(:tags_relation)          { mock_relation(:tags) }
   let(:tag_attributes)         { [ tags_id, tags_name ] }
@@ -48,10 +48,13 @@ describe Relation::Mapper::Builder, '#mapper' do
   before do
     mapper_registry.each do |_, mapper|
       name     = mapper.relation_name
-      relation = mapper.class.gateway_relation
-      aliases  = mapper.relations.header(name, mapper.attributes.fields)
+      repository = DM_ENV.repository(mapper.class.repository)
+      repository.register(name, mapper.attributes.header)
 
-      mapper.relations.new_node(name, relation, aliases)
+      relation = repository.get(name)
+      header  = DM_ENV.relations.header(name, mapper.attributes.fields)
+
+      DM_ENV.relations.new_node(name, relation, header)
     end
 
     mapper_registry.each do |_, mapper|
@@ -62,7 +65,7 @@ describe Relation::Mapper::Builder, '#mapper' do
 
     mapper_registry.each do |_, mapper|
       mapper.relationships.each do |relationship|
-        Relation::Graph::Connector::Builder.call(mapper.relations, mapper_registry, relationship)
+        Relation::Graph::Connector::Builder.call(DM_ENV.relations, mapper_registry, relationship)
       end
     end
 

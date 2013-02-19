@@ -3,10 +3,9 @@ module DataMapper
   # Mapper
   #
   class Mapper
-    include Enumerable
     extend DescendantsTracker, Options
 
-    accept_options :model, :environment
+    accept_options :model
 
     # The mapper's model
     #
@@ -33,13 +32,6 @@ module DataMapper
     # @api public
     attr_reader :attributes
 
-    # Return mapper's environment object
-    #
-    # @return [DataMapper::Environment]
-    #
-    # @api private
-    attr_reader :environment
-
     # Returns a new mapper class derived from the given one
     #
     # @example
@@ -52,9 +44,6 @@ module DataMapper
     # @api public
     def self.from(other, name)
       klass = Builder.define_for(other.model, self, name)
-
-      # FIXME: unify mapper building via environment
-      klass.environment(other.environment)
 
       other.attributes.each do |attribute|
         klass.attributes << attribute
@@ -112,13 +101,15 @@ module DataMapper
 
     # Initialize mapper instance using default settings from its class
     #
+    # @param [Environment] environment
+    #   the new mapper's environment
+    #
     # @return [undefined]
     #
     # @api private
     def initialize
-      @model         = self.class.model
-      @attributes    = self.class.attributes
-      @environment   = self.class.environment
+      @model      = self.class.model
+      @attributes = self.class.attributes
     end
 
     # Loads a domain object

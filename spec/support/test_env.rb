@@ -1,16 +1,19 @@
 class TestEnv < DataMapper::Environment
 
-  def initialize(*)
+  def initialize(config)
     reset_constants
     super
   end
 
-  def reset(registry = nil)
-    super
+  def reset
+    @mappers   = []
+    @registry  = Mapper::Registry.new
+    @relations = Relation::Graph.new
+    @finalized = false
+
     remove_constants
     clear_mappers
     clear_models
-    reset_engines
   end
 
   def remove_constants
@@ -50,12 +53,6 @@ class TestEnv < DataMapper::Environment
       remove_constant(model.name) if model.name && Object.const_defined?(model.name)
     end
     Model.instance_variable_set(:"@descendants", [])
-  end
-
-  def reset_engines
-    engines.each_value do |engine|
-      engine.instance_variable_set(:@relations, engine.relations.class.new(engine))
-    end
   end
 
   def register_constant(name)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DataMapper::Mapper, '#load' do
+describe Mapper, '#load' do
   subject { object.load(tuple) }
 
   let(:object) { mapper.new }

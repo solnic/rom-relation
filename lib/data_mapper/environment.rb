@@ -1,13 +1,31 @@
 module DataMapper
 
+  # The environment used to build and finalize mappers and their relations
+  #
   class Environment
 
-    # The engines registered with this instance
+    include Equalizer.new(:repositories, :registry, :relations)
+
+    # Coerce a repository config hash into an environment instance
     #
-    # @return [Hash]
+    # @example
     #
-    # @api private
-    attr_reader :engines
+    #   config = { 'test' => 'in_memory://test' }
+    #   env    = DataMapper::Environment.coerce(config)
+    #
+    # @param [Environment, Hash<#to_sym, String>] config
+    #   an environment or a hash of adapter uri strings, keyed by repository name
+    #
+    # @return [Environment]
+    #
+    # @api public
+    def self.coerce(config)
+      return config if config.kind_of?(self)
+
+      new(config.each_with_object({}) { |(name, uri), hash|
+        hash[name.to_sym] = Repository.coerce(name, Addressable::URI.parse(uri))
+      })
+    end
 
     # The mappers built with this instance
     #
@@ -23,39 +41,46 @@ module DataMapper
     # @api private
     attr_reader :registry
 
+    # The relations registered with this environment
+    #
+    # @return [Relation::Graph]
+    #
+    # @api private
+    attr_reader :relations
+
+    # The repositories setup with this environment
+    #
+    # @return [Hash<Symbol, Repository>]
+    #
+    # @api private
+    attr_reader :repositories
+
+    protected :repositories
+
+
     # Initialize a new instance
     #
-    # @param [Mapper::Registry, nil] registry
-    #   the mapper registry to use with this instance,
-    #   or a new instance in case nil was passed in.
+    # @param [Hash<Symbol, Addressable::URI>] repositories
+    #   the repository configuration for this environment
     #
     # @return [undefined]
     #
     # @api private
-    def initialize(registry = nil)
-      @engines = {}
-      reset(registry)
+    def initialize(repositories)
+      @repositories = repositories
+      @mappers      = []
+      @registry     = Mapper::Registry.new
+      @relations    = Relation::Graph.new
+      @finalized    = false
     end
 
-    # Register a new engine to use with this instance
+    # The repository with the given +name+
     #
-    # @example
+    # @return [Repository]
     #
-    #   env = DataMapper::Environment.new
-    #   env.setup(:default, :uri => 'postgres://localhost/test')
-    #
-    # @param [#to_sym] name
-    #   the name to use for the engine
-    #
-    # @param [Hash] options
-    #   the options to use for instantiating the engine
-    #
-    # @return [self]
-    #
-    # @api public
-    def setup(name, options = EMPTY_HASH)
-      engines[name.to_sym] = Engine.build(options)
-      self
+    # @api private
+    def repository(name)
+      repositories[name]
     end
 
     # Return the mapper instance for the given model class
@@ -117,8 +142,6 @@ module DataMapper
     # @api public
     def build(model, repository, &block)
       mapper = Mapper::Builder.create(model, repository, &block)
-      mapper.engine(engines[repository])
-      mapper.environment(self)
       mappers << mapper
       mapper
     end
@@ -153,17 +176,5 @@ module DataMapper
       self
     end
 
-    # Reset this instance
-    #
-    # @return [undefined]
-    #
-    # @api private
-    def reset(registry = nil)
-      @mappers   = []
-      @registry  = registry || Mapper::Registry.new
-      @finalized = false
-    end
-
   end # class Environment
-
 end # module DataMapper

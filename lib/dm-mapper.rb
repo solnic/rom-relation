@@ -13,6 +13,9 @@ module DataMapper
   # An empty frozen Hash useful for parameter default values
   EMPTY_HASH = Hash.new.freeze
 
+  # An empty frozen Array useful for parameter default values
+  EMPTY_ARRAY = [].freeze
+
   # Represent a positive, infinitely large Float number
   Infinity  = 1.0 / 0
 
@@ -22,15 +25,16 @@ require 'bigdecimal'
 require 'date'
 require 'addressable/uri'
 
+require 'veritas'
 require 'abstract_type'
 require 'descendants_tracker'
 require 'equalizer'
 require 'inflecto'
 
 require 'data_mapper/utils'
-require 'support/options'
+require 'data_mapper/support/options'
 
-require 'data_mapper/engine'
+require 'data_mapper/repository'
 require 'data_mapper/environment'
 
 require 'data_mapper/attribute'

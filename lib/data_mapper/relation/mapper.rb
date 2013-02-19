@@ -6,11 +6,20 @@ module DataMapper
     # @api public
     class Mapper < DataMapper::Mapper
 
+      include Enumerable
+
       DEFAULT_LIMIT_FOR_ONE = 2
 
       alias_method :all, :to_a
 
       accept_options :relation_name, :repository
+
+      # Return the mapper's environment object
+      #
+      # @return [Environment]
+      #
+      # @api private
+      attr_reader :environment
 
       # The relation backing this mapper
       #
@@ -58,31 +67,7 @@ module DataMapper
         klass
       end
 
-      # Returns engine for this mapper
-      #
-      # @return [Engine]
-      #
-      # @api private
-      def self.engine(engine = nil)
-        @engine ||= engine
-      end
-
-      # Returns relation registry for this mapper class
-      #
-      # @see Engine#relations
-      #
-      # @example
-      #
-      #   DataMapper::Relation::Mapper.relations
-      #
-      # @return [Graph]
-      #
-      # @api public
-      def self.relations
-        @relations ||= engine.relations
-      end
-
-      # Returns base relation for this mapper
+      # Returns relation for this mapper class
       #
       # @example
       #
@@ -92,16 +77,6 @@ module DataMapper
       #
       # @api public
       def self.relation
-        @relation ||= engine.base_relation(relation_name, attributes.header)
-      end
-
-      # Returns gateway relation for this mapper class
-      #
-      # @return [Object]
-      #
-      # @api private
-      def self.gateway_relation
-        @gateway_relation ||= engine.gateway_relation(relation)
       end
 
       # Mark the given attribute names as (part of) the key
@@ -218,6 +193,9 @@ module DataMapper
       #
       #   mapper = PersonMapper.new
       #
+      # @param [Environment] environment
+      #   the new mapper's environment
+      #
       # @param [Veritas::Relation] relation
       #   the relation to map from
       #
@@ -227,11 +205,16 @@ module DataMapper
       # @return [undefined]
       #
       # @api public
-      def initialize(relation = self.class.relation, attributes = self.class.attributes)
+      def initialize(environment, relation = default_relation(environment), attributes = self.class.attributes)
         super()
+        @environment   = environment
         @relation      = relation
         @attributes    = attributes
         @relationships = self.class.relationships
+      end
+
+      def default_relation(environment)
+        self.class.relation || environment.repository(self.class.repository).get(self.class.relation_name)
       end
 
       # Shortcut for self.class.relations
@@ -246,7 +229,7 @@ module DataMapper
       #
       # @api public
       def relations
-        self.class.relations
+        environment.relations
       end
 
       # The mapped relation's name
@@ -600,7 +583,7 @@ module DataMapper
       #
       # @api private
       def new(relation, attributes = self.attributes)
-        self.class.new(relation, attributes)
+        self.class.new(environment, relation, attributes)
       end
 
     end # class Mapper

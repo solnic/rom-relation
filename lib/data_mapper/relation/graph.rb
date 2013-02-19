@@ -5,6 +5,8 @@ module DataMapper
     #
     class Graph
 
+      include Equalizer.new(:nodes, :edges, :connectors)
+
       # The class used to represent nodes in the graph
       #
       # @example
@@ -55,17 +57,6 @@ module DataMapper
       # @api public
       attr_reader :edges
 
-      # Engine used in this registry
-      #
-      # @example
-      #
-      #   DataMapper[Person].relations.engine
-      #
-      # @return [Engine]
-      #
-      # @api public
-      attr_reader :engine
-
       # Relation node class that is used in this registry
       #
       # @see Engine#relation_node_class
@@ -110,12 +101,11 @@ module DataMapper
       # @return [undefined]
       #
       # @api private
-      def initialize(engine)
+      def initialize(node_class = self.class.node_class, edge_class = self.class.edge_class)
         @nodes      = Set.new
         @edges      = Set.new
-        @engine     = engine
-        @node_class = engine.relation_node_class
-        @edge_class = engine.relation_edge_class
+        @node_class = node_class
+        @edge_class = edge_class
         @connectors = {}
       end
 
@@ -266,7 +256,12 @@ module DataMapper
       #
       # @api private
       def node_for(relation)
-        self[relation.name.to_sym]
+        # TODO streamline this
+        if relation.respond_to?(:name)
+          self[relation.name]
+        else
+          nodes.detect { |node| node.relation == relation }
+        end
       end
 
       # Returns the edge with the given name
