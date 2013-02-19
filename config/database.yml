@@ -1,2 +1,2 @@
 postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
-test: "in_memory://tesst"
+test: "in_memory://test"
