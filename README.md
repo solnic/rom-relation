@@ -21,11 +21,9 @@ class User
   end
 end
 
-# Create DM env
-env = DataMapper::Environment.new
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
+# Create DM environment
+config = { :default => 'postgres://localhost/test' }
+env    = DataMapper::Environment.coerce(config)
 
 # Define a mapper
 env.build(User, :postgres) do
@@ -60,11 +58,9 @@ class User
   end
 end
 
-# Create DM env
-env = DataMapper::Environment.new
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
+# Create DM environment
+config = { :default => 'postgres://localhost/test' }
+env    = DataMapper::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   relation_name :orders
@@ -121,11 +117,9 @@ class User
   attribute :orders, Array[Order]
 end
 
-# Create DM env
-env = DataMapper::Environment.new
-
-# Setup db connection
-env.setup(:postgres, :uri => 'postgres://localhost/test')
+# Create DM environment
+config = { :default => 'postgres://localhost/test' }
+env    = DataMapper::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   key :id
