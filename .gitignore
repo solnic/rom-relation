@@ -12,3 +12,6 @@ graphviz/
 *.png
 Vagrantfile
 .vagrant
+
+# spiking area
+scratchpad.rb
