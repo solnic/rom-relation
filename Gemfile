@@ -14,6 +14,7 @@ gem 'veritas-do-adapter',    :git => 'https://github.com/dkubb/veritas-do-adapte
 
 group :test do
   gem 'do_postgres', '~> 0.10.12'
+  gem 'do_sqlite3'
   gem 'randexp'
   gem 'ruby-graphviz'
   gem 'virtus'
