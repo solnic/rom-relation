@@ -1,2 +1,3 @@
 postgres: "postgres://postgres@127.0.0.1/dm-mapper_test"
 test: "in_memory://test"
+sqlite3: "sqlite3:/tmp/dm-mapper_test.sqlite3"
