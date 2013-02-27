@@ -19,4 +19,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'abstract_type',       '~> 0.0.4'
   gem.add_dependency 'inflecto',            '~> 0.0.2'
   gem.add_dependency 'adamantium',          '~> 0.0.6'
+  gem.add_dependency 'backports',           '~> 2.8.2'
 end
