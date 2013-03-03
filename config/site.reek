@@ -41,7 +41,9 @@ IrresponsibleModule:
   enabled: true
 UncommunicativeModuleName:
   accept: []
-  exclude: []
+  exclude: [
+    "Veritas::Adapter::Sqlite3"
+  ]
   enabled: true
   reject:
   - !ruby/regexp /^.$/
