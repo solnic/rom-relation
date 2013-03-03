@@ -58,7 +58,9 @@ LongMethod:
   exclude: []
   enabled: true
 Duplication:
-  allow_calls: []
+  allow_calls: [
+    node_map # DataMapper::Support::Graphviz#node_map
+  ]
   exclude: []
   enabled: true
   max_calls: 1
