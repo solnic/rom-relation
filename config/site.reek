@@ -16,7 +16,10 @@ LargeClass:
   max_instance_variables: 8
 UncommunicativeMethodName:
   accept: []
-  exclude: []
+  exclude: [
+    'r', # typically used for 'relation' in blocks
+    'n'  # typically used to denote infinity in DM code
+  ]
   enabled: true
   reject:
   - !ruby/regexp /^[a-z]$/
