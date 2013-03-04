@@ -17,7 +17,6 @@ LargeClass:
 UncommunicativeMethodName:
   accept: []
   exclude: [
-    'r', # typically used for 'relation' in blocks
     'n'  # typically used to denote infinity in DM code
   ]
   enabled: true
@@ -76,7 +75,9 @@ Attribute:
   enabled: false
 UncommunicativeVariableName:
   accept: []
-  exclude: []
+  exclude: [
+    'r' # typically used for 'relation' in blocks
+  ]
   enabled: true
   reject:
   - !ruby/regexp /^.$/
