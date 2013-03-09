@@ -13,7 +13,7 @@ end
 group :guard do
   gem 'guard',         '~> 1.6.2'
   gem 'guard-bundler', '~> 1.0.0'
-  gem 'guard-rspec',   '~> 2.4.1'
+  gem 'guard-rspec',   '~> 2.5.0'
 
   # file system change event handling
   gem 'rb-fchange', '~> 0.0.6', :require => false
@@ -29,6 +29,7 @@ group :guard do
 end
 
 group :metrics do
+  gem 'backports',       '~> 3.0', '>= 3.1.0'
   gem 'flay',            '~> 2.1.0'
   gem 'flog',            '~> 3.2.2'
   gem 'reek',            '~> 1.3.1', :git => 'https://github.com/troessner/reek.git'
