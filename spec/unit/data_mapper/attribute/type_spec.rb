@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Attribute, '#type' do
-  it 'needs unit specs' do
-    pending('DataMapper::Attribute#type unit specs are not implemented yet')
-  end
+  subject { attribute.type }
+
+  let(:attribute) { subclass.new(:title, EMPTY_HASH) }
+
+  it { should be_nil }
 end
