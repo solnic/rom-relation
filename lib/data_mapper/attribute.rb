@@ -189,7 +189,7 @@ module DataMapper
     #
     # @api private
     def key?
-      @key
+      !!@key
     end
 
     # Tests wether the attribute's type is primitive
