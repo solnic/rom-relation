@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe Attribute::EmbeddedValue, '#mapper' do
-  it 'needs unit specs' do
-    pending('Attribute::EmbeddedValue#mapper unit specs are not implemented yet')
-  end
+  subject { attribute.mapper }
+
+  let(:attribute) { described_class.new(:title, :type => model, :mapper => mapper) }
+  let(:model)     { mock_model(:TestModel) }
+  let(:mapper)    { mock('mapper') }
+
+  it { should be(mapper) }
 end
