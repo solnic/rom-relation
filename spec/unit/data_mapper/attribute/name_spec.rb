@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Attribute, '#name' do
-  it 'needs unit specs' do
-    pending('Attribute#name unit specs are not implemented yet')
-  end
+  subject { attribute.name }
+
+  let(:attribute) { subclass.new(:title, EMPTY_HASH) }
+
+  it { should be(:title) }
 end
