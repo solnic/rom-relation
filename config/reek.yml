@@ -16,9 +16,8 @@ LargeClass:
   max_instance_variables: 8
 UncommunicativeMethodName:
   accept: []
-  exclude: [
-    'n'  # typically used to denote infinity in DM code
-  ]
+  exclude:
+    - 'n'  # typically used to denote infinity in DM code
   enabled: true
   reject:
   - !ruby/regexp /^[a-z]$/
@@ -43,9 +42,8 @@ IrresponsibleModule:
   enabled: true
 UncommunicativeModuleName:
   accept: []
-  exclude: [
-    "Veritas::Adapter::Sqlite3"
-  ]
+  exclude:
+    - Veritas::Adapter::Sqlite3
   enabled: true
   reject:
   - !ruby/regexp /^.$/
@@ -60,9 +58,8 @@ LongMethod:
   exclude: []
   enabled: true
 Duplication:
-  allow_calls: [
-    node_map # DataMapper::Support::Graphviz#node_map
-  ]
+  allow_calls:
+    - 'node_map' # DataMapper::Support::Graphviz#node_map
   exclude: []
   enabled: true
   max_calls: 1
@@ -75,9 +72,8 @@ Attribute:
   enabled: false
 UncommunicativeVariableName:
   accept: []
-  exclude: [
-    'r' # typically used for 'relation' in blocks
-  ]
+  exclude:
+    - 'r' # typically used for 'relation' in blocks
   enabled: true
   reject:
   - !ruby/regexp /^.$/
