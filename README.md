@@ -1,8 +1,16 @@
 # Mapper
 
-[![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)](http://travis-ci.org/datamapper/dm-mapper)
-[![Dependency Status](https://gemnasium.com/datamapper/dm-mapper.png)](https://gemnasium.com/datamapper/dm-mapper)
-[![Code Climate](https://codeclimate.com/github/datamapper/dm-mapper.png)](https://codeclimate.com/github/datamapper/dm-mapper)
+[![Gem Version](https://badge.fury.io/rb/dm-mapper.png)][gem]
+[![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/datamapper/dm-mapper.png)][gemnasium]
+[![Code Climate](https://codeclimate.com/github/datamapper/dm-mapper.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/datamapper/dm-mapper/badge.png?branch=master)][coveralls]
+
+[gem]: https://rubygems.org/gems/dm-mapper
+[travis]: https://travis-ci.org/datamapper/dm-mapper
+[gemnasium]: https://gemnasium.com/datamapper/dm-mapper
+[codeclimate]: https://codeclimate.com/github/datamapper/dm-mapper
+[coveralls]: https://coveralls.io/r/datamapper/dm-mapper
 
 The mapper supports mapping data from any data source into Ruby objects
 based on mapper definitions. It uses [veritas](https://github.com/dkubb/veritas),
