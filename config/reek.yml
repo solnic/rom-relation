@@ -118,9 +118,9 @@ LongMethod:
     - DataMapper::Mapper::Builder#self.map_attribute
     - DataMapper::Mapper::Registry#each
     - DataMapper::Model#self.included
+    - DataMapper::Options#add_accepted_option
     - DataMapper::Options#accept_options
     - DataMapper::Options#define_option_method
-    - DataMapper::Options#options
     - DataMapper::Query#each
     - DataMapper::Relation::Graph#freeze
     - DataMapper::Relation::Graph::Connector::Builder#add_edge
