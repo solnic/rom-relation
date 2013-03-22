@@ -1,5 +1,6 @@
 ---
 UnusedParameters:
+  enabled: true
   exclude: []
 UncommunicativeParameterName:
   accept: []
@@ -10,10 +11,26 @@ UncommunicativeParameterName:
   - !ruby/regexp /[0-9]$/
   - !ruby/regexp /[A-Z]/
 LargeClass:
-  max_methods: 14
-  exclude: []
+  max_methods: 10
+  exclude:
+    - DataMapper::Attribute
+    - DataMapper::Environment
+    - DataMapper::Finalizer
+    - DataMapper::Relation::Graph
+    - DataMapper::Relation::Graph::Connector
+    - DataMapper::Relation::Graph::Connector::Builder
+    - DataMapper::Relation::Graph::Edge
+    - DataMapper::Relation::Graph::Node::Name
+    - DataMapper::Relation::Graph::Node::NameSet
+    - DataMapper::Relation::Header
+    - DataMapper::Relation::Mapper
+    - DataMapper::Relation::Mapper::Builder
+    - DataMapper::Relationship
+    - DataMapper::Relationship::Iterator::Tuples
+    - DataMapper::Relationship::ViaDefinition
+    - DataMapper::Support::Graphviz
   enabled: true
-  max_instance_variables: 8
+  max_instance_variables: 3
 UncommunicativeMethodName:
   accept: []
   exclude:
@@ -25,17 +42,34 @@ UncommunicativeMethodName:
   - !ruby/regexp /[A-Z]/
 LongParameterList:
   max_params: 3
-  exclude: []
+  exclude:
+    - DataMapper::Relation::Graph::Connector#initialize
+    - DataMapper::Relationship#initialize
+    - DataMapper::Relationship::Builder::BelongsTo#self.build
+    - DataMapper::Relationship::Builder::Has#self.build
   enabled: true
   overrides: {}
 FeatureEnvy:
-  exclude: []
+  exclude:
+    - DataMapper::AttributeSet#dump
+    - DataMapper::AttributeSet#load
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#register_base_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - DataMapper::Mapper::Registry#relation_map
+    - DataMapper::Relation::Graph::Node::NameSet#name
+    - DataMapper::Relation::Graph::Node::NameSet#via_relationship
+    - DataMapper::Relation::Header#renamed_attribute_index
+    - DataMapper::Relation::Header::JoinStrategy#current_name
+    - DataMapper::Relation::Header::JoinStrategy#joined_entries
+    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
   enabled: true
 ClassVariable:
   exclude: []
   enabled: true
 BooleanParameter:
-  exclude: []
+  exclude:
+    - DataMapper::Relation::Header::Attribute#self.build
   enabled: true
 IrresponsibleModule:
   exclude: []
@@ -50,12 +84,83 @@ UncommunicativeModuleName:
   - !ruby/regexp /[0-9]$/
 NestedIterators:
   ignore_iterators: []
-  exclude: []
+  exclude:
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_edges
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_relationships
+    - DataMapper::Relation::Graph::Node#order
+    - DataMapper::Relation::Header::AttributeIndex#renamed_attributes
+    - DataMapper::Relation::Header::AttributeIndex#renamed_relations
+    - DataMapper::Relation::Header::JoinStrategy#join_key_entries
   enabled: true
-  max_allowed_nesting: 2
+  max_allowed_nesting: 1
 LongMethod:
-  max_statements: 6
-  exclude: []
+  max_statements: 2
+  exclude:
+    - DataMapper::Attribute#self.build
+    - DataMapper::Attribute::EmbeddedValue#finalize
+    - DataMapper::AttributeSet#each
+    - DataMapper::AttributeSet#merge
+    - DataMapper::AttributeSet#remap
+    - DataMapper::Environment#build
+    - DataMapper::Environment#finalize
+    - DataMapper::Finalizer#run
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#register_base_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_node
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#run
+    - DataMapper::Finalizer::RelationshipMappersFinalizer#finalize_relationship_mappers
+    - DataMapper::Finalizer::RelationshipMappersFinalizer#run
+    - DataMapper::Mapper#each
+    - DataMapper::Mapper#self.from
+    - DataMapper::Mapper#self.map
+    - DataMapper::Mapper::Builder#self.create
+    - DataMapper::Mapper::Builder#self.define_for
+    - DataMapper::Mapper::Builder#self.map_attribute
+    - DataMapper::Mapper::Registry#each
+    - DataMapper::Model#self.included
+    - DataMapper::Options#accept_options
+    - DataMapper::Options#define_option_method
+    - DataMapper::Options#options
+    - DataMapper::Query#each
+    - DataMapper::Relation::Graph#freeze
+    - DataMapper::Relation::Graph::Connector::Builder#add_edge
+    - DataMapper::Relation::Graph::Connector::Builder#add_node
+    - DataMapper::Relation::Graph::Edge#join_relation
+    - DataMapper::Relation::Graph::Node#each
+    - DataMapper::Relation::Graph::Node#join
+    - DataMapper::Relation::Graph::Node#rename
+    - DataMapper::Relation::Graph::Node::NameSet#each
+    - DataMapper::Relation::Graph::Node::NameSet#rel_map
+    - DataMapper::Relation::Header#each
+    - DataMapper::Relation::Header#join
+    - DataMapper::Relation::Header#self.build
+    - DataMapper::Relation::Header::AttributeIndex#aliases
+    - DataMapper::Relation::Header::AttributeIndex#renamed_relations
+    - DataMapper::Relation::Header::AttributeIndex#self.initial_entries
+    - DataMapper::Relation::Header::RelationIndex#aliases
+    - DataMapper::Relation::Mapper#one
+    - DataMapper::Relation::Mapper#order
+    - DataMapper::Relation::Mapper#self.belongs_to
+    - DataMapper::Relation::Mapper#self.from
+    - DataMapper::Relation::Mapper#self.has
+    - DataMapper::Relation::Mapper#self.key
+    - DataMapper::Relation::Mapper::Builder#build
+    - DataMapper::Relation::Mapper::RelationshipSet#each
+    - DataMapper::Relationship#finalize
+    - DataMapper::Relationship#finalize_join_definition
+    - DataMapper::Relationship::Builder::Has#self.build
+    - DataMapper::Relationship::Builder::Has#self.extract_min_max
+    - DataMapper::Relationship::Iterator#each
+    - DataMapper::Relationship::Iterator::Tuples#parent_base_tuple
+    - DataMapper::Relationship::JoinDefinition#each
+    - DataMapper::Relationship::ManyToMany#finalize
+    - DataMapper::Relationship::OneToOne#finalize
+    - DataMapper::Support::Graphviz#add_connectors
+    - DataMapper::Support::Graphviz#add_edges
+    - DataMapper::Support::Graphviz#add_nodes
+    - DataMapper::Support::Graphviz#build
+    - DataMapper::Utils#self.extract_options
+    - DataMapper::Utils#self.extract_type
   enabled: true
 Duplication:
   allow_calls:
@@ -64,8 +169,14 @@ Duplication:
   enabled: true
   max_calls: 1
 UtilityFunction:
-  max_helper_calls: 1
-  exclude: []
+  max_helper_calls: 0
+  exclude:
+    - DataMapper::Relation::Graph::Node::NameSet#via_relationship
+    - DataMapper::Relation::Header#renamed_attribute_index
+    - DataMapper::Relation::Header::AttributeIndex#new_attribute
+    - DataMapper::Relation::Header::JoinStrategy#current_name
+    - DataMapper::Relation::Header::JoinStrategy#joined_entries
+    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
   enabled: true
 Attribute:
   exclude: []
@@ -89,9 +200,18 @@ DataClump:
   max_copies: 2
   min_clump_size: 2
 ControlCouple:
-  exclude: []
+  exclude:
+    - DataMapper::Relation::Graph::Edge#join_relation
+    - DataMapper::Relation::Header::Attribute#initialize
+    - DataMapper::Relationship::Builder::Has#self.extract_min_max
   enabled: true
 LongYieldList:
   max_params: 2
-  exclude: []
+  exclude:
+    - DataMapper::Relation::Header::AttributeIndex#with_new_entries
+    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
   enabled: true
+NilCheck:
+  enabled: true
+  exclude:
+    - DataMapper::Mapper::Builder#self.create
