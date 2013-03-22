@@ -15,7 +15,7 @@ rvm:
   - rbx-19mode
   - ruby-head
 before_script:
-  - psql -c 'create database "dm-mapper_test";' -U postgres
+  - createdb dm-mapper_test --user postgres
 notifications:
   irc: "irc.freenode.org#datamapper"
   email:
