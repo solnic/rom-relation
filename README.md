@@ -13,7 +13,7 @@
 [coveralls]: https://coveralls.io/r/datamapper/dm-mapper
 
 The mapper supports mapping data from any data source into Ruby objects
-based on mapper definitions. It uses [veritas](https://github.com/dkubb/veritas),
+based on mapper definitions. It uses [axiom](https://github.com/dkubb/axiom),
 a relational algebra library which will give us the ability to talk to
 different data sources and even performing cross-database joins.
 
@@ -189,5 +189,5 @@ env[User].sort_by { |r| [ r.name, r.id ] }.to_a
  * Make rake ci pass
  * Add interface for insert/update/delete to relation graph
  * Add interface for preparing objects for insert/update/delete (will be used by session)
- * Extract Veritas and Arel engines into separate gems
+ * Extract Axiom and Arel engines into separate gems
  * Push a release? :)
