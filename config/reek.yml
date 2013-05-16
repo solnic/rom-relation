@@ -1,17 +1,102 @@
 ---
-UnusedParameters:
+Attribute:
+  enabled: false
+  exclude: []
+BooleanParameter:
+  enabled: true
+  exclude:
+    - DataMapper::Relation::Header::Attribute#self.build
+ClassVariable:
   enabled: true
   exclude: []
-UncommunicativeParameterName:
-  accept: []
-  exclude: []
+ControlParameter:
   enabled: true
-  reject:
-  - !ruby/regexp /^.$/
-  - !ruby/regexp /[0-9]$/
-  - !ruby/regexp /[A-Z]/
-LargeClass:
-  max_methods: 10
+  exclude:
+    - DataMapper::Relation::Graph::Edge#join_relation
+    - DataMapper::Relation::Header::Attribute#initialize
+    - DataMapper::Relationship::Builder::Has#self.extract_min_max
+DataClump:
+  enabled: true
+  exclude: []
+  max_copies: 2
+  min_clump_size: 2
+DuplicateMethodCall:
+  enabled: true
+  exclude: []
+  max_calls: 1
+  allow_calls:
+    - 'node_map' # DataMapper::Support::Graphviz#node_map
+FeatureEnvy:
+  enabled: true
+  exclude:
+    - DataMapper::AttributeSet#dump
+    - DataMapper::AttributeSet#load
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#register_base_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - DataMapper::Mapper::Registry#relation_map
+    - DataMapper::Relation::Graph::Node::NameSet#name
+    - DataMapper::Relation::Graph::Node::NameSet#via_relationship
+    - DataMapper::Relation::Header#renamed_attribute_index
+    - DataMapper::Relation::Header::JoinStrategy#current_name
+    - DataMapper::Relation::Header::JoinStrategy#joined_entries
+    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
+IrresponsibleModule:
+  enabled: true
+  exclude: []
+LongParameterList:
+  enabled: true
+  exclude:
+    - DataMapper::Relation::Graph::Connector#initialize
+    - DataMapper::Relationship#initialize
+    - DataMapper::Relationship::Builder::BelongsTo#self.build
+    - DataMapper::Relationship::Builder::Has#self.build
+  max_params: 3
+LongYieldList:
+  enabled: true
+  exclude:
+    - DataMapper::Relation::Header::AttributeIndex#with_new_entries
+    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
+  max_params: 2
+NestedIterators:
+  enabled: true
+  exclude:
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_edges
+    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_relationships
+    - DataMapper::Relation::Graph::Node#order
+    - DataMapper::Relation::Header::AttributeIndex#renamed_attributes
+    - DataMapper::Relation::Header::AttributeIndex#renamed_relations
+    - DataMapper::Relation::Header::JoinStrategy#join_key_entries
+  max_allowed_nesting: 1
+  ignore_iterators: []
+NilCheck:
+  enabled: true
+  exclude:
+    - DataMapper::Mapper::Builder#self.create
+RepeatedConditional:
+  enabled: true
+  exclude: []
+  max_ifs: 1
+TooManyInstanceVariables:
+  enabled: true
+  exclude:
+    - DataMapper::Attribute
+    - DataMapper::Environment
+    - DataMapper::Finalizer
+    - DataMapper::Relation::Graph
+    - DataMapper::Relation::Graph::Connector
+    - DataMapper::Relation::Graph::Edge
+    - DataMapper::Relation::Graph::Node::Name
+    - DataMapper::Relation::Header
+    - DataMapper::Relation::Mapper
+    - DataMapper::Relation::Mapper::Builder
+    - DataMapper::Relationship
+    - DataMapper::Relationship::Iterator::Tuples
+    - DataMapper::Relationship::ViaDefinition
+    - DataMapper::Support::Graphviz
+  max_instance_variables: 3
+TooManyMethods:
+  enabled: true
   exclude:
     - DataMapper::Attribute
     - DataMapper::Environment
@@ -29,72 +114,9 @@ LargeClass:
     - DataMapper::Relationship::Iterator::Tuples
     - DataMapper::Relationship::ViaDefinition
     - DataMapper::Support::Graphviz
+  max_methods: 10
+TooManyStatements:
   enabled: true
-  max_instance_variables: 3
-UncommunicativeMethodName:
-  accept: []
-  exclude:
-    - 'n'  # typically used to denote infinity in DM code
-  enabled: true
-  reject:
-  - !ruby/regexp /^[a-z]$/
-  - !ruby/regexp /[0-9]$/
-  - !ruby/regexp /[A-Z]/
-LongParameterList:
-  max_params: 3
-  exclude:
-    - DataMapper::Relation::Graph::Connector#initialize
-    - DataMapper::Relationship#initialize
-    - DataMapper::Relationship::Builder::BelongsTo#self.build
-    - DataMapper::Relationship::Builder::Has#self.build
-  enabled: true
-  overrides: {}
-FeatureEnvy:
-  exclude:
-    - DataMapper::AttributeSet#dump
-    - DataMapper::AttributeSet#load
-    - DataMapper::Finalizer::BaseRelationMappersFinalizer#register_base_relation
-    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
-    - DataMapper::Finalizer::BaseRelationMappersFinalizer#registered_relation
-    - DataMapper::Mapper::Registry#relation_map
-    - DataMapper::Relation::Graph::Node::NameSet#name
-    - DataMapper::Relation::Graph::Node::NameSet#via_relationship
-    - DataMapper::Relation::Header#renamed_attribute_index
-    - DataMapper::Relation::Header::JoinStrategy#current_name
-    - DataMapper::Relation::Header::JoinStrategy#joined_entries
-    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
-  enabled: true
-ClassVariable:
-  exclude: []
-  enabled: true
-BooleanParameter:
-  exclude:
-    - DataMapper::Relation::Header::Attribute#self.build
-  enabled: true
-IrresponsibleModule:
-  exclude: []
-  enabled: true
-UncommunicativeModuleName:
-  accept: []
-  exclude:
-    - Veritas::Adapter::Sqlite3
-  enabled: true
-  reject:
-  - !ruby/regexp /^.$/
-  - !ruby/regexp /[0-9]$/
-NestedIterators:
-  ignore_iterators: []
-  exclude:
-    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_edges
-    - DataMapper::Finalizer::BaseRelationMappersFinalizer#finalize_relationships
-    - DataMapper::Relation::Graph::Node#order
-    - DataMapper::Relation::Header::AttributeIndex#renamed_attributes
-    - DataMapper::Relation::Header::AttributeIndex#renamed_relations
-    - DataMapper::Relation::Header::JoinStrategy#join_key_entries
-  enabled: true
-  max_allowed_nesting: 1
-LongMethod:
-  max_statements: 2
   exclude:
     - DataMapper::Attribute#self.build
     - DataMapper::Attribute::EmbeddedValue#finalize
@@ -161,15 +183,46 @@ LongMethod:
     - DataMapper::Support::Graphviz#build
     - DataMapper::Utils#self.extract_options
     - DataMapper::Utils#self.extract_type
+  max_statements: 2
+UncommunicativeMethodName:
   enabled: true
-Duplication:
-  allow_calls:
-    - 'node_map' # DataMapper::Support::Graphviz#node_map
+  exclude:
+    - 'n'  # typically used to denote infinity in DM code
+  reject:
+  - !ruby/regexp /^[a-z]$/
+  - !ruby/regexp /[0-9]$/
+  - !ruby/regexp /[A-Z]/
+  accept: []
+UncommunicativeModuleName:
+  enabled: true
+  exclude:
+    - Axiom::Adapter::Sqlite3
+  reject:
+  - !ruby/regexp /^.$/
+  - !ruby/regexp /[0-9]$/
+  accept: []
+UncommunicativeParameterName:
+  enabled: true
   exclude: []
+  reject:
+  - !ruby/regexp /^.$/
+  - !ruby/regexp /[0-9]$/
+  - !ruby/regexp /[A-Z]/
+  accept: []
+UncommunicativeVariableName:
   enabled: true
-  max_calls: 1
+  exclude:
+    - 'r' # typically used for 'relation' in blocks
+  reject:
+  - !ruby/regexp /^.$/
+  - !ruby/regexp /[0-9]$/
+  - !ruby/regexp /[A-Z]/
+  accept: []
+UnusedParameters:
+  enabled: true
+  exclude: []
 UtilityFunction:
-  max_helper_calls: 0
+  enabled: true
   exclude:
     - DataMapper::Relation::Graph::Node::NameSet#via_relationship
     - DataMapper::Relation::Header#renamed_attribute_index
@@ -177,41 +230,5 @@ UtilityFunction:
     - DataMapper::Relation::Header::JoinStrategy#current_name
     - DataMapper::Relation::Header::JoinStrategy#joined_entries
     - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
-  enabled: true
-Attribute:
-  exclude: []
-  enabled: false
-UncommunicativeVariableName:
-  accept: []
-  exclude:
-    - 'r' # typically used for 'relation' in blocks
-  enabled: true
-  reject:
-  - !ruby/regexp /^.$/
-  - !ruby/regexp /[0-9]$/
-  - !ruby/regexp /[A-Z]/
-SimulatedPolymorphism:
-  exclude: []
-  enabled: true
-  max_ifs: 1
-DataClump:
-  exclude: []
-  enabled: true
-  max_copies: 2
-  min_clump_size: 2
-ControlCouple:
-  exclude:
-    - DataMapper::Relation::Graph::Edge#join_relation
-    - DataMapper::Relation::Header::Attribute#initialize
-    - DataMapper::Relationship::Builder::Has#self.extract_min_max
-  enabled: true
-LongYieldList:
-  max_params: 2
-  exclude:
-    - DataMapper::Relation::Header::AttributeIndex#with_new_entries
-    - DataMapper::Relation::Header::JoinStrategy#with_new_index_entries
-  enabled: true
-NilCheck:
-  enabled: true
-  exclude:
-    - DataMapper::Mapper::Builder#self.create
+  max_helper_calls: 0
+
