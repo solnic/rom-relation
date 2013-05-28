@@ -1,1 +1,1 @@
-rvm use @$(basename `pwd`) --create
+-rvm use @$(basename `pwd`) --create
