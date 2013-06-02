@@ -184,10 +184,7 @@ env[User].restrict { |relation| relation.name.eq('John') }.to_a
 env[User].sort_by { |r| [ r.name, r.id ] }.to_a
 ```
 
-## 2.0.0.alpha Roadmap
+## Community
 
- * Make rake ci pass
- * Add interface for insert/update/delete to relation graph
- * Add interface for preparing objects for insert/update/delete (will be used by session)
- * Extract Axiom and Arel engines into separate gems
- * Push a release? :)
+* [Google mailing list](https://groups.google.com/forum/?fromgroups#!forum/rom-rb)
+* \#rom-rb channel on freenode
