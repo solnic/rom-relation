@@ -2,7 +2,7 @@ language: ruby
 before_install: gem install bundler
 bundler_args: --without yard guard benchmarks
 before_script:
-  - createdb dm-mapper_test --user postgres
+  - createdb rom_test --user postgres
 script: "bundle exec rake ci:metrics"
 rvm:
   - ree

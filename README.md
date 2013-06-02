@@ -1,16 +1,16 @@
-# Mapper
+# Ruby Object Mapper
 
-[![Gem Version](https://badge.fury.io/rb/dm-mapper.png)][gem]
-[![Build Status](https://secure.travis-ci.org/datamapper/dm-mapper.png?branch=master)][travis]
-[![Dependency Status](https://gemnasium.com/datamapper/dm-mapper.png)][gemnasium]
-[![Code Climate](https://codeclimate.com/github/datamapper/dm-mapper.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/datamapper/dm-mapper/badge.png?branch=master)][coveralls]
+[![Gem Version](https://badge.fury.io/rb/rom.png)][gem]
+[![Build Status](https://secure.travis-ci.org/rom-rb/rom.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/rom-rb/rom.png)][gemnasium]
+[![Code Climate](https://codeclimate.com/github/rom-rb/rom.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/rom-rb/rom/badge.png?branch=master)][coveralls]
 
-[gem]: https://rubygems.org/gems/dm-mapper
-[travis]: https://travis-ci.org/datamapper/dm-mapper
-[gemnasium]: https://gemnasium.com/datamapper/dm-mapper
-[codeclimate]: https://codeclimate.com/github/datamapper/dm-mapper
-[coveralls]: https://coveralls.io/r/datamapper/dm-mapper
+[gem]: https://rubygems.org/gems/rom
+[travis]: https://travis-ci.org/rom-rb/rom
+[gemnasium]: https://gemnasium.com/rom-rb/rom
+[codeclimate]: https://codeclimate.com/github/rom-rb/rom
+[coveralls]: https://coveralls.io/r/rom-rb/rom
 
 The mapper supports mapping data from any data source into Ruby objects
 based on mapper definitions. It uses [axiom](https://github.com/dkubb/axiom),
@@ -31,7 +31,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = DataMapper::Environment.coerce(config)
+env    = Rom::Environment.coerce(config)
 
 # Define a mapper
 env.build(User, :postgres) do
@@ -68,7 +68,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = DataMapper::Environment.coerce(config)
+env    = Rom::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   relation_name :orders
@@ -110,14 +110,14 @@ cases:
 
 ``` ruby
 class Order
-  include DataMapper::Model
+  include Rom::Model
 
   attribute :id,      Integer
   attribute :product, String
 end
 
 class User
-  include DataMapper::Model
+  include Rom::Model
 
   attribute :id,     Integer
   attribute :name,   String
@@ -127,7 +127,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = DataMapper::Environment.coerce(config)
+env    = Rom::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   key :id
