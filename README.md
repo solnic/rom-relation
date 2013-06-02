@@ -1,7 +1,7 @@
 # Ruby Object Mapper
 
 [![Gem Version](https://badge.fury.io/rb/rom.png)][gem]
-[![Build Status](https://secure.travis-ci.org/rom-rb/rom.png?branch=master)][travis]
+[![Build Status](https://travis-ci.org/rom-rb/rom.png?branch=master)][travis]
 [![Dependency Status](https://gemnasium.com/rom-rb/rom.png)][gemnasium]
 [![Code Climate](https://codeclimate.com/github/rom-rb/rom.png)][codeclimate]
 [![Coverage Status](https://coveralls.io/repos/rom-rb/rom/badge.png?branch=master)][coveralls]
