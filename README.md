@@ -31,7 +31,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = Rom::Environment.coerce(config)
+env    = ROM::Environment.coerce(config)
 
 # Define a mapper
 env.build(User, :postgres) do
@@ -68,7 +68,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = Rom::Environment.coerce(config)
+env    = ROM::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   relation_name :orders
@@ -110,14 +110,14 @@ cases:
 
 ``` ruby
 class Order
-  include Rom::Model
+  include ROM::Model
 
   attribute :id,      Integer
   attribute :product, String
 end
 
 class User
-  include Rom::Model
+  include ROM::Model
 
   attribute :id,     Integer
   attribute :name,   String
@@ -127,7 +127,7 @@ end
 
 # Create DM environment
 config = { :default => 'postgres://localhost/test' }
-env    = Rom::Environment.coerce(config)
+env    = ROM::Environment.coerce(config)
 
 env.build(Order, :postgres) do
   key :id

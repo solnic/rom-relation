@@ -5,16 +5,16 @@ Attribute:
 BooleanParameter:
   enabled: true
   exclude:
-    - Rom::Relation::Header::Attribute#self.build
+    - ROM::Relation::Header::Attribute#self.build
 ClassVariable:
   enabled: true
   exclude: []
 ControlParameter:
   enabled: true
   exclude:
-    - Rom::Relation::Graph::Edge#join_relation
-    - Rom::Relation::Header::Attribute#initialize
-    - Rom::Relationship::Builder::Has#self.extract_min_max
+    - ROM::Relation::Graph::Edge#join_relation
+    - ROM::Relation::Header::Attribute#initialize
+    - ROM::Relationship::Builder::Has#self.extract_min_max
 DataClump:
   enabled: true
   exclude: []
@@ -25,54 +25,54 @@ DuplicateMethodCall:
   exclude: []
   max_calls: 1
   allow_calls:
-    - 'node_map' # Rom::Support::Graphviz#node_map
+    - 'node_map' # ROM::Support::Graphviz#node_map
 FeatureEnvy:
   enabled: true
   exclude:
-    - Rom::AttributeSet#dump
-    - Rom::AttributeSet#load
-    - Rom::Finalizer::BaseRelationMappersFinalizer#register_base_relation
-    - Rom::Finalizer::BaseRelationMappersFinalizer#registered_relation
-    - Rom::Finalizer::BaseRelationMappersFinalizer#registered_relation
-    - Rom::Mapper::Registry#relation_map
-    - Rom::Relation::Graph::Node::NameSet#name
-    - Rom::Relation::Graph::Node::NameSet#via_relationship
-    - Rom::Relation::Header#renamed_attribute_index
-    - Rom::Relation::Header::JoinStrategy#current_name
-    - Rom::Relation::Header::JoinStrategy#joined_entries
-    - Rom::Relation::Header::JoinStrategy#with_new_index_entries
+    - ROM::AttributeSet#dump
+    - ROM::AttributeSet#load
+    - ROM::Finalizer::BaseRelationMappersFinalizer#register_base_relation
+    - ROM::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - ROM::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - ROM::Mapper::Registry#relation_map
+    - ROM::Relation::Graph::Node::NameSet#name
+    - ROM::Relation::Graph::Node::NameSet#via_relationship
+    - ROM::Relation::Header#renamed_attribute_index
+    - ROM::Relation::Header::JoinStrategy#current_name
+    - ROM::Relation::Header::JoinStrategy#joined_entries
+    - ROM::Relation::Header::JoinStrategy#with_new_index_entries
 IrresponsibleModule:
   enabled: true
   exclude: []
 LongParameterList:
   enabled: true
   exclude:
-    - Rom::Relation::Graph::Connector#initialize
-    - Rom::Relationship#initialize
-    - Rom::Relationship::Builder::BelongsTo#self.build
-    - Rom::Relationship::Builder::Has#self.build
+    - ROM::Relation::Graph::Connector#initialize
+    - ROM::Relationship#initialize
+    - ROM::Relationship::Builder::BelongsTo#self.build
+    - ROM::Relationship::Builder::Has#self.build
   max_params: 3
 LongYieldList:
   enabled: true
   exclude:
-    - Rom::Relation::Header::AttributeIndex#with_new_entries
-    - Rom::Relation::Header::JoinStrategy#with_new_index_entries
+    - ROM::Relation::Header::AttributeIndex#with_new_entries
+    - ROM::Relation::Header::JoinStrategy#with_new_index_entries
   max_params: 2
 NestedIterators:
   enabled: true
   exclude:
-    - Rom::Finalizer::BaseRelationMappersFinalizer#finalize_edges
-    - Rom::Finalizer::BaseRelationMappersFinalizer#finalize_relationships
-    - Rom::Relation::Graph::Node#order
-    - Rom::Relation::Header::AttributeIndex#renamed_attributes
-    - Rom::Relation::Header::AttributeIndex#renamed_relations
-    - Rom::Relation::Header::JoinStrategy#join_key_entries
+    - ROM::Finalizer::BaseRelationMappersFinalizer#finalize_edges
+    - ROM::Finalizer::BaseRelationMappersFinalizer#finalize_relationships
+    - ROM::Relation::Graph::Node#order
+    - ROM::Relation::Header::AttributeIndex#renamed_attributes
+    - ROM::Relation::Header::AttributeIndex#renamed_relations
+    - ROM::Relation::Header::JoinStrategy#join_key_entries
   max_allowed_nesting: 1
   ignore_iterators: []
 NilCheck:
   enabled: true
   exclude:
-    - Rom::Mapper::Builder#self.create
+    - ROM::Mapper::Builder#self.create
 RepeatedConditional:
   enabled: true
   exclude: []
@@ -80,109 +80,109 @@ RepeatedConditional:
 TooManyInstanceVariables:
   enabled: true
   exclude:
-    - Rom::Attribute
-    - Rom::Environment
-    - Rom::Finalizer
-    - Rom::Relation::Graph
-    - Rom::Relation::Graph::Connector
-    - Rom::Relation::Graph::Edge
-    - Rom::Relation::Graph::Node::Name
-    - Rom::Relation::Header
-    - Rom::Relation::Mapper
-    - Rom::Relation::Mapper::Builder
-    - Rom::Relationship
-    - Rom::Relationship::Iterator::Tuples
-    - Rom::Relationship::ViaDefinition
-    - Rom::Support::Graphviz
+    - ROM::Attribute
+    - ROM::Environment
+    - ROM::Finalizer
+    - ROM::Relation::Graph
+    - ROM::Relation::Graph::Connector
+    - ROM::Relation::Graph::Edge
+    - ROM::Relation::Graph::Node::Name
+    - ROM::Relation::Header
+    - ROM::Relation::Mapper
+    - ROM::Relation::Mapper::Builder
+    - ROM::Relationship
+    - ROM::Relationship::Iterator::Tuples
+    - ROM::Relationship::ViaDefinition
+    - ROM::Support::Graphviz
   max_instance_variables: 3
 TooManyMethods:
   enabled: true
   exclude:
-    - Rom::Attribute
-    - Rom::Environment
-    - Rom::Finalizer
-    - Rom::Relation::Graph
-    - Rom::Relation::Graph::Connector
-    - Rom::Relation::Graph::Connector::Builder
-    - Rom::Relation::Graph::Edge
-    - Rom::Relation::Graph::Node::Name
-    - Rom::Relation::Graph::Node::NameSet
-    - Rom::Relation::Header
-    - Rom::Relation::Mapper
-    - Rom::Relation::Mapper::Builder
-    - Rom::Relationship
-    - Rom::Relationship::Iterator::Tuples
-    - Rom::Relationship::ViaDefinition
-    - Rom::Support::Graphviz
+    - ROM::Attribute
+    - ROM::Environment
+    - ROM::Finalizer
+    - ROM::Relation::Graph
+    - ROM::Relation::Graph::Connector
+    - ROM::Relation::Graph::Connector::Builder
+    - ROM::Relation::Graph::Edge
+    - ROM::Relation::Graph::Node::Name
+    - ROM::Relation::Graph::Node::NameSet
+    - ROM::Relation::Header
+    - ROM::Relation::Mapper
+    - ROM::Relation::Mapper::Builder
+    - ROM::Relationship
+    - ROM::Relationship::Iterator::Tuples
+    - ROM::Relationship::ViaDefinition
+    - ROM::Support::Graphviz
   max_methods: 10
 TooManyStatements:
   enabled: true
   exclude:
-    - Rom::Attribute#self.build
-    - Rom::Attribute::EmbeddedValue#finalize
-    - Rom::AttributeSet#each
-    - Rom::AttributeSet#merge
-    - Rom::AttributeSet#remap
-    - Rom::Environment#build
-    - Rom::Environment#finalize
-    - Rom::Finalizer#run
-    - Rom::Finalizer::BaseRelationMappersFinalizer#register_base_relation
-    - Rom::Finalizer::BaseRelationMappersFinalizer#registered_node
-    - Rom::Finalizer::BaseRelationMappersFinalizer#registered_relation
-    - Rom::Finalizer::BaseRelationMappersFinalizer#run
-    - Rom::Finalizer::RelationshipMappersFinalizer#finalize_relationship_mappers
-    - Rom::Finalizer::RelationshipMappersFinalizer#run
-    - Rom::Mapper#each
-    - Rom::Mapper#self.from
-    - Rom::Mapper#self.map
-    - Rom::Mapper::Builder#self.create
-    - Rom::Mapper::Builder#self.define_for
-    - Rom::Mapper::Builder#self.map_attribute
-    - Rom::Mapper::Registry#each
-    - Rom::Model#self.included
-    - Rom::Options#add_accepted_option
-    - Rom::Options#accept_options
-    - Rom::Options#define_option_method
-    - Rom::Query#each
-    - Rom::Relation::Graph#freeze
-    - Rom::Relation::Graph::Connector::Builder#add_edge
-    - Rom::Relation::Graph::Connector::Builder#add_node
-    - Rom::Relation::Graph::Edge#join_relation
-    - Rom::Relation::Graph::Node#each
-    - Rom::Relation::Graph::Node#join
-    - Rom::Relation::Graph::Node#rename
-    - Rom::Relation::Graph::Node::NameSet#each
-    - Rom::Relation::Graph::Node::NameSet#rel_map
-    - Rom::Relation::Header#each
-    - Rom::Relation::Header#join
-    - Rom::Relation::Header#self.build
-    - Rom::Relation::Header::AttributeIndex#aliases
-    - Rom::Relation::Header::AttributeIndex#renamed_relations
-    - Rom::Relation::Header::AttributeIndex#self.initial_entries
-    - Rom::Relation::Header::RelationIndex#aliases
-    - Rom::Relation::Mapper#one
-    - Rom::Relation::Mapper#order
-    - Rom::Relation::Mapper#self.belongs_to
-    - Rom::Relation::Mapper#self.from
-    - Rom::Relation::Mapper#self.has
-    - Rom::Relation::Mapper#self.key
-    - Rom::Relation::Mapper::Builder#build
-    - Rom::Relation::Mapper::RelationshipSet#each
-    - Rom::Relationship#finalize
-    - Rom::Relationship#finalize_join_definition
-    - Rom::Relationship::Builder::Has#self.build
-    - Rom::Relationship::Builder::Has#self.extract_min_max
-    - Rom::Relationship::Iterator#each
-    - Rom::Relationship::Iterator::Tuples#parent_base_tuple
-    - Rom::Relationship::JoinDefinition#each
-    - Rom::Relationship::ManyToMany#finalize
-    - Rom::Relationship::OneToOne#finalize
-    - Rom::Support::Graphviz#add_connectors
-    - Rom::Support::Graphviz#add_edges
-    - Rom::Support::Graphviz#add_nodes
-    - Rom::Support::Graphviz#build
-    - Rom::Utils#self.extract_options
-    - Rom::Utils#self.extract_type
+    - ROM::Attribute#self.build
+    - ROM::Attribute::EmbeddedValue#finalize
+    - ROM::AttributeSet#each
+    - ROM::AttributeSet#merge
+    - ROM::AttributeSet#remap
+    - ROM::Environment#build
+    - ROM::Environment#finalize
+    - ROM::Finalizer#run
+    - ROM::Finalizer::BaseRelationMappersFinalizer#register_base_relation
+    - ROM::Finalizer::BaseRelationMappersFinalizer#registered_node
+    - ROM::Finalizer::BaseRelationMappersFinalizer#registered_relation
+    - ROM::Finalizer::BaseRelationMappersFinalizer#run
+    - ROM::Finalizer::RelationshipMappersFinalizer#finalize_relationship_mappers
+    - ROM::Finalizer::RelationshipMappersFinalizer#run
+    - ROM::Mapper#each
+    - ROM::Mapper#self.from
+    - ROM::Mapper#self.map
+    - ROM::Mapper::Builder#self.create
+    - ROM::Mapper::Builder#self.define_for
+    - ROM::Mapper::Builder#self.map_attribute
+    - ROM::Mapper::Registry#each
+    - ROM::Model#self.included
+    - ROM::Options#add_accepted_option
+    - ROM::Options#accept_options
+    - ROM::Options#define_option_method
+    - ROM::Query#each
+    - ROM::Relation::Graph#freeze
+    - ROM::Relation::Graph::Connector::Builder#add_edge
+    - ROM::Relation::Graph::Connector::Builder#add_node
+    - ROM::Relation::Graph::Edge#join_relation
+    - ROM::Relation::Graph::Node#each
+    - ROM::Relation::Graph::Node#join
+    - ROM::Relation::Graph::Node#rename
+    - ROM::Relation::Graph::Node::NameSet#each
+    - ROM::Relation::Graph::Node::NameSet#rel_map
+    - ROM::Relation::Header#each
+    - ROM::Relation::Header#join
+    - ROM::Relation::Header#self.build
+    - ROM::Relation::Header::AttributeIndex#aliases
+    - ROM::Relation::Header::AttributeIndex#renamed_relations
+    - ROM::Relation::Header::AttributeIndex#self.initial_entries
+    - ROM::Relation::Header::RelationIndex#aliases
+    - ROM::Relation::Mapper#one
+    - ROM::Relation::Mapper#order
+    - ROM::Relation::Mapper#self.belongs_to
+    - ROM::Relation::Mapper#self.from
+    - ROM::Relation::Mapper#self.has
+    - ROM::Relation::Mapper#self.key
+    - ROM::Relation::Mapper::Builder#build
+    - ROM::Relation::Mapper::RelationshipSet#each
+    - ROM::Relationship#finalize
+    - ROM::Relationship#finalize_join_definition
+    - ROM::Relationship::Builder::Has#self.build
+    - ROM::Relationship::Builder::Has#self.extract_min_max
+    - ROM::Relationship::Iterator#each
+    - ROM::Relationship::Iterator::Tuples#parent_base_tuple
+    - ROM::Relationship::JoinDefinition#each
+    - ROM::Relationship::ManyToMany#finalize
+    - ROM::Relationship::OneToOne#finalize
+    - ROM::Support::Graphviz#add_connectors
+    - ROM::Support::Graphviz#add_edges
+    - ROM::Support::Graphviz#add_nodes
+    - ROM::Support::Graphviz#build
+    - ROM::Utils#self.extract_options
+    - ROM::Utils#self.extract_type
   max_statements: 2
 UncommunicativeMethodName:
   enabled: true
@@ -224,11 +224,11 @@ UnusedParameters:
 UtilityFunction:
   enabled: true
   exclude:
-    - Rom::Relation::Graph::Node::NameSet#via_relationship
-    - Rom::Relation::Header#renamed_attribute_index
-    - Rom::Relation::Header::AttributeIndex#new_attribute
-    - Rom::Relation::Header::JoinStrategy#current_name
-    - Rom::Relation::Header::JoinStrategy#joined_entries
-    - Rom::Relation::Header::JoinStrategy#with_new_index_entries
+    - ROM::Relation::Graph::Node::NameSet#via_relationship
+    - ROM::Relation::Header#renamed_attribute_index
+    - ROM::Relation::Header::AttributeIndex#new_attribute
+    - ROM::Relation::Header::JoinStrategy#current_name
+    - ROM::Relation::Header::JoinStrategy#joined_entries
+    - ROM::Relation::Header::JoinStrategy#with_new_index_entries
   max_helper_calls: 0
 
