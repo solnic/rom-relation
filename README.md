@@ -29,7 +29,7 @@ class User
   end
 end
 
-# Create DM environment
+# Create ROM environment
 config = { :default => 'postgres://localhost/test' }
 env    = ROM::Environment.coerce(config)
 
@@ -66,7 +66,7 @@ class User
   end
 end
 
-# Create DM environment
+# Create ROM environment
 config = { :default => 'postgres://localhost/test' }
 env    = ROM::Environment.coerce(config)
 
@@ -125,7 +125,7 @@ class User
   attribute :orders, Array[Order]
 end
 
-# Create DM environment
+# Create ROM environment
 config = { :default => 'postgres://localhost/test' }
 env    = ROM::Environment.coerce(config)
 
