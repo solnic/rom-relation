@@ -17,6 +17,7 @@ group :test do
   gem 'do_sqlite3'
   gem 'randexp'
   gem 'ruby-graphviz'
+  gem 'bogus', '~> 0.0.4'
 end
 
 group :development do
