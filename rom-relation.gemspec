@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'abstract_type',       '~> 0.0.5'
   gem.add_dependency 'inflecto',            '~> 0.0.2'
   gem.add_dependency 'adamantium',          '~> 0.0.7'
-  gem.add_dependency 'backports',           '~> 3.0', '>= 3.0.3'
   gem.add_dependency 'axiom',               '~> 0.1.0'
   gem.add_dependency 'axiom-optimizer',     '~> 0.1.0'
 end
