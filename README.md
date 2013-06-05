@@ -1,16 +1,16 @@
 # Ruby Object Mapper
 
-[![Gem Version](https://badge.fury.io/rb/rom.png)][gem]
-[![Build Status](https://travis-ci.org/rom-rb/rom.png?branch=master)][travis]
-[![Dependency Status](https://gemnasium.com/rom-rb/rom.png)][gemnasium]
-[![Code Climate](https://codeclimate.com/github/rom-rb/rom.png)][codeclimate]
-[![Coverage Status](https://coveralls.io/repos/rom-rb/rom/badge.png?branch=master)][coveralls]
+[![Gem Version](https://badge.fury.io/rb/rom-relation.png)][gem]
+[![Build Status](https://travis-ci.org/rom-rb/rom-relation.png?branch=master)][travis]
+[![Dependency Status](https://gemnasium.com/rom-rb/rom-relation.png)][gemnasium]
+[![Code Climate](https://codeclimate.com/github/rom-rb/rom-relation.png)][codeclimate]
+[![Coverage Status](https://coveralls.io/repos/rom-rb/rom-relation/badge.png?branch=master)][coveralls]
 
-[gem]: https://rubygems.org/gems/rom
-[travis]: https://travis-ci.org/rom-rb/rom
-[gemnasium]: https://gemnasium.com/rom-rb/rom
-[codeclimate]: https://codeclimate.com/github/rom-rb/rom
-[coveralls]: https://coveralls.io/r/rom-rb/rom
+[gem]: https://rubygems.org/gems/rom-relation
+[travis]: https://travis-ci.org/rom-rb/rom-relation
+[gemnasium]: https://gemnasium.com/rom-rb/rom-relation
+[codeclimate]: https://codeclimate.com/github/rom-rb/rom-relation
+[coveralls]: https://coveralls.io/r/rom-rb/rom-relation
 
 The mapper supports mapping data from any data source into Ruby objects
 based on mapper definitions. It uses [axiom](https://github.com/dkubb/axiom),
