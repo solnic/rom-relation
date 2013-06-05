@@ -187,4 +187,4 @@ env[User].sort_by { |r| [ r.name, r.id ] }.to_a
 ## Community
 
 * [Google mailing list](https://groups.google.com/forum/?fromgroups#!forum/rom-rb)
-* \#rom-rb channel on freenode
+* [#rom-rb](http://irclog.whitequark.org/rom-rb) channel on freenode
