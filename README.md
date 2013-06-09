@@ -17,6 +17,14 @@ based on mapper definitions. It uses [axiom](https://github.com/dkubb/axiom),
 a relational algebra library which will give us the ability to talk to
 different data sources and even performing cross-database joins.
 
+## Installation
+
+In your **Gemfile**
+
+``` ruby
+gem 'dm-mapper', :git => 'https://github.com/datamapper/dm-mapper'
+```
+
 ## Establishing Connection & Defining PORO with mappers
 
 ``` ruby
