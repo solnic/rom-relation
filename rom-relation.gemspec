@@ -14,6 +14,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
 
   gem.add_dependency 'addressable',         '~> 2.3', '>= 2.3.3'
+  gem.add_dependency 'concord',             '~> 0.1'
   gem.add_dependency 'equalizer',           '~> 0.0.5'
   gem.add_dependency 'descendants_tracker', '~> 0.0.1'
   gem.add_dependency 'abstract_type',       '~> 0.0.5'
