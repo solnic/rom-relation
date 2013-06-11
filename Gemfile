@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rom', :path => '.'
+gem 'rom-relation', :path => '.'
 
 gem 'adamantium',            :git => 'https://github.com/dkubb/adamantium.git'
 gem 'abstract_type',         :git => 'https://github.com/dkubb/abstract_type.git'
@@ -17,7 +17,7 @@ group :test do
   gem 'do_sqlite3'
   gem 'randexp'
   gem 'ruby-graphviz'
-  gem 'virtus'
+  gem 'bogus', '~> 0.0.4'
 end
 
 group :development do
