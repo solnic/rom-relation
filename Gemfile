@@ -18,6 +18,7 @@ group :test do
   gem 'randexp'
   gem 'ruby-graphviz'
   gem 'bogus', '~> 0.0.4'
+  gem 'rom-mapper', :git => 'https://github.com/rom-rb/rom-mapper.git'
 end
 
 group :development do
