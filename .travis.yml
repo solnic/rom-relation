@@ -3,17 +3,12 @@ before_install: gem install bundler
 bundler_args: --without yard guard benchmarks
 before_script:
   - createdb rom_test --user postgres
-script: "bundle exec rake ci:metrics"
+script: "bundle exec rake spec"
 rvm:
-  - ree
-  - 1.8.7
-  - 1.9.2
   - 1.9.3
   - 2.0.0
   - ruby-head
-  - rbx-18mode
   - rbx-19mode
-  - jruby-18mode
 notifications:
   irc:
     channels:
