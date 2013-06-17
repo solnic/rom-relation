@@ -1,4 +1,4 @@
-# Ruby Object Mapper
+# Ruby Object Mapper - Relation
 
 [![Gem Version](https://badge.fury.io/rb/rom-relation.png)][gem]
 [![Build Status](https://travis-ci.org/rom-rb/rom-relation.png?branch=master)][travis]
@@ -12,16 +12,12 @@
 [codeclimate]: https://codeclimate.com/github/rom-rb/rom-relation
 [coveralls]: https://coveralls.io/r/rom-rb/rom-relation
 
-The mapper supports mapping data from any data source into Ruby objects
-based on mapper definitions. It uses [axiom](https://github.com/dkubb/axiom),
-a relational algebra library which will give us the ability to talk to
-different data sources and even performing cross-database joins.
+ROM's relation is a thin wrapper around axiom relations providing higher-level API to work with relations.
+Mapping is done via injected mapper instance which can be virtually anything that implements required interface.
 
 ## Status
 
-Currently rom-relation is going through a refactor. Mapper part is being extracted
-into rom-mapper and the way relations and associations are handled is going to
-change.
+See [roadmap](http://rom-rb.org) for more details.
 
 ## Community
 
