@@ -11,6 +11,14 @@ module Axiom
         undef_method *DECORATED_CLASS.public_instance_methods(false).map(&:to_s) - %w[ materialize ]
         undef_method :project, :remove, :extend, :rename, :restrict, :sort_by, :reverse, :drop, :take
 
+        def each(&block)
+          if relation.materialized?
+            relation.each(&block)
+          else
+            adapter.read(relation).each(&block)
+          end
+        end
+
         def insert(tuples)
           inserted = []
 

@@ -30,6 +30,12 @@ module Axiom
         super(uri, data)
       end
 
+      def read(relation)
+        data[relation.name.to_sym].map { |_, data|
+          Tuple.new(relation.header, data)
+        }
+      end
+
       # @api public
       def insert(name, tuple)
         storage     = data[name.to_sym]
