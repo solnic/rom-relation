@@ -8,7 +8,7 @@ group :test do
   gem 'bogus', '~> 0.1'
   gem 'randexp'
   gem 'ruby-graphviz'
-  gem 'rom-mapper', :git => 'https://github.com/rom-rb/rom-mapper'
+  gem 'rom-mapper', :git => 'https://github.com/rom-rb/rom-mapper.git'
 end
 
 group :development do
