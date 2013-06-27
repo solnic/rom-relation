@@ -1,3 +1,0 @@
-postgres: "postgres://postgres@127.0.0.1/rom_test"
-in_memory: "in_memory://test"
-sqlite3: "sqlite3:/tmp/rom_test.sqlite3"
