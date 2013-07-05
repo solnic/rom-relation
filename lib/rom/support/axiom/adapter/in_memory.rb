@@ -1,4 +1,5 @@
 require 'rom/support/axiom/adapter'
+require 'rom/support/axiom/adapter/in_memory/gateway'
 
 module Axiom
   module Adapter
@@ -11,19 +12,11 @@ module Axiom
     # +relation+ in {#gateway}
     #
     class InMemory
-
       extend Adapter
 
-      include Equalizer.new(:uri)
+      include Concord::Public.new(:uri, :data)
 
       uri_scheme :in_memory
-
-      # The URI this adapter uses for establishing a connection
-      #
-      # @return [Addressable::URI]
-      #
-      # @api private
-      attr_reader :uri
 
       # Initialize a new instance
       #
@@ -33,8 +26,25 @@ module Axiom
       # @return [undefined]
       #
       # @api private
-      def initialize(uri)
-        @uri = uri
+      def self.new(uri, data = {})
+        super(uri, data)
+      end
+
+      def read(relation)
+        data[relation.name.to_sym].map { |_, data|
+          Tuple.new(relation.header, data)
+        }
+      end
+
+      # @api public
+      def insert(name, tuple)
+        storage     = data[name.to_sym]
+        tuple_key   = storage.values.count + 1
+        inserted    = tuple.unshift(tuple_key)
+
+        storage[tuple_key] = inserted
+
+        inserted
       end
 
       # Return the passed in relation
@@ -46,7 +56,8 @@ module Axiom
       #
       # @api private
       def gateway(relation)
-        relation
+        data[relation.name.to_sym] = {}
+        Gateway.new(self, relation)
       end
 
     end # class InMemory
