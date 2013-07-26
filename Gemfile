@@ -9,7 +9,7 @@ group :test do
   gem 'randexp'
   gem 'ruby-graphviz'
   gem 'rom-mapper',           :git => 'https://github.com/rom-rb/rom-mapper.git'
-  gem 'axiom-memory-adapter', :git => 'https://github.com/dkubb/axiom-memory-adapter.git', :branch => 'gateway'
+  gem 'axiom-memory-adapter', :git => 'https://github.com/dkubb/axiom-memory-adapter.git'
 end
 
 group :development do
