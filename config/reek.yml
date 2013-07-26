@@ -20,6 +20,7 @@ DuplicateMethodCall:
     - ROM::Repository#register
     - ROM::Schema::Definition#method_missing
     - ROM::Relation#ordered
+    - ROM::Relation#order
   max_calls: 1
 FeatureEnvy:
   enabled: true
