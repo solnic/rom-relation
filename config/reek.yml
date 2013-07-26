@@ -16,7 +16,10 @@ DataClump:
   min_clump_size: 2
 DuplicateMethodCall:
   enabled: true
-  exclude: []
+  exclude:
+    - ROM::Repository#register
+    - ROM::Schema::Definition#method_missing
+    - ROM::Relation#ordered
   max_calls: 1
 FeatureEnvy:
   enabled: true
@@ -51,6 +54,8 @@ TooManyMethods:
 TooManyStatements:
   enabled: true
   max_statements: 4
+  exclude:
+    - ROM::Schema::Definition#base_relation
 UncommunicativeMethodName:
   enabled: true
   exclude:
