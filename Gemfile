@@ -4,6 +4,8 @@ gemspec
 
 gem 'rom-relation', :path => '.'
 
+gem 'axiom', :git => 'https://github.com/dkubb/axiom.git'
+
 group :test do
   gem 'bogus', '~> 0.1'
   gem 'randexp'
