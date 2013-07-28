@@ -5,3 +5,4 @@
 * Extend schema DSL to support setting mappers
 * Update metrics conf and make `rake ci` pass on master
 * Add Rubocop and make sure it passes
+* Update README with 'getting started' section
