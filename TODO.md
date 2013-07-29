@@ -1,5 +1,6 @@
 # 0.0.1
 
+* Integrate with relation-mapping interface in rom-mapper
 * Add missing YARD docs
 * Add missings specs to get 100% mut-cov
 * Extend schema DSL to support setting mappers
