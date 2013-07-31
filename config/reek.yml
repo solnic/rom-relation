@@ -23,6 +23,8 @@ DuplicateMethodCall:
   max_calls: 1
 FeatureEnvy:
   enabled: true
+  exclude:
+    - ROM::Mapping#build_relation
 IrresponsibleModule:
   enabled: true
   exclude: []
@@ -45,6 +47,8 @@ RepeatedConditional:
 TooManyInstanceVariables:
   enabled: true
   max_instance_variables: 3
+  exclude:
+    - ROM::Mapping::Definition
 TooManyMethods:
   enabled: true
   exclude:
@@ -56,6 +60,7 @@ TooManyStatements:
   max_statements: 4
   exclude:
     - ROM::Schema::Definition#base_relation
+    - ROM::Environment#register_relations
 UncommunicativeMethodName:
   enabled: true
   exclude:
