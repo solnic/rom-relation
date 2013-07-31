@@ -33,13 +33,10 @@ AccessControl:
   Enabled: false
 
 LineLength:
-  Max: 90
+  Max: 94
 
 Blocks:
   Enabled: false
 
 Documentation:
   Enabled: false
-
-EmptyLineBetweenDefs:
-  Enabled: false # TODO: re-enable once SpecHelper.mock_model case is properly handled
