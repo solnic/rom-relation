@@ -1,4 +1,8 @@
 ---
 name: rom
-namespace: 'ROM::Relation'
+namespace:
+  - ROM::Relation
+  - ROM::Environment
+  - ROM::Schema
+  - ROM::Mapping
 strategy: --rspec-unit
