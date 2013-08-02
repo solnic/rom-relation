@@ -3,6 +3,7 @@ name: rom
 namespace:
   - ROM::Relation
   - ROM::Environment
+  - ROM::Repository
   - ROM::Schema
   - ROM::Mapping
 strategy: --rspec-unit
