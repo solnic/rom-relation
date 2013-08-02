@@ -39,7 +39,7 @@ group :metrics do
   gem 'yardstick', '~> 0.9.6', git: 'https://github.com/dkubb/yardstick.git'
 
   platforms :ruby_19, :ruby_20 do
-    gem 'mutant', git: 'https://github.com/mbj/mutant.git'
+    gem 'mutant', '0.3.0.beta22'
     gem 'yard-spellcheck', '~> 0.1.5'
   end
 end
