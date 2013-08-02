@@ -15,16 +15,13 @@ DataClump:
   max_copies: 2
   min_clump_size: 2
 DuplicateMethodCall:
-  enabled: true
-  exclude:
-    - ROM::Repository#register
-    - ROM::Schema::Definition#method_missing
-    - ROM::Relation#sorted
+  enabled: false
+  exclude: []
   max_calls: 1
 FeatureEnvy:
   enabled: true
   exclude:
-    - ROM::Mapping#build_relation
+    - 'ROM::Mapping#build_relation'
 IrresponsibleModule:
   enabled: true
   exclude: []
