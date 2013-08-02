@@ -1,10 +1,9 @@
 AllCops:
   Includes:
     - '**/*.rake'
-    - 'Gemfile'
-    - 'Gemfile.devtools'
   Excludes:
     - '**/vendor/**'
+    - '**/spec/unit/rom/relation/to_a_spec.rb'
 
 # Avoid parameter lists longer than five parameters.
 ParameterLists:
