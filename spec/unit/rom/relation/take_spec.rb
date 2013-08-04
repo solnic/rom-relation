@@ -2,10 +2,12 @@
 
 require 'spec_helper'
 
-describe Relation, '#take' do
-  include_context 'Relation'
+describe Relation do
+  describe '#take' do
+    include_context 'Relation'
 
-  it 'returns first n-tuples' do
-    expect(relation.take(2).to_a).to eql([john, jane])
+    it 'returns first n-tuples' do
+      expect(relation.take(2).to_a).to eql([john, jane])
+    end
   end
 end

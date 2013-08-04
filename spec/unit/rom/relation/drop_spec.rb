@@ -2,10 +2,12 @@
 
 require 'spec_helper'
 
-describe Relation, '#drop' do
-  include_context 'Relation'
+describe Relation do
+  describe '#drop' do
+    include_context 'Relation'
 
-  it 'drops the relation by the given offset' do
-    expect(relation.drop(1).to_a).to eql([jane, jack, jade])
+    it 'drops the relation by the given offset' do
+      expect(relation.drop(1).to_a).to eql([jane, jack, jade])
+    end
   end
 end

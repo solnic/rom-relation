@@ -2,18 +2,20 @@
 
 require 'spec_helper'
 
-describe Relation, '#first' do
-  include_context 'Relation'
+describe Relation do
+  describe '#first' do
+    include_context 'Relation'
 
-  context 'when limit is not provided' do
-    it 'returns first object' do
-      expect(relation.first.to_a).to eql([john])
+    context 'when limit is not provided' do
+      it 'returns first object' do
+        expect(relation.first.to_a).to eql([john])
+      end
     end
-  end
 
-  context 'when limit is provided' do
-    it 'returns first n-objects' do
-      expect(relation.first(2).to_a).to eql([john, jane])
+    context 'when limit is provided' do
+      it 'returns first n-objects' do
+        expect(relation.first(2).to_a).to eql([john, jane])
+      end
     end
   end
 end

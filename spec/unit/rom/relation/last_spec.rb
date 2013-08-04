@@ -2,18 +2,20 @@
 
 require 'spec_helper'
 
-describe Relation, '#first' do
-  include_context 'Relation'
+describe Relation do
+  describe '#first' do
+    include_context 'Relation'
 
-  context 'when limit is not provided' do
-    it 'returns last object' do
-      expect(relation.last.to_a).to eql([jade])
+    context 'when limit is not provided' do
+      it 'returns last object' do
+        expect(relation.last.to_a).to eql([jade])
+      end
     end
-  end
 
-  context 'when limit is provided' do
-    it 'returns last n-objects' do
-      expect(relation.last(2).to_a).to eql([jack, jade])
+    context 'when limit is provided' do
+      it 'returns last n-objects' do
+        expect(relation.last(2).to_a).to eql([jack, jade])
+      end
     end
   end
 end
