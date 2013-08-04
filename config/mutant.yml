@@ -6,4 +6,3 @@ namespace:
   - ROM::Repository
   - ROM::Schema
   - ROM::Mapping
-strategy: --rspec-unit
