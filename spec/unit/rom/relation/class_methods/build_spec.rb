@@ -2,17 +2,20 @@
 
 require 'spec_helper'
 
-describe 'ROM::Relation.build' do
-  subject { described_class.build(relation, mapper) }
+describe ROM::Relation do
+  describe '.build' do
+    subject { described_class.build(relation, mapper) }
 
-  fake(:relation) { Axiom::Relation }
-  fake(:mapper)   { Mapper }
+    fake(:relation) { Axiom::Relation }
+    fake(:mapper)   { Mapper }
 
-  let(:mapped_relation) { mock('mapped_relation') }
+    let(:mapped_relation) { mock('mapped_relation') }
 
-  before do
-    stub(mapper).call(relation) { mapped_relation }
+    before do
+      stub(mapper).call(relation) { mapped_relation }
+    end
+
+    its(:relation) { should be(mapped_relation) }
+    its(:mapper)   { should be(mapper) }
   end
-
-  its(:relation) { should be(mapped_relation) }
 end
