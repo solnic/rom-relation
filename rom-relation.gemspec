@@ -2,13 +2,13 @@
 require File.expand_path('../lib/rom/version', __FILE__)
 
 Gem::Specification.new do |gem|
-  gem.name          = "rom-relation"
-  gem.description   = "rom-relation"
-  gem.summary       = "rom-relation"
+  gem.name          = 'rom-relation'
+  gem.summary       = 'Relation schema with mapping for ROM'
+  gem.description   = gem.summary
   gem.authors       = 'Piotr Solnica'
   gem.email         = 'piotr.solnica@gmail.com'
   gem.homepage      = 'http://rom-rb.org'
-  gem.require_paths = [ "lib" ]
+  gem.require_paths = ['lib']
   gem.version       = ROM::Relation::VERSION
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
