@@ -20,8 +20,6 @@ DuplicateMethodCall:
   max_calls: 1
 FeatureEnvy:
   enabled: true
-  exclude:
-    - 'ROM::Mapping#build_relation'
 IrresponsibleModule:
   enabled: true
   exclude: []
