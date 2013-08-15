@@ -55,9 +55,6 @@ TooManyMethods:
 TooManyStatements:
   enabled: true
   max_statements: 4
-  exclude:
-    - ROM::Schema::Definition#base_relation
-    - ROM::Environment#register_relations
 UncommunicativeMethodName:
   enabled: true
   exclude:
