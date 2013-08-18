@@ -1,4 +1,4 @@
-# Ruby Object Mapper - Relation
+# rom-relation
 
 [![Gem Version](https://badge.fury.io/rb/rom-relation.png)][gem]
 [![Build Status](https://travis-ci.org/rom-rb/rom-relation.png?branch=master)][travis]
@@ -12,14 +12,10 @@
 [codeclimate]: https://codeclimate.com/github/rom-rb/rom-relation
 [coveralls]: https://coveralls.io/r/rom-rb/rom-relation
 
-ROM's relation is a thin wrapper around axiom relations providing higher-level API to work with relations.
-Mapping is done via injected mapper instance which can be virtually anything that implements required interface.
+Relations with mappers for [Ruby Object Mapper](http://rom-rb.org).
 
-## Status
+See ROM's [README](https://github.com/rom-rb/rom) for more information.
 
-See [roadmap](http://rom-rb.org) for more details.
+## License
 
-## Community
-
-* [Google mailing list](https://groups.google.com/forum/?fromgroups#!forum/rom-rb)
-* [#rom-rb](http://irclog.whitequark.org/rom-rb) channel on freenode
+See LICENSE file.
