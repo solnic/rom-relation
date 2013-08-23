@@ -12,6 +12,7 @@ Gem::Specification.new do |gem|
   gem.version       = ROM::Relation::VERSION
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
+  gem.license       = 'MIT'
 
   gem.add_dependency 'addressable',         '~> 2.3', '>= 2.3.3'
   gem.add_dependency 'concord',             '~> 0.1'
