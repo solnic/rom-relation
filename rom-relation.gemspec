@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-require File.expand_path('../lib/rom/version', __FILE__)
+require File.expand_path('../lib/rom/relation/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name          = 'rom-relation'
@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = 'piotr.solnica@gmail.com'
   gem.homepage      = 'http://rom-rb.org'
   gem.require_paths = ['lib']
-  gem.version       = ROM::Relation::VERSION
+  gem.version       = ROM::Relation::VERSION.dup
   gem.files         = `git ls-files`.split("\n")
   gem.test_files    = `git ls-files -- {spec}/*`.split("\n")
   gem.license       = 'MIT'
