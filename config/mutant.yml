@@ -1,5 +1,5 @@
 ---
-name: rom
+name: rom-relation
 namespace:
   - ROM::Relation
   - ROM::Environment
