@@ -6,8 +6,9 @@ gemspec
 
 gem 'rom-relation', path: '.'
 
-gem 'axiom',      git: 'https://github.com/dkubb/axiom.git', branch: 'master'
-gem 'rom-mapper', git: 'https://github.com/rom-rb/rom-mapper.git'
+gem 'axiom',           git: 'https://github.com/dkubb/axiom.git', branch: 'master'
+gem 'axiom-optimizer', git: 'https://github.com/dkubb/axiom-optimizer.git', branch: 'master'
+gem 'rom-mapper',      git: 'https://github.com/rom-rb/rom-mapper.git'
 
 group :test do
   gem 'bogus', '~> 0.1'
