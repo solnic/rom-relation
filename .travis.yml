@@ -5,12 +5,12 @@ rvm:
   - 1.9.3
   - 2.0.0
   - 2.1.0
-  - rbx-19mode
+  - rbx
+  - jruby
   - ruby-head
 matrix:
   allow_failures:
-    - rvm: jruby-19mode
-    - rvm: ruby-head
+    - rvm: 2.1.0
 notifications:
   irc:
     channels:
