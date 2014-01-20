@@ -4,8 +4,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rom-relation', path: '.'
-
 gem 'adamantium',      git: 'https://github.com/dkubb/adamantium.git', branch: 'master'
 gem 'axiom',           git: 'https://github.com/dkubb/axiom.git', branch: 'master'
 gem 'axiom-optimizer', git: 'https://github.com/dkubb/axiom-optimizer.git', branch: 'master'
