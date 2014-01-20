@@ -11,13 +11,12 @@ gem 'rom-mapper',      git: 'https://github.com/rom-rb/rom-mapper.git', branch: 
 
 group :test do
   gem 'bogus', '~> 0.1'
-  gem 'randexp'
-  gem 'ruby-graphviz'
   gem 'axiom-memory-adapter', git: 'https://github.com/dkubb/axiom-memory-adapter.git', branch: 'master'
+  gem 'rubysl-bigdecimal', platforms: :rbx
 end
 
 group :development do
-  gem 'devtools', git: 'https://github.com/rom-rb/devtools.git'
+  gem 'devtools', git: 'https://github.com/rom-rb/devtools.git', branch: 'master'
 end
 
 # added by devtools
