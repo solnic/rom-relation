@@ -68,6 +68,18 @@ module ROM
       new(mapper.call(relation).optimize, mapper)
     end
 
+    # Build a new relation from a given relation
+    #
+    # @param [Axiom::Relation]
+    #
+    # @return [Relation]
+    #
+    # @api publi
+    def self.build_from(relation, &block)
+      definition = Mapping::Definition.build(relation.header, &block)
+      Relation.build(relation, definition.mapper)
+    end
+
     # Iterate over tuples yielded by the wrapped relation
     #
     # @example
